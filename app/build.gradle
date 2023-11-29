@@ -32,6 +32,25 @@ android {
         }
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("2023060789.jks")
+            storePassword "775854"
+            keyAlias "key0"
+            keyPassword "775854"
+        }
+
+        release {
+            storeFile file("2023060789.jks")
+            storePassword "775854"
+            keyAlias "key0"
+            keyPassword "775854"
+        }
+    }
+
+
+
+
     buildTypes {
         release {
 //            jniDebuggable true
@@ -39,6 +58,7 @@ android {
 //            minifyEnabled true  // 是否混淆
 //            shrinkResources true  // 是否去除无效的资源文件
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
 //            jniDebuggable true
@@ -48,6 +68,22 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    android.applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach {
+            def date = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT+08"))
+            if (variant.buildType.name.equals('debug')) {
+                outputFileName = "tangseng_debug.apk"
+            }
+            if (variant.buildType.name.equals('release')) {
+                outputFileName = "tangseng-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
+            }
+        }
+    }
+
+
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -74,4 +110,6 @@ dependencies {
     implementation project(path: ':wklogin')
     implementation project(path: ':wkscan')
     implementation project(path: ':wkpush')
+    testImplementation 'org.testng:testng:6.9.6'
+    testImplementation 'org.testng:testng:6.9.6'
 }
