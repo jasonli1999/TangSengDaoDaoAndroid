@@ -1,6 +1,7 @@
 package com.xinbida.tsdd.demo
 
 import android.content.Intent
+import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
@@ -41,6 +42,13 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
             showDialog()
         } else gotoApp()
     }
+
+
+    override fun initData() {
+        super.initData()
+    }
+
+
 
     private fun gotoApp() {
         if (!TextUtils.isEmpty(WKConfig.getInstance().token)) {
@@ -112,12 +120,8 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
             0
         ) { index ->
             if (index == 1) {
-                WKSharedPreferencesUtil.getInstance()
-                    .putBoolean("show_agreement_dialog", false)
-                WKBaseApplication.getInstance().init(
-                    WKBaseApplication.getInstance().packageName,
-                    WKBaseApplication.getInstance().application
-                )
+                WKSharedPreferencesUtil.getInstance().putBoolean("show_agreement_dialog", false)
+                WKBaseApplication.getInstance().init(WKBaseApplication.getInstance().packageName, WKBaseApplication.getInstance().application)
                 gotoApp()
             } else {
                 finish()

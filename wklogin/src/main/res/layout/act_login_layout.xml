@@ -8,12 +8,6 @@
     android:background="@color/homeColor"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/icon_login_bg" />
-
     <TextView
         android:id="@+id/loginTitleTv"
         android:layout_width="match_parent"
@@ -173,6 +167,12 @@
                 android:text="@string/user_agreement"
                 android:textColor="@color/color999"
                 android:textSize="@dimen/font_size_14" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_login_bg" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -221,6 +221,7 @@
     </LinearLayout>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/baseUrlTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
