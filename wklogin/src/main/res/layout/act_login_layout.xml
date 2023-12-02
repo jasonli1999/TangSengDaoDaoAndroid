@@ -132,7 +132,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <com.chat.base.ui.components.CheckBox
                 android:id="@+id/checkbox"

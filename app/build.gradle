@@ -78,10 +78,10 @@ android {
         variant.outputs.configureEach {
             def date = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT+08"))
             if (variant.buildType.name.equals('debug')) {
-                outputFileName = "tangseng_debug.apk"
+                outputFileName = "weiyu_debug.apk"
             }
             if (variant.buildType.name.equals('release')) {
-                outputFileName = "tangseng-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
+                outputFileName = "weiyu-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
             }
         }
     }

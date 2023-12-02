@@ -75,13 +75,10 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                     response.body?.let {
                         val lineModel: LinesModel = Gson().fromJson("{" + "lines:" + it.string() + "}", LinesModel::class.java
                         )
-//                        LogUtil.e("http://"+lineModel.lines.get(0).address)
                         val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(0).address, "8090")
                         EndpointManager.getInstance().invoke("update_base_url", apiMenu)
 
                     }
-
-
                 }
             }
         })
@@ -130,9 +127,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                 NormalClickableContent(NormalClickableContent.NormalClickableTypes.Other, ""),
                 object : NormalClickableSpan.IClick {
                     override fun onClick(view: View) {
-                        showWebView(
-                            WKApiConfig.baseWebUrl + "user_agreement.html"
-                        )
+                        showWebView(WKApiConfig.baseWebUrl + "user_agreement.html")
                     }
                 }), userAgreementIndex, userAgreementIndex + 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
