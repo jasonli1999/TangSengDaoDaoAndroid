@@ -149,10 +149,10 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
             intentActivityResultLauncher.launch(intent);
         });
         wkVBinding.registerBtn.setOnClickListener(v -> {
-            if (!wkVBinding.authCheckBox.isChecked()) {
-                showToast(R.string.agree_auth_tips);
-                return;
-            }
+//            if (!wkVBinding.authCheckBox.isChecked()) {
+//                showToast(R.string.agree_auth_tips);
+//                return;
+//            }
             String phone = wkVBinding.nameEt.getText().toString();
             String verfiCode = wkVBinding.verfiEt.getText().toString();
             String pwd = wkVBinding.pwdEt.getText().toString();

@@ -13,24 +13,48 @@ android {
 
 
     defaultConfig {
-        applicationId "com.xinbida.tsdd.demo"
+        applicationId "com.xinbida.tsdd.weiyu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         vectorDrawables {
             useSupportLibrary true
         }
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+
         ndk {
-            //根据需要 自行选择添加的对应cpu类型的.so库。
-            abiFilters "armeabi-v7a", "arm64-v8a"
-//            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "5564e30aeccdccde6c39295e", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("2023060789.jks")
+            storePassword "775854"
+            keyAlias "key0"
+            keyPassword "775854"
+        }
+
+        release {
+            storeFile file("2023060789.jks")
+            storePassword "775854"
+            keyAlias "key0"
+            keyPassword "775854"
         }
     }
+
 
     buildTypes {
         release {
@@ -39,6 +63,7 @@ android {
 //            minifyEnabled true  // 是否混淆
 //            shrinkResources true  // 是否去除无效的资源文件
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
 //            jniDebuggable true
@@ -48,6 +73,20 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    android.applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach {
+            def date = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT+08"))
+            if (variant.buildType.name.equals('debug')) {
+                outputFileName = "weiyu_debug.apk"
+            }
+            if (variant.buildType.name.equals('release')) {
+                outputFileName = "weiyu-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
+            }
+        }
+    }
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -74,6 +113,15 @@ dependencies {
     implementation project(path: ':wklogin')
     implementation project(path: ':wkscan')
     implementation project(path: ':wkpush')
+<<<<<<< HEAD
     implementation project(path: ':MyLibs:wkcustomerservice')
     implementation project(path: ':MyLibs:wkgroupmanager')
+=======
+    testImplementation 'org.testng:testng:6.9.6'
+    testImplementation 'org.testng:testng:6.9.6'
+    // 此处以JPush 5.0.0 版本为例，5.0.0 版本开始可以自动拉取 JCore 包，无需另外配置
+    implementation 'cn.jiguang.sdk:jpush:5.2.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+>>>>>>> develop_tangseng
 }
