@@ -1,5 +1,6 @@
 package com.chat.uikit.user;
 
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,6 +62,7 @@ public class WKSystemTeamActivity extends WKBaseActivity<ActSystemTeamLayoutBind
 
     private void showImg() {
         String uri = WKApiConfig.getAvatarUrl(WKSystemAccount.system_team) + "?key=" + WKTimeUtils.getInstance().getCurrentMills();
+        Log.e("==========uri=========",uri);
         //查看大图
         List<Object> tempImgList = new ArrayList<>();
         List<ImageView> imageViewList = new ArrayList<>();
