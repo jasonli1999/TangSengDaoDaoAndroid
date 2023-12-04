@@ -15,6 +15,12 @@
 /wkscan/build
 /wkpush/build
 /wkuikit/build
+/oppopush/build
+/rlottie/build
+/vivopush/build
+/wkcustomerservice/build
+/wkgroupmanager/build
+
 /captures
 .externalNativeBuild
 .cxx
