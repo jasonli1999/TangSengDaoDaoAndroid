@@ -22,11 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="99kdsdkdk"
         android:textColor="@color/color999"
         android:textSize="@dimen/font_size_16" />
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -73,6 +73,7 @@
     <View style="@style/view_line" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/webLoginDescTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
