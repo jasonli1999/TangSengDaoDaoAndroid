@@ -15,6 +15,7 @@ import android.os.Looper
 import android.os.Process
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
+import cn.jpush.android.api.JPushInterface
 import com.chat.base.WKBaseApplication
 import com.chat.base.config.WKApiConfig
 import com.chat.base.config.WKConfig
@@ -40,8 +41,15 @@ import com.chat.uikit.user.service.UserModel
 import kotlin.system.exitProcess
 
 class TSApplication : MultiDexApplication() {
+    private var baseApplication: TSApplication? = null
     override fun onCreate() {
         super.onCreate()
+        //极光初始化
+        JPushInterface.setDebugMode(true)
+        JPushInterface.init(this)
+
+        baseApplication= this
+
         val processName = getProcessName(this, Process.myPid())
         if (processName != null) {
             val defaultProcess = processName == getAppPackageName()
@@ -97,7 +105,7 @@ class TSApplication : MultiDexApplication() {
     }
 
     private fun getAppPackageName(): String {
-        return "com.xinbida.tsdd.demo"
+        return "com.xinbida.tsdd.weiyu"
     }
 
     private fun getProcessName(cxt: Context, pid: Int): String? {

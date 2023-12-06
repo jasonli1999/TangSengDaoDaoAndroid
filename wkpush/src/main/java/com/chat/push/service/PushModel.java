@@ -12,6 +12,8 @@ import com.chat.base.net.ICommonListener;
 import com.chat.base.net.IRequestResultListener;
 import com.chat.base.net.entity.CommonResponse;
 import com.chat.push.OsUtils;
+import com.chat.push.SharePreferencesUtil;
+import com.chat.push.WKPushApplication;
 
 /**
  * 2020-03-08 22:28
@@ -52,7 +54,9 @@ public class PushModel extends WKBaseModel {
         //   EndpointManager.getInstance().invoke("register_push_token", new RegisterPushToken(device_type, token));
         JSONObject httpParams = new JSONObject();
         httpParams.put("device_token", token);
-        httpParams.put("device_type", device_type);
+        Log.e("=========device_type========",device_type);
+//        httpParams.put("device_type", device_type);
+        httpParams.put("device_type", "JPUSH");
         httpParams.put("bundle_id", bundle_id);
         request(createService(PushService.class).registerAppToken(httpParams), new IRequestResultListener<CommonResponse>() {
             @Override

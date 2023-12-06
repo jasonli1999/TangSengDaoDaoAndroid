@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -115,6 +116,7 @@ public class AvatarView extends FrameLayout {
 
     public void showAvatar(String channelID, byte channelType, String avatarCacheKey) {
         String url = getAvatarURL(channelID, channelType);
+        Log.e("======avatarView=========url=============",url);
         GlideUtils.getInstance().showAvatarImg(getContext(), url, avatarCacheKey, imageView);
     }
 

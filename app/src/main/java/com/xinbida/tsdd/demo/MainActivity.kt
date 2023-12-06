@@ -4,28 +4,30 @@ import android.content.Intent
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
-import android.text.method.LinkMovementMethod
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.chat.base.WKBaseApplication
 import com.chat.base.base.WKBaseActivity
 import com.chat.base.config.WKApiConfig
 import com.chat.base.config.WKConfig
 import com.chat.base.config.WKSharedPreferencesUtil
+import com.chat.base.endpoint.EndpointManager
+import com.chat.base.endpoint.entity.UpdateBaseAPIMenu
 import com.chat.base.ui.components.NormalClickableContent
 import com.chat.base.ui.components.NormalClickableSpan
-import com.chat.base.utils.AndroidUtilities
 import com.chat.base.utils.WKDialogUtils
-import com.chat.base.utils.singleclick.SingleClickUtil
 import com.chat.login.ui.PerfectUserInfoActivity
-import com.chat.login.ui.ThirdLoginActivity
 import com.chat.login.ui.WKLoginActivity
 import com.chat.uikit.TabActivity
+import com.google.gson.Gson
 import com.xinbida.tsdd.demo.databinding.ActivityMainBinding
 import com.xinbida.wukongim.WKIM
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Response
+import java.io.IOException
+
 
 class MainActivity : WKBaseActivity<ActivityMainBinding>() {
 
@@ -41,6 +43,48 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
             showDialog()
         } else gotoApp()
     }
+
+
+    override fun initData() {
+        super.initData()
+        getAsync()
+    }
+
+
+    /**
+     * 测试okhttp的get方法
+     */
+    fun getAsync() {
+//        val apiMenu = UpdateBaseAPIMenu("http://18.167.214.81", "8090")
+//        EndpointManager.getInstance().invoke("update_base_url", apiMenu)
+        val client = OkHttpClient()
+        val request = okhttp3.Request.Builder()
+            .url("https://gal-line-point-1321951342.cos.ap-nanjing.myqcloud.com/gal.json")
+            .build()
+        val call = client.newCall(request)
+        //异步请求，enqueue方法不会阻塞后续代码的执行
+        call.enqueue(object : Callback {
+            //请求失败调用
+            override fun onFailure(call: Call, e: IOException) {
+
+            }
+
+            //请求结束调用（意味着与服务器的通信成功）
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    response.body?.let {
+                        val lineModel: LinesModel = Gson().fromJson("{" + "lines:" + it.string() + "}", LinesModel::class.java
+                        )
+                        val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(0).address, "8090")
+                        EndpointManager.getInstance().invoke("update_base_url", apiMenu)
+
+                    }
+                }
+            }
+        })
+
+    }
+
 
     private fun gotoApp() {
         if (!TextUtils.isEmpty(WKConfig.getInstance().token)) {
@@ -83,9 +127,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                 NormalClickableContent(NormalClickableContent.NormalClickableTypes.Other, ""),
                 object : NormalClickableSpan.IClick {
                     override fun onClick(view: View) {
-                        showWebView(
-                            WKApiConfig.baseWebUrl + "user_agreement.html"
-                        )
+                        showWebView(WKApiConfig.baseWebUrl + "user_agreement.html")
                     }
                 }), userAgreementIndex, userAgreementIndex + 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
@@ -112,8 +154,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
             0
         ) { index ->
             if (index == 1) {
-                WKSharedPreferencesUtil.getInstance()
-                    .putBoolean("show_agreement_dialog", false)
+                WKSharedPreferencesUtil.getInstance().putBoolean("show_agreement_dialog", false)
                 WKBaseApplication.getInstance().init(
                     WKBaseApplication.getInstance().packageName,
                     WKBaseApplication.getInstance().application
@@ -125,3 +166,4 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
         }
     }
 }
+

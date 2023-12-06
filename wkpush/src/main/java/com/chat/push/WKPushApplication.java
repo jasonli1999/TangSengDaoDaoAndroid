@@ -108,6 +108,7 @@ public class WKPushApplication {
                 if (i == 0) {
                     // 注册成功
                     Log.e("tu推送ID", HeytapPushManager.getRegisterID());
+                    Log.e("========s", HeytapPushManager.getRegisterID());
                     String packageName = WKDeviceUtils.getInstance().getPackageName(mContext.get());
                     com.chat.push.service.PushModel.getInstance().registerDeviceToken(s, packageName, "app-oppo");
                 }
