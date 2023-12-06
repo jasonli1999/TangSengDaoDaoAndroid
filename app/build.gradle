@@ -74,4 +74,6 @@ dependencies {
     implementation project(path: ':wklogin')
     implementation project(path: ':wkscan')
     implementation project(path: ':wkpush')
+    implementation project(path: ':MyLibs:wkcustomerservice')
+    implementation project(path: ':MyLibs:wkgroupmanager')
 }

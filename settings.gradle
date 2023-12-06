@@ -22,6 +22,8 @@ rootProject.name = "TsddClient"
 include ':MyLibs:rlottie'
 include ':MyLibs:oppopush'
 include ':MyLibs:vivopush'
+include ':MyLibs:wkcustomerservice'
+include ':MyLibs:wkgroupmanager'
 include ':app'
 include ':wkbase'
 include ':wkuikit'
