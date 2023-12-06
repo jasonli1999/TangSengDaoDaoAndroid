@@ -52,7 +52,9 @@ public class PushModel extends WKBaseModel {
         //   EndpointManager.getInstance().invoke("register_push_token", new RegisterPushToken(device_type, token));
         JSONObject httpParams = new JSONObject();
         httpParams.put("device_token", token);
-        httpParams.put("device_type", device_type);
+        Log.e("=========device_type========",device_type);
+//        httpParams.put("device_type", device_type);
+        httpParams.put("device_type", "JPUSH");
         httpParams.put("bundle_id", bundle_id);
         request(createService(PushService.class).registerAppToken(httpParams), new IRequestResultListener<CommonResponse>() {
             @Override
