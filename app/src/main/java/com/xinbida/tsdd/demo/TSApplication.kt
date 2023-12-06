@@ -41,11 +41,14 @@ import com.chat.uikit.user.service.UserModel
 import kotlin.system.exitProcess
 
 class TSApplication : MultiDexApplication() {
+    private var baseApplication: TSApplication? = null
     override fun onCreate() {
         super.onCreate()
         //极光初始化
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)
+
+        baseApplication= this
 
         val processName = getProcessName(this, Process.myPid())
         if (processName != null) {
@@ -84,7 +87,7 @@ class TSApplication : MultiDexApplication() {
         WKLoginApplication.getInstance().init(this)
         WKScanApplication.getInstance().init(this)
         WKUIKitApplication.getInstance().init(this)
-        WKPushApplication.getInstance().init(getAppPackageName(), this)
+//        WKPushApplication.getInstance().init(getAppPackageName(), this)
         WKGroupManageApplication.getInstance().init(this)
         WKCustomerServiceApplication.instance.init()
         addAppFrontBack()

@@ -12,6 +12,8 @@ import com.chat.base.net.ICommonListener;
 import com.chat.base.net.IRequestResultListener;
 import com.chat.base.net.entity.CommonResponse;
 import com.chat.push.OsUtils;
+import com.chat.push.SharePreferencesUtil;
+import com.chat.push.WKPushApplication;
 
 /**
  * 2020-03-08 22:28
