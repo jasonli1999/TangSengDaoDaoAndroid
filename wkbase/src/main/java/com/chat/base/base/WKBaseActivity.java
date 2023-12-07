@@ -64,7 +64,7 @@ public abstract class WKBaseActivity<WKVBinding extends ViewBinding> extends Swi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         //禁止横屏
         // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //这个特性是安卓5.0以后才支持的所以需要对系统版本号做判断
@@ -174,6 +174,7 @@ public abstract class WKBaseActivity<WKVBinding extends ViewBinding> extends Swi
 
     //初始化view
     protected void initView() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
     //初始化事件

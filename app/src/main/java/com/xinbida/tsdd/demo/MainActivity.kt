@@ -1,6 +1,7 @@
 package com.xinbida.tsdd.demo
 
 import android.content.Intent
+import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
@@ -35,13 +36,21 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
         return ActivityMainBinding.inflate(layoutInflater)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT !== 0) {
+            finish()
+            return
+        }
+    }
     override fun initView() {
         super.initView()
-        val isShowDialog: Boolean =
-            WKSharedPreferencesUtil.getInstance().getBoolean("show_agreement_dialog")
-        if (isShowDialog) {
-            showDialog()
-        } else gotoApp()
+//        val isShowDialog: Boolean =
+//            WKSharedPreferencesUtil.getInstance().getBoolean("show_agreement_dialog")
+//        if (isShowDialog) {
+//            showDialog()
+//        } else gotoApp()
+
     }
 
 
@@ -50,13 +59,17 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
         getAsync()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        LogUtil.e("===============MainActivity==============")
+    }
+
 
     /**
      * 测试okhttp的get方法
      */
     fun getAsync() {
-//        val apiMenu = UpdateBaseAPIMenu("http://18.167.214.81", "8090")
-//        EndpointManager.getInstance().invoke("update_base_url", apiMenu)
         val client = OkHttpClient()
         val request = okhttp3.Request.Builder()
             .url("https://gal-line-point-1321951342.cos.ap-nanjing.myqcloud.com/gal.json")
@@ -79,6 +92,13 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                         EndpointManager.getInstance().invoke("update_base_url", apiMenu)
 
                     }
+
+                    WKSharedPreferencesUtil.getInstance().putBoolean("show_agreement_dialog", false)
+                    WKBaseApplication.getInstance().init(
+                        WKBaseApplication.getInstance().packageName,
+                        WKBaseApplication.getInstance().application
+                    )
+                    gotoApp()
                 }
             }
         })
