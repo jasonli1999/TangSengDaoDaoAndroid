@@ -15,6 +15,7 @@ import android.os.Looper
 import android.os.Process
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
+import cn.jiguang.api.utils.JCollectionAuth
 import cn.jpush.android.api.JPushInterface
 import com.chat.base.WKBaseApplication
 import com.chat.base.config.WKApiConfig
@@ -44,13 +45,10 @@ class TSApplication : MultiDexApplication() {
     private var baseApplication: TSApplication? = null
     override fun onCreate() {
         super.onCreate()
+        baseApplication= this
         //极光初始化
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)
-
-
-
-        baseApplication= this
 
         val processName = getProcessName(this, Process.myPid())
         if (processName != null) {
