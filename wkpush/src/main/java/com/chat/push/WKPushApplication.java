@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.chat.base.WKBaseApplication;
-import com.chat.base.config.WKConfig;
 import com.chat.base.config.WKConstants;
 import com.chat.base.endpoint.EndpointCategory;
 import com.chat.base.endpoint.EndpointManager;
@@ -37,9 +36,6 @@ import java.lang.ref.WeakReference;
  * 推送管理
  */
 public class WKPushApplication {
-    private WKPushApplication() {
-    }
-
     private static class PushApplicationBinder {
         static final WKPushApplication push = new WKPushApplication();
     }
@@ -64,18 +60,18 @@ public class WKPushApplication {
     private void initPush() {
         if (mContext == null || mContext.get() == null) return;
         notifyChannel(WKBaseApplication.getInstance().application);
-        if (!TextUtils.isEmpty(WKConfig.getInstance().getUid())) {
-            if (OsUtils.isEmui()) {
-                new Thread(() -> getHuaWeiToken(mContext.get())).start();
-            } else if (OsUtils.isMiui()) {
-                initXiaoMiPush(mContext.get());
-            } else if (OsUtils.isOppo()) {
-                initOPPO();
-            } else if (OsUtils.isVivo()) {
-                initVIVO();
-            }
-        }
-
+//        if (!TextUtils.isEmpty(WKConfig.getInstance().getUid())) {
+//            if (OsUtils.isEmui()) {
+//                new Thread(() -> getHuaWeiToken(mContext.get())).start();
+//            } else if (OsUtils.isMiui()) {
+//                initXiaoMiPush(mContext.get());
+//            } else if (OsUtils.isOppo()) {
+//                initOPPO();
+//            } else if (OsUtils.isVivo()) {
+//                initVIVO();
+//            }
+//        }
+            PushModel.getInstance().registerDeviceToken(SharePreferencesUtil.getString(mContext.get(), "device_token", ""), getInstance().pushBundleID, "android");
     }
 
     private void getHuaWeiToken(Context context) {
@@ -107,8 +103,7 @@ public class WKPushApplication {
             public void onRegister(int i, String s) {
                 if (i == 0) {
                     // 注册成功
-                    Log.e("tu推送ID", HeytapPushManager.getRegisterID());
-                    Log.e("========s", HeytapPushManager.getRegisterID());
+                    Log.e("========tu推送ID", HeytapPushManager.getRegisterID());
                     String packageName = WKDeviceUtils.getInstance().getPackageName(mContext.get());
                     com.chat.push.service.PushModel.getInstance().registerDeviceToken(s, packageName, "app-oppo");
                 }

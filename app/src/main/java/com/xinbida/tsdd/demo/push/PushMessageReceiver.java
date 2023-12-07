@@ -2,18 +2,19 @@ package com.xinbida.tsdd.demo.push;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.chat.push.SharePreferencesUtil;
-import com.chat.push.service.PushModel;
+import com.chat.uikit.TabActivity;
 
 import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageService;
 
 public class PushMessageReceiver extends JPushMessageService {
-    private static final String TAG = PushMessageReceiver.class.getSimpleName();
-
+    private static final String TAG = "===============jpush===";
 
 
     /**
@@ -47,6 +48,17 @@ public class PushMessageReceiver extends JPushMessageService {
     @Override
     public void onNotifyMessageOpened(Context context, NotificationMessage notificationMessage) {
         Log.d(TAG, "onNotifyMessageOpened notificationMessage=" + notificationMessage);
+
+        //打开自定义的Activity
+        Intent i = new Intent(context, TabActivity.class);
+        Bundle bundle = new Bundle();
+//            bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE,message.notificationTitle);
+//            bundle.putString(JPushInterface.EXTRA_ALERT,message.notificationContent);
+        i.putExtras(bundle);
+        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(i);
+
     }
 
     /**
@@ -69,8 +81,9 @@ public class PushMessageReceiver extends JPushMessageService {
     @Override
     public void onRegister(Context context, String registrationId) {
         Log.e(TAG, "onRegister registrationId=" + registrationId);
-        SharePreferencesUtil.addString(getApplicationContext(),"device_token",registrationId);
-        PushModel.getInstance().registerDeviceToken(registrationId, getPackageName(), "app-oppo");
+
+        SharePreferencesUtil.addString(getApplicationContext(), "device_token", registrationId);
+
     }
 
     /**
