@@ -48,6 +48,8 @@ class TSApplication : MultiDexApplication() {
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)
 
+
+
         baseApplication= this
 
         val processName = getProcessName(this, Process.myPid())

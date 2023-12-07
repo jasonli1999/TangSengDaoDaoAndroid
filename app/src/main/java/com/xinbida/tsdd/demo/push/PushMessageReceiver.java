@@ -81,7 +81,6 @@ public class PushMessageReceiver extends JPushMessageService {
     @Override
     public void onRegister(Context context, String registrationId) {
         Log.e(TAG, "onRegister registrationId=" + registrationId);
-
         SharePreferencesUtil.addString(getApplicationContext(), "device_token", registrationId);
 
     }

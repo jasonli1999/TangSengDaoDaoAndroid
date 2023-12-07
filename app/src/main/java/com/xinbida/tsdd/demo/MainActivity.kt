@@ -55,6 +55,8 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
      * 测试okhttp的get方法
      */
     fun getAsync() {
+//        val apiMenu = UpdateBaseAPIMenu("http://18.167.214.81", "8090")
+//        EndpointManager.getInstance().invoke("update_base_url", apiMenu)
         val client = OkHttpClient()
         val request = okhttp3.Request.Builder()
             .url("https://gal-line-point-1321951342.cos.ap-nanjing.myqcloud.com/gal.json")
