@@ -4,6 +4,7 @@ package com.xinbida.tsdd.demo.push;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.chat.push.SharePreferencesUtil;
@@ -37,6 +38,7 @@ public class PushMessageReceiver extends JPushMessageService {
     @Override
     public void onNotifyMessageArrived(Context context, NotificationMessage notificationMessage) {
         Log.d(TAG, "onNotifyMessageArrived notificationMessage=" + notificationMessage);
+        wakeUpScreen();
     }
 
     /**
@@ -94,5 +96,16 @@ public class PushMessageReceiver extends JPushMessageService {
     @Override
     public void onConnected(Context context, boolean isConnected) {
         Log.d(TAG, "onConnected isConnected=" + isConnected);
+    }
+
+    /**
+     * 唤醒
+     * 屏幕
+     */
+    private void wakeUpScreen() {
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
+        wl.acquire();
+        wl.acquire(1000L);
     }
 }

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -129,6 +130,7 @@ public class UserDetailActivity extends WKBaseActivity<ActUserDetailLayoutBindin
             if (member != null && member.extraMap != null && member.extraMap.containsKey(WKChannelMemberExtras.WKCode)) {
                 vercode = (String) member.extraMap.get(WKChannelMemberExtras.WKCode);
             }
+            Log.e("=======vercode=====",vercode);
             if (member != null && !TextUtils.isEmpty(member.memberRemark)) {
                 wkVBinding.inGroupNameLayout.setVisibility(View.VISIBLE);
                 wkVBinding.inGroupNameTv.setText(member.memberRemark);
@@ -241,7 +243,9 @@ public class UserDetailActivity extends WKBaseActivity<ActUserDetailLayoutBindin
                 setData();
             }
         });
-        SingleClickUtil.onSingleClick(wkVBinding.applyBtn, v -> WKDialogUtils.getInstance().showInputDialog(UserDetailActivity.this, getString(R.string.apply), getString(R.string.input_remark), "", getString(R.string.input_remark), 20, text -> FriendModel.getInstance().applyAddFriend(uid, vercode, text, (code, msg) -> {
+        SingleClickUtil.onSingleClick(wkVBinding.applyBtn, v -> WKDialogUtils.getInstance().showInputDialog(UserDetailActivity.this, getString(R.string.apply), getString(R.string.input_remark), "", getString(R.string.input_remark), 20, text ->
+                FriendModel.getInstance().applyAddFriend(uid, vercode, text, (code, msg) -> {
+                    Log.e("=======vercode=====",vercode);
             if (code == HttpResponseCode.success) {
                 wkVBinding.applyBtn.setText(R.string.applyed);
                 wkVBinding.applyBtn.setAlpha(0.2f);

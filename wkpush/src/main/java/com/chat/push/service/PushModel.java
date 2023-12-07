@@ -61,7 +61,7 @@ public class PushModel extends WKBaseModel {
         request(createService(PushService.class).registerAppToken(httpParams), new IRequestResultListener<CommonResponse>() {
             @Override
             public void onSuccess(CommonResponse result) {
-                Log.e("注册push", result.status + "");
+                Log.e("=======注册push=======", result.status + "");
             }
 
             @Override
