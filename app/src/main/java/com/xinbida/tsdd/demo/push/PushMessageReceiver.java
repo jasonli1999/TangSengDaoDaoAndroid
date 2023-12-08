@@ -31,10 +31,7 @@ public class PushMessageReceiver extends JPushMessageService {
      */
     @Override
     public void onMessage(Context context, CustomMessage customMessage) {
-        Log.d(TAG, "onMessage customMessage=" + customMessage);
-        Intent intent = new Intent("com.jiguang.demo.message");
-        intent.putExtra("msg", customMessage.message);
-        context.sendBroadcast(intent);
+        Log.e(TAG, "onMessage customMessage=" + customMessage);
     }
 
     /**
@@ -46,6 +43,14 @@ public class PushMessageReceiver extends JPushMessageService {
     @Override
     public void onNotifyMessageArrived(Context context, NotificationMessage notificationMessage) {
         Log.d(TAG, "onNotifyMessageArrived notificationMessage=" + notificationMessage);
+//        BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(this.getApplicationContext());
+//        builder.statusBarDrawable = R.mipmap.logo;
+//        builder.notificationFlags = Notification.FLAG_AUTO_CANCEL
+//                | Notification.FLAG_SHOW_LIGHTS;  //设置为自动消失和呼吸灯闪烁
+//        builder.notificationDefaults = Notification.DEFAULT_SOUND
+//                | Notification.DEFAULT_VIBRATE
+//                | Notification.DEFAULT_LIGHTS;  // 设置为铃声、震动、呼吸灯闪烁都要
+//        JPushInterface.setPushNotificationBuilder(1, builder);
         wakeUpScreen();
         NotificationTools notificationTools = NotificationTools.getInstance(this.getApplicationContext());
         notificationTools.sendNotification(notificationMessage.notificationTitle, notificationMessage.notificationContent, "https://www.baidu.com", MainActivity.class);
@@ -96,9 +101,6 @@ public class PushMessageReceiver extends JPushMessageService {
     public void onRegister(Context context, String registrationId) {
         Log.e(TAG, "onRegister registrationId=" + registrationId);
         SharePreferencesUtil.addString(getApplicationContext(), "device_token", registrationId);
-//        Intent intent = new Intent("com.jiguang.demo.message");
-//        intent.putExtra("rid", registrationId);
-//        context.sendBroadcast(intent);
     }
 
     /**

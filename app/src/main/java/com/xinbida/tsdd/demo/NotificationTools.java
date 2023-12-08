@@ -41,7 +41,6 @@ public class NotificationTools {
     public void sendNotification(String title, String content, String url, Class<?> cla) {
         NotificationManager notificationManager = NotificationUtile.getNotificationManager(context);
         if (notificationManager == null) {
-//            Logs.eprintln( TAG, "NotificationManager is null" );
             return;
         }
 
@@ -61,9 +60,9 @@ public class NotificationTools {
         builder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
         builder.setAutoCancel(true);//点击通知后，状态栏是否自动删除通知。
         builder.setSmallIcon(R.mipmap.logo);//设置小图标
-        builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo));//设置大图
-        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo)));
-        builder.setOngoing(true);//设置他为一个正在进行的通知。他们通常是用来表示一个后台任务，用户积极参与或以某种方式正在等待，因此占用设备。（当设置为true的时候就无法清除通知栏，若为false则可以清除。）
+//        builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo));//设置大图
+//        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo)));
+        builder.setOngoing(false);//设置他为一个正在进行的通知。他们通常是用来表示一个后台任务，用户积极参与或以某种方式正在等待，因此占用设备。（当设置为true的时候就无法清除通知栏，若为false则可以清除。）
         builder.setWhen(System.currentTimeMillis());
         builder.setContentIntent(pendingIntent);
         builder.setChannelId("push");
