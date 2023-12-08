@@ -88,7 +88,7 @@ class TSApplication : MultiDexApplication() {
         WKScanApplication.getInstance().init(this)
         WKUIKitApplication.getInstance().init(this)
         WKPushApplication.getInstance().init(getAppPackageName(), this)
-        WKGroupManageApplication.getInstance().init(this)
+        WKGroupManageApplication.getInstance().init()
         WKCustomerServiceApplication.instance.init()
         addAppFrontBack()
         addListener()
