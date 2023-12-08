@@ -381,7 +381,8 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
             }
             val os = getMsgFromOS(uiChatMsgItemEntity.wkMsg.clientMsgNO)
             if (receivedNameTv.tag is String && receivedNameTv.tag == uiChatMsgItemEntity.wkMsg.fromUID) {
-                receivedNameTv.text = String.format("%s/%s", showName, os)
+//                receivedNameTv.text = String.format("%s/%s", showName, os)
+                receivedNameTv.text = String.format("%s", showName)
             }
 
 
@@ -1355,15 +1356,16 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
     }
 
     private fun getMsgFromOS(clientMsgNo: String): String {
-        return if (clientMsgNo.endsWith("1")) {
-            "Android"
-        } else if (clientMsgNo.endsWith("2")) {
-            "IOS"
-        } else if (clientMsgNo.endsWith("3")) {
-            "Web"
-        } else {
-            "PC"
-        }
+//        return if (clientMsgNo.endsWith("1")) {
+//            "Android"
+//        } else if (clientMsgNo.endsWith("2")) {
+//            "IOS"
+//        } else if (clientMsgNo.endsWith("3")) {
+//            "Web"
+//        } else {
+//            "PC"
+//        }
+        return ""
     }
 
     override fun onViewAttachedToWindow(holder: BaseViewHolder) {
