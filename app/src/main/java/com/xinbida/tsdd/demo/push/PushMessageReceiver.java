@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.chat.push.SharePreferencesUtil;
 import com.chat.uikit.TabActivity;
+import com.xinbida.tsdd.demo.MainActivity;
+import com.xinbida.tsdd.demo.NotificationTools;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -45,6 +47,8 @@ public class PushMessageReceiver extends JPushMessageService {
     public void onNotifyMessageArrived(Context context, NotificationMessage notificationMessage) {
         Log.d(TAG, "onNotifyMessageArrived notificationMessage=" + notificationMessage);
         wakeUpScreen();
+        NotificationTools notificationTools = NotificationTools.getInstance(this.getApplicationContext());
+        notificationTools.sendNotification(notificationMessage.notificationTitle, notificationMessage.notificationContent, "https://www.baidu.com", MainActivity.class);
     }
 
     /**
@@ -56,16 +60,16 @@ public class PushMessageReceiver extends JPushMessageService {
     @Override
     public void onNotifyMessageOpened(Context context, NotificationMessage notificationMessage) {
         Log.e(TAG, "[onNotifyMessageOpened] " + notificationMessage);
-        try{
+        try {
             //打开自定义的Activity
             Intent i = new Intent(context, TabActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE,notificationMessage.notificationTitle);
-            bundle.putString(JPushInterface.EXTRA_ALERT,notificationMessage.notificationContent);
+            bundle.putString(JPushInterface.EXTRA_NOTIFICATION_TITLE, notificationMessage.notificationTitle);
+            bundle.putString(JPushInterface.EXTRA_ALERT, notificationMessage.notificationContent);
             i.putExtras(bundle);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(i);
-        }catch (Throwable ignored){
+        } catch (Throwable ignored) {
 
         }
 
@@ -128,7 +132,6 @@ public class PushMessageReceiver extends JPushMessageService {
             Log.e(TAG, "[onMultiActionClicked] 用户点击通知栏按钮未定义");
         }
     }
-
 
 
     @Override
