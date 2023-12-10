@@ -56,20 +56,14 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
 
     override fun initData() {
         super.initData()
-        getAsync()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        LogUtil.e("===============MainActivity==============")
+        getIpAddress()
     }
 
 
     /**
      * 测试okhttp的get方法
      */
-    fun getAsync() {
+    fun getIpAddress() {
         val client = OkHttpClient()
         val request = okhttp3.Request.Builder()
             .url("https://gal-line-point-1321951342.cos.ap-nanjing.myqcloud.com/gal.json")
@@ -79,7 +73,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
         call.enqueue(object : Callback {
             //请求失败调用
             override fun onFailure(call: Call, e: IOException) {
-
+                LogUtil.e("=======请求接口失败==============")
             }
 
             //请求结束调用（意味着与服务器的通信成功）
@@ -88,6 +82,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                     response.body?.let {
                         val lineModel: LinesModel = Gson().fromJson("{" + "lines:" + it.string() + "}", LinesModel::class.java
                         )
+
                         val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(0).address, "8090")
                         EndpointManager.getInstance().invoke("update_base_url", apiMenu)
 
