@@ -104,7 +104,9 @@ import com.xinbida.wukongim.entity.WKMsg;
 import com.xinbida.wukongim.entity.WKMsgReaction;
 import com.xinbida.wukongim.entity.WKMsgSetting;
 import com.xinbida.wukongim.entity.WKReminder;
+import com.xinbida.wukongim.interfaces.IConnectionStatus;
 import com.xinbida.wukongim.interfaces.IGetOrSyncHistoryMsgBack;
+import com.xinbida.wukongim.message.type.WKConnectStatus;
 import com.xinbida.wukongim.message.type.WKSendMsgResult;
 import com.xinbida.wukongim.msgmodel.WKImageContent;
 import com.xinbida.wukongim.msgmodel.WKMessageContent;
@@ -1004,7 +1006,32 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
             }
             return null;
         });
+        WKIM.getInstance().getConnectionManager().addOnConnectionStatusListener(channelId, new IConnectionStatus() {
+            @Override
+            public void onStatus(int i, String s) {
+                if (i == WKConnectStatus.syncCompleted) {
 
+                    int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                    int endItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+//                    long keepMsgSeq = 0;
+//                    int offsetY = 0;
+//                    long lastPreviewMsgOrderSeq=0;
+                    if (WKReader.isNotEmpty(chatAdapter.getData())) {
+                        WKMsg msg = chatAdapter.getFirstVisibleItem(firstItemPosition);
+                        if (msg != null) {
+//                            keepMsgSeq = msg.messageSeq;
+                            lastPreviewMsgOrderSeq = msg.orderSeq;
+                            int index = chatAdapter.getFirstVisibleItemIndex(firstItemPosition);
+                            View view = linearLayoutManager.findViewByPosition(index);
+                            if (view != null) {
+                                keepOffsetY = view.getTop();
+                            }
+                        }
+                    }
+                    getData(1, true, lastPreviewMsgOrderSeq, false);
+                }
+            }
+        });
     }
 
     @Override
