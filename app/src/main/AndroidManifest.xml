@@ -149,7 +149,7 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </service>
-
+        
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
