@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -58,6 +60,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 //    CounterView workplaceCounterView;
     View contactsSpotView;
     RLottieImageView chatIV, contactsIV, meIV;
+    private String appVertion;
 
     @Override
     protected ActTabMainBinding getViewBinding() {
@@ -117,6 +120,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         fragments.add(new MyFragment());
 
         wkVBinding.vp.setAdapter(new WKFragmentStateAdapter(this, fragments));
+
         WKCommonModel.getInstance().getAppNewVersion(false, version -> {
             if (version != null && !TextUtils.isEmpty(version.download_url)) {
                 WKDialogUtils.getInstance().showNewVersionDialog(TabActivity.this, version);
@@ -162,6 +166,30 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         playAnimation(0);
 
 
+    }
+
+    /**
+     * 获取应用程序的版本号
+     * @return 应用程序的版本号
+     */
+    public String getAppVersion() {
+        try {
+            // 获取包管理器
+            PackageManager packageManager = getPackageManager();
+            // 获取当前应用的包名
+            String packageName = getPackageName();
+            // 获取 PackageInfo 对象
+            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
+            // 获取应用程序的版本号
+            int versionCode = packageInfo.versionCode;
+            String versionName = packageInfo.versionName;
+            // 返回版本号
+            return versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            // 异常处理，返回空字符串或其他默认值
+            return "";
+        }
     }
 
     @Override

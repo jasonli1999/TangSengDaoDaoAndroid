@@ -1,19 +1,24 @@
 package com.chat.base.common;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.chat.base.WKBaseApplication;
 import com.chat.base.R;
+import com.chat.base.WKBaseApplication;
 import com.chat.base.base.WKBaseModel;
 import com.chat.base.config.WKConfig;
 import com.chat.base.config.WKConstants;
 import com.chat.base.config.WKSharedPreferencesUtil;
 import com.chat.base.endpoint.EndpointManager;
 import com.chat.base.entity.AppModule;
+import com.chat.base.entity.AppVersion;
 import com.chat.base.entity.ChannelInfoEntity;
 import com.chat.base.entity.WKAPPConfig;
-import com.chat.base.entity.AppVersion;
 import com.chat.base.entity.WKChannelState;
 import com.chat.base.net.HttpResponseCode;
 import com.chat.base.net.IRequestResultListener;
@@ -51,13 +56,14 @@ public class WKCommonModel extends WKBaseModel {
 
     public void getAppNewVersion(boolean isShowToast, final IAppNewVersion iAppNewVersion) {
         String v = WKDeviceUtils.getInstance().getVersionName(WKBaseApplication.getInstance().getContext());
+        long versionCode = getAppVersionCode(WKBaseApplication.getInstance().getContext());
         request(createService(WKCommonService.class).getAppNewVersion(v), new IRequestResultListener<AppVersion>() {
             @Override
             public void onSuccess(AppVersion result) {
-                if ((result == null || TextUtils.isEmpty(result.download_url)) && isShowToast) {
-                    WKToastUtils.getInstance().showToastNormal(WKBaseApplication.getInstance().getContext().getString(R.string.is_new_version));
-                } else {
+                if (versionCode < Long.parseLong(result.versionCode)) {
                     iAppNewVersion.onNewVersion(result);
+                } else {
+                    WKToastUtils.getInstance().showToastNormal(WKBaseApplication.getInstance().getContext().getString(R.string.is_new_version));
                 }
             }
 
@@ -67,6 +73,23 @@ public class WKCommonModel extends WKBaseModel {
             }
         });
     }
+
+
+    public static long getAppVersionCode(Context context) {
+        long appVersionCode = 0;
+        try {
+            PackageInfo packageInfo = context.getApplicationContext().getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                appVersionCode = packageInfo.getLongVersionCode();
+            } else {
+                appVersionCode = packageInfo.versionCode;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("", e.getMessage());
+        }
+        return appVersionCode;
+    }
+
 
     public interface IAppNewVersion {
         void onNewVersion(AppVersion version);
