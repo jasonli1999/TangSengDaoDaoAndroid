@@ -60,10 +60,16 @@ public class WKCommonModel extends WKBaseModel {
         request(createService(WKCommonService.class).getAppNewVersion(v), new IRequestResultListener<AppVersion>() {
             @Override
             public void onSuccess(AppVersion result) {
-                if (versionCode < Long.parseLong(result.versionCode)) {
-                    iAppNewVersion.onNewVersion(result);
-                } else {
+//                if (versionCode < Long.parseLong(result.versionCode)) {
+//                    iAppNewVersion.onNewVersion(result);
+//                } else {
+//                    WKToastUtils.getInstance().showToastNormal(WKBaseApplication.getInstance().getContext().getString(R.string.is_new_version));
+//                }
+
+                if ((result == null || TextUtils.isEmpty(result.download_url)) && isShowToast) {
                     WKToastUtils.getInstance().showToastNormal(WKBaseApplication.getInstance().getContext().getString(R.string.is_new_version));
+                } else {
+                    iAppNewVersion.onNewVersion(result);
                 }
             }
 
