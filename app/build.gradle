@@ -41,14 +41,14 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("2023060789.jks")
+            storeFile file("abc123456789.jks")
             storePassword "775854"
             keyAlias "key0"
             keyPassword "775854"
         }
 
         release {
-            storeFile file("2023060789.jks")
+            storeFile file("abc123456789.jks")
             storePassword "775854"
             keyAlias "key0"
             keyPassword "775854"
