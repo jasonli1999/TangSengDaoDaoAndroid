@@ -8,7 +8,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -287,7 +286,6 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.e("=====keyCode=======","onKeyDown");
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             moveTaskToBack(true);
             return true;
@@ -333,12 +331,4 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         super.finish();
         EndpointManager.getInstance().remove("tab_activity");
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.e("=================onStop==========","onStop");
-    }
-
-
 }

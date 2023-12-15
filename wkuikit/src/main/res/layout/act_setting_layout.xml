@@ -96,7 +96,6 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/msgBackupLayout"
                         style="@style/layoutBg">
 
@@ -110,7 +109,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/msgRecoveryLayout"
                         style="@style/layoutBg">
 
@@ -170,7 +168,6 @@
 
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/moduleLayout"
                         style="@style/layoutBg">
 
@@ -187,7 +184,6 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/thirdShareLayout"
                         style="@style/layoutBg">
 
@@ -200,7 +196,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/errorLogLayout"
                         style="@style/layoutBg">
 
@@ -218,7 +213,6 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/aboutLayout"
                         style="@style/layoutBg">
 

@@ -152,10 +152,10 @@ public class WKLoginActivity extends WKBaseActivity<ActLoginLayoutBinding> imple
                 showSingleBtnDialog(getString(R.string.phone_error));
                 return;
             }
-//            if (!wkVBinding.checkbox.isChecked()) {
-//                showSingleBtnDialog(getString(R.string.agree_auth_tips));
-//                return;
-//            }
+            if (!wkVBinding.checkbox.isChecked()) {
+                showSingleBtnDialog(getString(R.string.agree_auth_tips));
+                return;
+            }
             if (Objects.requireNonNull(wkVBinding.pwdEt.getText()).toString().length() < 6 || wkVBinding.pwdEt.getText().toString().length() > 16) {
                 showSingleBtnDialog(getString(R.string.pwd_length_error));
                 return;
@@ -185,18 +185,18 @@ public class WKLoginActivity extends WKBaseActivity<ActLoginLayoutBinding> imple
             }
             return null;
         });
-//        wkVBinding.baseUrlTv.setOnClickListener(v -> {
-//            String ip = "";
-//            String port = "";
-//            new XPopup.Builder(this)
-//                    .autoOpenSoftInput(true).hasShadowBg(true)
-//                    .asCustom(new UpdateApiDialog(this, ip, port, (ip1, port1) -> {
-//                        UpdateBaseAPIMenu apiMenu = new UpdateBaseAPIMenu(ip1, port1);
-//                        EndpointManager.getInstance().invoke("update_base_url", apiMenu);
-//                        showBaseUrl();
-//                    }))
-//                    .show();
-//        });
+        wkVBinding.baseUrlTv.setOnClickListener(v -> {
+            String ip = "";
+            String port = "";
+            new XPopup.Builder(this)
+                    .autoOpenSoftInput(true).hasShadowBg(true)
+                    .asCustom(new UpdateApiDialog(this, ip, port, (ip1, port1) -> {
+                        UpdateBaseAPIMenu apiMenu = new UpdateBaseAPIMenu(ip1, port1);
+                        EndpointManager.getInstance().invoke("update_base_url", apiMenu);
+                        showBaseUrl();
+                    }))
+                    .show();
+        });
         showBaseUrl();
     }
 

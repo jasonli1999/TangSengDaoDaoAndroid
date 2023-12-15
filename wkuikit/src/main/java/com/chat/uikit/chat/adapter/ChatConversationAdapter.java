@@ -3,7 +3,6 @@ package com.chat.uikit.chat.adapter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -390,7 +389,6 @@ public class ChatConversationAdapter extends BaseQuickAdapter<ChatConversationMs
                 avatarView.defaultAvatarTv.setVisibility(View.GONE);
                 avatarView.imageView.setVisibility(View.VISIBLE);
                 avatarView.showAvatar(item.getWkChannel(), true);
-                Log.e("================avatarView========",item.getWkChannel()+"");
             }
             EndpointManager.getInstance().invoke("show_avatar_other_info", new AvatarOtherViewMenu(helper.getView(R.id.otherLayout), item.getWkChannel(), avatarView, false));
             isTop = item.getWkChannel().top == 1;
