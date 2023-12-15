@@ -59,8 +59,8 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
     CounterView contactsCounterView;
 //    CounterView workplaceCounterView;
     View contactsSpotView;
-    RLottieImageView chatIV, contactsIV, meIV;
-    private String appVertion;
+    RLottieImageView chatIV, contactsIV,  meIV;
+
 
     @Override
     protected ActTabMainBinding getViewBinding() {
@@ -85,14 +85,13 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
     @SuppressLint("CheckResult")
     @Override
     protected void initView() {
-//        wkVBinding.vp.setUserInputEnabled(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             String desc = String.format(getString(R.string.notification_permissions_desc), getString(R.string.app_name));
             RxPermissions rxPermissions = new RxPermissions(this);
             rxPermissions.request(Manifest.permission.POST_NOTIFICATIONS).subscribe(aBoolean -> {
                 if (!aBoolean) {
-                    WKDialogUtils.getInstance().showDialog(this, getString(com.chat.base.R.string.authorization_request), desc, true, getString(R.string.cancel), getString(R.string.to_set), 0, Theme.colorAccount, index -> {
+                    WKDialogUtils.getInstance().showDialog(this,  getString(com.chat.base.R.string.authorization_request), desc,true, getString(R.string.cancel), getString(R.string.to_set),0,Theme.colorAccount, index -> {
                         if (index == 1) {
                             EndpointManager.getInstance().invoke("show_open_notification_dialog", this);
                         }
@@ -115,8 +114,8 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         List<Fragment> fragments = new ArrayList<>(3);
         fragments.add(new ChatFragment());
         fragments.add(new ContactsFragment());
-      //  Fragment workplaceFra = (Fragment) EndpointManager.getInstance().invoke("get_workplace_fragment", null);
-     //   fragments.add(workplaceFra);
+//        Fragment workplaceFra = (Fragment) EndpointManager.getInstance().invoke("get_workplace_fragment", null);
+//        fragments.add(workplaceFra);
         fragments.add(new MyFragment());
 
         wkVBinding.vp.setAdapter(new WKFragmentStateAdapter(this, fragments));
@@ -131,7 +130,6 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         WKCommonModel.getInstance().getAppConfig();
         wkVBinding.bottomNavigation.getOrCreateBadge(R.id.i_chat).setVisible(false);
         wkVBinding.bottomNavigation.getOrCreateBadge(R.id.i_my).setVisible(false);
-//        wkVBinding.bottomNavigation.getOrCreateBadge(R.id.i_workplace).setVisible(false);
         wkVBinding.bottomNavigation.getOrCreateBadge(R.id.i_chat).setVisible(false);
         FrameLayout view = wkVBinding.bottomNavigation.findViewById(R.id.i_chat);
         msgCounterView = new CounterView(this);
@@ -209,8 +207,8 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 //                    playAnimation(2);
 //                    wkVBinding.bottomNavigation.setSelectedItemId(R.id.i_workplace);
 //                }
-                else {
-                    playAnimation(3);
+                else if (position == 2) {
+                    playAnimation(2);
                     wkVBinding.bottomNavigation.setSelectedItemId(R.id.i_my);
                 }
             }
@@ -228,9 +226,9 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 //                wkVBinding.vp.setCurrentItem(2);
 //                playAnimation(2);
 //            }
-            else {
-                wkVBinding.vp.setCurrentItem(3);
-                playAnimation(3);
+            else if (item.getItemId() == R.id.i_my) {
+                wkVBinding.vp.setCurrentItem(2);
+                playAnimation(2);
             }
             return true;
         });
@@ -341,7 +339,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 //            meIV.setImageResource(R.mipmap.ic_mine_n);
 //            chatIV.setImageResource(R.mipmap.ic_chat_n);
 //            contactsIV.setImageResource(R.mipmap.ic_contacts_n);
-//            workplaceIV.setImageResource(R.mipmap.ic_contacts_s);
+////            workplaceIV.setImageResource(R.mipmap.ic_contacts_s);
 //        }
         else {
             chatIV.setImageResource(R.mipmap.ic_chat_n);

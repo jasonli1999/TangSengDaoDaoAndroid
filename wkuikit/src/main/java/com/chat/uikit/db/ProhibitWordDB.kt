@@ -3,12 +3,13 @@ package com.chat.uikit.db
 import android.content.ContentValues
 import android.database.Cursor
 import android.text.TextUtils
+import android.util.Log
 import com.chat.base.WKBaseApplication
 import com.chat.base.db.WKCursor
 import com.chat.uikit.enity.ProhibitWord
 
 class ProhibitWordDB private constructor() {
-    private val table = "prohibit_words"
+    val table = "prohibit_words"
 
     companion object {
         val instance = SingletonHolder.holder
@@ -46,6 +47,7 @@ class ProhibitWordDB private constructor() {
         try {
             WKBaseApplication.getInstance().dbHelper.db.beginTransaction()
             if (insertCVList.size > 0) {
+                Log.e("插入数据","--->");
                 for (cv in insertCVList) {
                     WKBaseApplication.getInstance().dbHelper.insert(table, cv)
                 }
@@ -59,7 +61,7 @@ class ProhibitWordDB private constructor() {
                 }
             }
             WKBaseApplication.getInstance().dbHelper.db.setTransactionSuccessful()
-        } catch (_: Exception) {
+        } catch (e: Exception) {
         } finally {
             if (WKBaseApplication.getInstance().dbHelper.db.inTransaction()) {
                 WKBaseApplication.getInstance().dbHelper.db.endTransaction()
@@ -68,9 +70,6 @@ class ProhibitWordDB private constructor() {
     }
 
     fun getMaxVersion(): Long {
-        if (WKBaseApplication.getInstance().dbHelper == null) {
-            return 0
-        }
         val sql = "select * from $table order by `version` desc limit 1"
         val cursor: Cursor = WKBaseApplication.getInstance().dbHelper.rawQuery(sql, null)
         cursor.moveToFirst()
@@ -87,22 +86,20 @@ class ProhibitWordDB private constructor() {
     fun getAll(): List<ProhibitWord> {
         val sql = "select * from $table"
         val result = ArrayList<ProhibitWord>()
-        if (WKBaseApplication.getInstance().dbHelper != null) {
-            val cursor: Cursor = WKBaseApplication.getInstance().dbHelper.rawQuery(sql, null)
-                ?: return result
-            run {
-                cursor.moveToFirst()
-                while (!cursor.isAfterLast) {
-                    result.add(serialize(cursor))
-                    cursor.moveToNext()
-                }
+        val cursor: Cursor = WKBaseApplication.getInstance().dbHelper.rawQuery(sql, null)
+            ?: return result
+        run {
+            cursor.moveToFirst()
+            while (!cursor.isAfterLast) {
+                result.add(serialize(cursor))
+                cursor.moveToNext()
             }
-            cursor.close()
         }
+        cursor.close()
         return result
     }
 
-    private fun queryWithsIds(list: List<Int>): List<ProhibitWord> {
+    fun queryWithsIds(list: List<Int>): List<ProhibitWord> {
         val ids = StringBuilder()
         for (id in list) {
             if (!TextUtils.isEmpty(ids)) {
@@ -113,22 +110,20 @@ class ProhibitWordDB private constructor() {
         ids.append(")")
         val sql = String.format("%s%s", "select * from $table where sid in (", ids)
         val result = ArrayList<ProhibitWord>()
-        if (WKBaseApplication.getInstance().dbHelper != null) {
-            val cursor: Cursor = WKBaseApplication.getInstance().dbHelper.rawQuery(sql, null)
-                ?: return result
-            run {
-                cursor.moveToFirst()
-                while (!cursor.isAfterLast) {
-                    result.add(serialize(cursor))
-                    cursor.moveToNext()
-                }
+        val cursor: Cursor = WKBaseApplication.getInstance().dbHelper.rawQuery(sql, null)
+            ?: return result
+        run {
+            cursor.moveToFirst()
+            while (!cursor.isAfterLast) {
+                result.add(serialize(cursor))
+                cursor.moveToNext()
             }
-            cursor.close()
         }
+        cursor.close()
         return result
     }
 
-    private fun getCV(word: ProhibitWord): ContentValues {
+    fun getCV(word: ProhibitWord): ContentValues {
         val cv = ContentValues()
         cv.put("content", word.content)
         cv.put("is_deleted", word.is_deleted)

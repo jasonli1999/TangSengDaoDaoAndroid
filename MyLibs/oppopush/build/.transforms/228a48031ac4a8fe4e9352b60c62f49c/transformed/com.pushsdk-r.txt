@@ -1,2 +1,0 @@
-com.pushsdk
-string system_default_channel

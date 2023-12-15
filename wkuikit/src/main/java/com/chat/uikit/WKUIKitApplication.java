@@ -516,16 +516,8 @@ public class WKUIKitApplication {
         WKPermissions.getInstance().checkPermissions(new WKPermissions.IPermissionResult() {
             @Override
             public void onResult(boolean result) {
-                ChooseMimeType mimeType = ChooseMimeType.img;
                 if (result) {
-                    Object isRegisterVideo = EndpointManager.getInstance().invoke("is_register_video", null);
-                    if (isRegisterVideo instanceof Boolean) {
-                        boolean isRegister = (boolean) isRegisterVideo;
-                        if (isRegister) {
-                            mimeType = ChooseMimeType.all;
-                        }
-                    }
-                    GlideUtils.getInstance().chooseIMG(iConversationContext.getChatActivity(), 9, true, mimeType, true, new GlideUtils.ISelectBack() {
+                    GlideUtils.getInstance().chooseIMG(iConversationContext.getChatActivity(), 9, true, ChooseMimeType.all, true, new GlideUtils.ISelectBack() {
                         @Override
                         public void onBack(List<ChooseResult> paths) {
                             if (paths.size() == 1 && paths.get(0).model == ChooseResultModel.video) {
@@ -623,7 +615,7 @@ public class WKUIKitApplication {
                     LinearLayout view1 = new LinearLayout(parent.getContext());
                     AvatarView avatarView1 = new AvatarView(parent.getContext());
                     avatarView1.setTag("avatar");
-                    view1.addView(avatarView1, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER, 5, 5, 5, 5));
+                    view1.addView(avatarView1, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER,5,5,5,5));
                     return new AvatarViewHolder(view1);
                 }
 

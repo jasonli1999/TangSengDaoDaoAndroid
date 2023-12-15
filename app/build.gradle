@@ -16,8 +16,8 @@ android {
         applicationId "com.xinbida.tsdd.weiyu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
 
 
         vectorDrawables {
@@ -121,4 +121,6 @@ dependencies {
     implementation 'cn.jiguang.sdk:jpush:5.2.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation project(path: ':MyLibs:wkvideo')
+    implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.4.0-release-jitpack'
 }

@@ -76,9 +76,14 @@
 
                     <LinearLayout
                         android:id="@+id/groupAvatarLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
+                        style="@style/layoutBg">
+
+                        <TextView
+                            style="@style/leftTextView"
+                            android:text="@string/group_avatar" />
+
+                        <androidx.appcompat.widget.AppCompatImageView style="@style/arrow_right_iv" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/groupQrLayout"
@@ -179,10 +184,22 @@
 
                     <LinearLayout
                         android:id="@+id/groupManageLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
+                        <TextView
+                            style="@style/leftTextView"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="@string/group_manage" />
+
+                        <androidx.appcompat.widget.AppCompatImageView style="@style/arrow_right_iv" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/groupManageView"
+                        style="@style/view_line_padding"
+                        android:visibility="gone" />
 
                     <LinearLayout style="@style/layoutBgPaddingSmall">
 
@@ -229,11 +246,19 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/chatPwdView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <LinearLayout style="@style/layoutBgPaddingSmall">
+
+                        <TextView
+                            style="@style/leftTextView"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/chat_pwd" />
+
+                        <com.chat.base.ui.components.SwitchView
+                            android:id="@+id/chatPwdSwitchView"
+                            android:layout_width="45dp"
+                            android:layout_height="40dp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/msgSettingLayout"

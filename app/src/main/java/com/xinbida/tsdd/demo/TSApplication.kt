@@ -40,6 +40,7 @@ import com.chat.uikit.WKUIKitApplication
 import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
 import kotlin.system.exitProcess
+import com.chat.video.WKVideoApplication
 
 class TSApplication : MultiDexApplication() {
     private var baseApplication: TSApplication? = null
@@ -90,6 +91,7 @@ class TSApplication : MultiDexApplication() {
         WKPushApplication.getInstance().init(getAppPackageName(), this)
         WKGroupManageApplication.getInstance().init()
         WKCustomerServiceApplication.instance.init()
+	WKVideoApplication.getInstance().init(this)
         addAppFrontBack()
         addListener()
     }

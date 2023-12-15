@@ -20,7 +20,7 @@
 /vivopush/build
 /wkcustomerservice/build
 /wkgroupmanager/build
-
+/wkvideo/build
 /captures
 .externalNativeBuild
 .cxx
