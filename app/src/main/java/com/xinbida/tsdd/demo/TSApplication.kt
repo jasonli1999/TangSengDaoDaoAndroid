@@ -28,6 +28,8 @@ import com.chat.base.utils.ActManagerUtils
 import com.chat.base.utils.WKPlaySound
 import com.chat.base.utils.WKTimeUtils
 import com.chat.base.utils.language.WKMultiLanguageUtil
+import com.chat.customerservice.WKCustomerServiceApplication
+import com.chat.groupmanage.WKGroupManageApplication
 import com.chat.login.WKLoginApplication
 import com.chat.push.WKPushApplication
 import com.chat.scan.WKScanApplication
@@ -36,6 +38,7 @@ import com.chat.uikit.WKUIKitApplication
 import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
 import kotlin.system.exitProcess
+import com.chat.video.WKVideoApplication
 
 class TSApplication : MultiDexApplication() {
     override fun onCreate() {
@@ -78,6 +81,9 @@ class TSApplication : MultiDexApplication() {
         WKScanApplication.getInstance().init(this)
         WKUIKitApplication.getInstance().init(this)
         WKPushApplication.getInstance().init(getAppPackageName(), this)
+        WKGroupManageApplication.getInstance().init(this)
+        WKCustomerServiceApplication.instance.init()
+	WKVideoApplication.getInstance().init(this)
         addAppFrontBack()
         addListener()
     }
