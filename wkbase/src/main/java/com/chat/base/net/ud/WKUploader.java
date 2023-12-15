@@ -1,6 +1,8 @@
 package com.chat.base.net.ud;
 
 
+import android.util.Log;
+
 import com.chat.base.base.WKBaseModel;
 import com.chat.base.config.WKApiConfig;
 import com.chat.base.net.ApiService;
@@ -38,6 +40,7 @@ public class WKUploader extends WKBaseModel {
         RequestBody fileBody = RequestBody.Companion.create(file, mediaType);
         FileRequestBody fileRequestBody = new FileRequestBody(fileBody, tag);
         MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
+        Log.e("==============uploadUrl====",uploadUrl);
         request(createService(UploadService.class).upload(uploadUrl, part), new IRequestResultListener<>() {
             @Override
             public void onSuccess(UploadResultEntity result) {

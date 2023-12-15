@@ -66,15 +66,15 @@ public class WKCommonModel extends WKBaseModel {
 //                    WKToastUtils.getInstance().showToastNormal(WKBaseApplication.getInstance().getContext().getString(R.string.is_new_version));
 //                }
 
-                try {
+//                try {
                     if ((result == null || TextUtils.isEmpty(result.download_url)) && isShowToast) {
                         WKToastUtils.getInstance().showToastNormal(WKBaseApplication.getInstance().getContext().getString(R.string.is_new_version));
                     } else {
                         iAppNewVersion.onNewVersion(result);
                     }
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
+//                } catch (Exception exception) {
+//                    exception.printStackTrace();
+//                }
 
             }
 

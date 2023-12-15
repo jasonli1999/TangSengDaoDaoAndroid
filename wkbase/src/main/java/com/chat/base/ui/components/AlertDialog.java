@@ -702,7 +702,7 @@ public class AlertDialog extends Dialog implements Drawable.Callback {
         }
 
         messageTextView = new TextView(getContext());
-        messageTextView.setTextColor(ContextCompat.getColor(getContext(),R.color.dialogText));
+        messageTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.dialogText));
         messageTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
         messageTextView.setMovementMethod(new AndroidUtilities.LinkMovementMethodMy());
         messageTextView.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
@@ -744,6 +744,8 @@ public class AlertDialog extends Dialog implements Drawable.Callback {
             progressView.setProgressColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
             progressViewContainer.addView(progressView, LayoutHelper.createFrame(86, 86, Gravity.CENTER));
         } else {
+            if (null == scrollContainer)
+                scrollContainer = new LinearLayout(getContext());
             scrollContainer.addView(messageTextView, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, (topAnimationIsNew ? Gravity.CENTER_HORIZONTAL : AndroidUtilities.isRTL ? Gravity.RIGHT : Gravity.LEFT) | Gravity.TOP, 24, 0, 24, customView != null || items != null ? customViewOffset : 0));
         }
         if (!TextUtils.isEmpty(message)) {

@@ -1,6 +1,7 @@
 package com.chat.base.config;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.xinbida.wukongim.entity.WKChannelType;
 

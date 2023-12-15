@@ -57,8 +57,8 @@ public class DownloadApkUtils {
      * 下载apk
      */
     public void downloadAPK(Context context, String versionName, String url) {
+        WKLogUtils.e("下载apk", "版本名称错误---versionName=" + versionName);
         if (TextUtils.isEmpty(versionName)) {
-            WKLogUtils.e("下载apk", "版本名称错误---versionName=" + versionName);
             return;
         }
         downloadUrl = url;
