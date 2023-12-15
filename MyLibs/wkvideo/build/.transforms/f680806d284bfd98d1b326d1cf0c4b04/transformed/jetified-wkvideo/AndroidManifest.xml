@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.chat.video" >
+
+    <uses-sdk android:minSdkVersion="23" />
+
+    <application>
+        <activity android:name="com.chat.video.RecordingActivity" />
+        <activity
+            android:name="com.chat.video.PlayVideoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.chat.video.SearchChatVideoActivity" />
+    </application>
+
+</manifest>
