@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="can_not_play_video_with_revoke">视频已被撤回，无法播放</string>
+    <string name="not_use_the_camera">通话中不可使用相机</string>
+    <string name="tap_photo_desc">轻触拍照，长按摄像</string>
+    <string name="video_deleted">视频不存在或已被删除</string>
+    <string name="wk_video">视频</string>
+    <string name="wk_video_go_to_chat_item">定位到聊天</string>
+    <string name="wkvideo_recording">拍摄</string>
+    <declare-styleable name="JCameraView">
+        <attr format="dimension" name="iconSize"/>
+        <attr format="dimension" name="iconMargin"/>
+        <attr format="reference" name="iconSrc"/>
+        <attr format="reference" name="iconLeft"/>
+        <attr format="reference" name="iconRight"/>
+        <attr format="integer" name="duration_max"/>
+    </declare-styleable>
+</resources>
