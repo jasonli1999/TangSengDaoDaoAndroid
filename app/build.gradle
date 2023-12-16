@@ -41,14 +41,14 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("abc123456789.jks")
+            storeFile file("2023060789.jks")
             storePassword "775854"
             keyAlias "key0"
             keyPassword "775854"
         }
 
         release {
-            storeFile file("abc123456789.jks")
+            storeFile file("2023060789.jks")
             storePassword "775854"
             keyAlias "key0"
             keyPassword "775854"
@@ -71,6 +71,8 @@ android {
 //            minifyEnabled true  // 是否混淆
 //            shrinkResources true  // 是否去除无效的资源文件
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -115,7 +117,6 @@ dependencies {
     implementation project(path: ':wkpush')
     implementation project(path: ':MyLibs:wkcustomerservice')
     implementation project(path: ':MyLibs:wkgroupmanager')
-    testImplementation 'org.testng:testng:6.9.6'
     testImplementation 'org.testng:testng:6.9.6'
     // 此处以JPush 5.0.0 版本为例，5.0.0 版本开始可以自动拉取 JCore 包，无需另外配置
     implementation 'cn.jiguang.sdk:jpush:5.2.0'

@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -105,8 +106,7 @@ public class DownloadApkUtils {
             downloadId = downloadManager.enqueue(request);
 
             //注册广播接收者，监听下载状态
-            context.registerReceiver(receiver,
-                    new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+            context.registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
             WKToastUtils.getInstance().showToastNormal("后台下载中，可在通知栏中查看状态");
         }
 
@@ -194,6 +194,7 @@ public class DownloadApkUtils {
 
     //下载到本地后执行安装
     public void installAPK(File file) {
+        Log.e("============file======", String.valueOf(file));
         try {
             Context context = WKBaseApplication.getInstance().getContext();
             if (null != context && file != null && file.exists()) {
