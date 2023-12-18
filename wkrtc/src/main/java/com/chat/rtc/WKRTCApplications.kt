@@ -72,9 +72,9 @@ class WKRTCApplications private constructor() {
 
     private fun getList(): ArrayList<IceServer> {
         val iceServer = IceServer.builder(
-            "turn:175.27.245.108:3478?transport=udp"
-        ).setUsername("tsdd").setPassword(
-            "tsddpwd"
+            "turn:16.162.18.115:3478?transport=udp"
+        ).setUsername("weiyu").setPassword(
+            "weiyu123456789"
         ).createIceServer()
         val iceServer0 = IceServer.builder(
             "stun:stun.qq.com"
