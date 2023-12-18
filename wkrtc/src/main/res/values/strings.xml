@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">wkRtc</string>
+    <string name="caller_cancel">未接听，对方已取消</string>
+    <string name="my_cancel">已取消</string>
+    <string name="call_declined">已拒绝</string>
+    <string name="caller_declined">对方已拒绝</string>
+    <string name="caller_missed">未接听</string>
+    <string name="my_missed">对方未接听</string>
+    <string name="call_time">聊天时长：%s</string>
+    <string name="last_msg_audio_call">[视频通话]</string>
+    <string name="last_msg_voice_call">[语音通话]</string>
+    <string name="user_create_multi_call">%s发起了语音通话</string>
+    <string name="choose_members">请选择成员</string>
+    <string name="call_max_count">最多选择%d位联系人</string>
+
+</resources>

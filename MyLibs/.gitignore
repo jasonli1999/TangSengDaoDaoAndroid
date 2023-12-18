@@ -21,6 +21,8 @@
 /wkcustomerservice/build
 /wkgroupmanager/build
 /wkvideo/build
+/wkrtc/build
+/wkfile/build
 /captures
 .externalNativeBuild
 .cxx

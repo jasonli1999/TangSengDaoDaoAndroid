@@ -15,7 +15,6 @@ import android.os.Looper
 import android.os.Process
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
-import cn.jiguang.api.utils.JCollectionAuth
 import cn.jpush.android.api.JPushInterface
 import com.chat.base.WKBaseApplication
 import com.chat.base.config.WKApiConfig
@@ -31,9 +30,11 @@ import com.chat.base.utils.WKPlaySound
 import com.chat.base.utils.WKTimeUtils
 import com.chat.base.utils.language.WKMultiLanguageUtil
 import com.chat.customerservice.WKCustomerServiceApplication
+import com.chat.file.WKFileApplication
 import com.chat.groupmanage.WKGroupManageApplication
 import com.chat.login.WKLoginApplication
 import com.chat.push.WKPushApplication
+import com.chat.rtc.WKRTCApplications
 import com.chat.scan.WKScanApplication
 import com.chat.uikit.TabActivity
 import com.chat.uikit.WKUIKitApplication
@@ -41,6 +42,7 @@ import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
 import kotlin.system.exitProcess
 import com.chat.video.WKVideoApplication
+import com.xinbida.rtc.WKRTCApplication
 
 class TSApplication : MultiDexApplication() {
     private var baseApplication: TSApplication? = null
@@ -92,6 +94,8 @@ class TSApplication : MultiDexApplication() {
         WKGroupManageApplication.getInstance().init()
         WKCustomerServiceApplication.instance.init()
 	    WKVideoApplication.getInstance().init(this)
+        WKRTCApplications.instance.init()
+        WKFileApplication.getInstance().init(this)
         addAppFrontBack()
         addListener()
     }

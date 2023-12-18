@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LiMVideoCall</string>
+    <string name="caller_cancel">Call cancelled by caller</string>
+    <string name="my_cancel">Canceled</string>
+    <string name="call_declined">Call Declined</string>
+    <string name="caller_declined">Call Declined </string>
+    <string name="caller_missed">No answer</string>
+    <string name="my_missed">The other party didn\'t answer</string>
+    <string name="call_time">Duration：%s</string>
+    <string name="last_msg_audio_call">[Video Call]</string>
+    <string name="last_msg_voice_call">[Voice Call]</string>
+    <string name="user_create_multi_call">%s launched a voice call</string>
+    <string name="choose_members">Choose Members</string>
+    <string name="call_max_count">Select up to %d contacts</string>
+</resources>

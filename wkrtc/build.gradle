@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+android {
+    compileSdk rootProject.ext.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    namespace 'com.chat.rtc'
+}
+
+dependencies {
+    api project(':wkbase')
+    implementation project(path: ':MyLibs:wkrtc')
+    implementation('io.socket:socket.io-client:1.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+    compileOnly('io.socket:socket.io-client:1.0.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+    implementation 'com.github.yhaolpz:FloatWindow:1.0.9'
+}
