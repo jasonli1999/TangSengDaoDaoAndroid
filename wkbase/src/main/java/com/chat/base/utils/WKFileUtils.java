@@ -378,6 +378,12 @@ public class WKFileUtils {
     }
 
     public void openFileByPath(Context context, String path) {
+        File file = new File(path);
+        String mimeType = getMIMEType(file);
+        if (mimeType.equals("application/vnd.android.package-archive")) {
+            DownloadApkUtils.getInstance().installAPK(file);
+            return;
+        }
         Intent intent = new Intent();
         // 这是比较流氓的方法，绕过7.0的文件权限检查
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -385,11 +391,10 @@ public class WKFileUtils {
             StrictMode.setVmPolicy(builder.build());
         }
 
-        File file = new File(path);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//设置标记
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setAction(Intent.ACTION_VIEW);//动作，查看
-        intent.setDataAndType(Uri.fromFile(file), getMIMEType(file));//设置类型
+        intent.setDataAndType(Uri.fromFile(file), mimeType);//设置类型
         context.startActivity(intent);
 
     }
@@ -488,7 +493,7 @@ public class WKFileUtils {
      * @return
      */
     public boolean isFileOverSize(Context context, String filePath) {
-        Long fileSize = WKFileUtils.getInstance().getFileSize(filePath);
+        long fileSize = WKFileUtils.getInstance().getFileSize(filePath);
         if (fileSize > 500 * 1024 * 1024) {
             WKToastUtils.getInstance().showToastNormal(context.getString(R.string.max_file_size));
             return true;
@@ -505,9 +510,10 @@ public class WKFileUtils {
         long blockSize = 0;
         try {
             blockSize = getFileSize(file);
-
+            Log.e("文件大小", blockSize + "");
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("获取文件大小错误", "-->");
         }
         return blockSize;
     }
@@ -519,9 +525,11 @@ public class WKFileUtils {
             if (file.exists()) {
                 FileInputStream fis = new FileInputStream(file);
                 size = fis.available();
+            } else {
+                Log.e("文件不存在", "-->");
             }
-        } catch (IOException ignored) {
-
+        } catch (IOException e) {
+            Log.e("读取文件错误", "-->" + e.getLocalizedMessage());
         }
         return size;
     }
