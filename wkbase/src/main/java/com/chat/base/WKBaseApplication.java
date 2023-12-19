@@ -17,7 +17,6 @@ import com.chat.base.db.DBHelper;
 import com.chat.base.emoji.EmojiManager;
 import com.chat.base.entity.AppModule;
 import com.chat.base.glide.OkHttpUrlLoader;
-import com.chat.base.net.SSLSocketClient;
 import com.chat.base.utils.AndroidUtilities;
 import com.chat.base.utils.CrashHandler;
 import com.chat.base.utils.WKDeviceUtils;
@@ -30,12 +29,9 @@ import org.telegram.ui.Components.RLottieApplication;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-
-import javax.net.ssl.X509TrustManager;
 
 /**
  * 2020-02-26 09:52

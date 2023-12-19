@@ -9,7 +9,6 @@ import com.chat.base.config.WKConfig
 import com.chat.base.config.WKConstants
 import com.chat.base.net.HttpResponseCode
 import com.chat.base.utils.WKFileUtils
-import com.chat.base.utils.WKFileUtils.IWriteText
 import com.chat.base.utils.WKReader
 import com.chat.base.utils.singleclick.SingleClickUtil
 import com.chat.uikit.R
@@ -88,7 +87,7 @@ class BackupRestoreMessageActivity : WKBaseActivity<ActBackupMessageLayoutBindin
             val file = File(path)
             if (file.exists()) file.delete()
             WKFileUtils.getInstance()
-                .writeTxtToFile(jsonArray.toString(), path, object : IWriteText {
+                .writeTxtToFile(jsonArray.toString(), path, object : WKFileUtils.IWriteText {
                     override fun onFail() {
                         showToast("保存备份数据错误")
                     }
