@@ -54,7 +54,7 @@ public class MyInfoActivity extends WKBaseActivity<ActMyInfoLayoutBinding> {
 
     @Override
     protected void initView() {
-        wkVBinding.idLeftTv.setText(String.format(getString(R.string.identity), getString(R.string.app_name)));
+        wkVBinding.idLeftTv.setText(getString(R.string.identity));
         wkVBinding.refreshLayout.setEnableOverScrollDrag(true);
         wkVBinding.refreshLayout.setEnableLoadMore(false);
         wkVBinding.refreshLayout.setEnableRefresh(false);
