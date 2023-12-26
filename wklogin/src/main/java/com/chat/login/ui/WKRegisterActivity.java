@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -173,10 +172,10 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
                     }
                 }
             } else {
-                if (invite_no.length() < 7) {
-                    Toast.makeText(getContext(), "邀请码为7位数", Toast.LENGTH_LONG).show();
-                    return;
-                }
+//                if (invite_no.length() < 7) {
+//                    Toast.makeText(getContext(), "邀请码为7位数", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
                 if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(verfiCode) && !TextUtils.isEmpty(pwd)) {
                     if (pwd.length() < 6 || pwd.length() > 16) {
                         showSingleBtnDialog(getString(R.string.pwd_length_error));
