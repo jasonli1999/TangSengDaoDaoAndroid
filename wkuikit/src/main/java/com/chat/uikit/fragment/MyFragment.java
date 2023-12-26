@@ -2,6 +2,7 @@ package com.chat.uikit.fragment;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.chat.base.base.WKBaseFragment;

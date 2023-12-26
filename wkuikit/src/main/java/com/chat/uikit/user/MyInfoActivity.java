@@ -97,14 +97,14 @@ public class MyInfoActivity extends WKBaseActivity<ActMyInfoLayoutBinding> {
             intent.putExtra("updateType", 1);
             chooseResultLac.launch(intent);
         });
-        SingleClickUtil.onSingleClick(wkVBinding.identityLayout, view1 -> {
-            if (WKConfig.getInstance().getAppConfig().shortno_edit_off == 0) {
-                Intent intent = new Intent(this, UpdateUserInfoActivity.class);
-                intent.putExtra("oldStr", wkVBinding.identityTv.getText().toString());
-                intent.putExtra("updateType", 2);
-                chooseResultLac.launch(intent);
-            }
-        });
+//        SingleClickUtil.onSingleClick(wkVBinding.identityLayout, view1 -> {
+//            if (WKConfig.getInstance().getAppConfig().shortno_edit_off == 0) {
+//                Intent intent = new Intent(this, UpdateUserInfoActivity.class);
+//                intent.putExtra("oldStr", wkVBinding.identityTv.getText().toString());
+//                intent.putExtra("updateType", 2);
+//                chooseResultLac.launch(intent);
+//            }
+//        });
         SingleClickUtil.onSingleClick(wkVBinding.qrLayout, view1 -> startActivity(new Intent(this, UserQrActivity.class)));
         wkVBinding.sexLayout.setOnClickListener(v -> {
             List<BottomSheetItem> list = new ArrayList<>();
