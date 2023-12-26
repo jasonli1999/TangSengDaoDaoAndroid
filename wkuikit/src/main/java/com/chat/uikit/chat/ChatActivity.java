@@ -1032,6 +1032,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         MsgModel.getInstance().syncExtraMsg(channelId, channelType);
         MsgModel.getInstance().syncReaction(channelId, channelType);
         WKRobotModel.getInstance().syncRobotData(getChatChannelInfo());
+        //TODO
         WKCommonModel.getInstance().getChannelState(channelId, channelType, channelState -> {
             if (channelState != null) {
                 signal = channelState.signal_on;
@@ -1039,6 +1040,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                 if (channelType == WKChannelType.GROUP && channelState.online_count > 0) {
                     wkVBinding.topLayout.subtitleCountTv.setVisibility(View.VISIBLE);
                     wkVBinding.topLayout.subtitleCountTv.setText(String.format(getString(R.string.online_count), channelState.online_count));
+
                 }
             }
         });

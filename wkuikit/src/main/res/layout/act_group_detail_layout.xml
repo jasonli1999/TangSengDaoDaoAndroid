@@ -183,6 +183,23 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
 
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/ll_voicecontrol"
+                        style="@style/layoutBgPaddingSmall">
+
+                        <TextView
+                            style="@style/leftTextView"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="是否允许群语音" />
+
+                        <com.chat.base.ui.components.SwitchView
+                            android:id="@+id/VoiceSwitchView"
+                            android:layout_width="45dp"
+                            android:layout_height="40dp" />
+
+                    </LinearLayout>
 
                     <LinearLayout style="@style/layoutBgPaddingSmall">
 
@@ -230,10 +247,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:id="@+id/chatPwdView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
 
                     <LinearLayout
                         android:id="@+id/msgSettingLayout"

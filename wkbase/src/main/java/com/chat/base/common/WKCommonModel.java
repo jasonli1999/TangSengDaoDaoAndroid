@@ -1,6 +1,7 @@
 package com.chat.base.common;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -22,6 +23,7 @@ import com.chat.base.entity.WKAPPConfig;
 import com.chat.base.entity.WKChannelState;
 import com.chat.base.net.HttpResponseCode;
 import com.chat.base.net.IRequestResultListener;
+import com.chat.base.utils.ActManagerUtils;
 import com.chat.base.utils.AndroidUtilities;
 import com.chat.base.utils.DispatchQueuePool;
 import com.chat.base.utils.WKDeviceUtils;
@@ -67,11 +69,11 @@ public class WKCommonModel extends WKBaseModel {
 //                }
 
 //                try {
-                    if ((result == null || TextUtils.isEmpty(result.download_url)) && isShowToast) {
-                        WKToastUtils.getInstance().showToastNormal(WKBaseApplication.getInstance().getContext().getString(R.string.is_new_version));
-                    } else {
-                        iAppNewVersion.onNewVersion(result);
-                    }
+                if ((result == null || TextUtils.isEmpty(result.download_url)) && isShowToast) {
+                    WKToastUtils.getInstance().showToastNormal(WKBaseApplication.getInstance().getContext().getString(R.string.is_new_version));
+                } else {
+                    iAppNewVersion.onNewVersion(result);
+                }
 //                } catch (Exception exception) {
 //                    exception.printStackTrace();
 //                }
@@ -130,8 +132,21 @@ public class WKCommonModel extends WKBaseModel {
             @Override
             public void onFail(int code, String msg) {
                 iChannelState.onResult(null);
+                if (code == 500) {
+                    exitLogin(0);
+                }
             }
         });
+    }
+
+    public void exitLogin(int from) {
+//        EndpointManager.getInstance().invoke("wk_logout", null);
+        WKConfig.getInstance().clearInfo();
+//        WKIM.getInstance().getConnectionManager().disconnect(true);
+        ActManagerUtils.getInstance().clearAllActivity();
+//        EndpointManager.getInstance().invoke("main_show_home_view", from);
+        //关闭UI层数据库
+//        WKBaseApplication.getInstance().closeDbHelper();
     }
 
     public interface IChannelState {

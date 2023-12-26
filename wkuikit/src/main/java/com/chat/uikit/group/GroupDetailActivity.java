@@ -419,6 +419,8 @@ public class GroupDetailActivity extends WKBaseActivity<ActGroupDetailLayoutBind
                 deleteUser.memberUID = "-2";
                 temp.add(deleteUser);
                 wkVBinding.groupManageLayout.setVisibility(View.VISIBLE);
+                //TODO
+//                wkVBinding.llVoicecontrol.setVisibility(View.VISIBLE);
             }
             groupMemberAdapter.setList(temp);
             if (list.size() >= 18) {
