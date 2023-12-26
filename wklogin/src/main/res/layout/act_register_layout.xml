@@ -169,18 +169,49 @@
 
         <View
             style="@style/view_line"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_invitecode"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:hint="请输入邀请码(选填)"
+                android:inputType="text"
+                android:maxLength="7"
+                android:textColor="@color/colorDark"
+                android:textColorHint="@color/color999"
+                android:textSize="14sp" />
+
+
+
+        </LinearLayout>
+
+        <View
+            style="@style/view_line"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp" />
 
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <com.chat.base.ui.components.CheckBox
                 android:id="@+id/authCheckBox"

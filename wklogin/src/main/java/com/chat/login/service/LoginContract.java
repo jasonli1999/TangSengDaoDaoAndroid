@@ -25,6 +25,7 @@ public class LoginContract {
         void getCountryCode();
 
         void registerCode(String zone, String phone);
+        void registerCode2(String zone, String phone,String invite_no);
 
         void forgetPwd(String zone, String phone);
 

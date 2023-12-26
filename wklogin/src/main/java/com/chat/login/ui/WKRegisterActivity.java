@@ -33,9 +33,9 @@ import com.chat.base.ui.Theme;
 import com.chat.base.utils.AndroidUtilities;
 import com.chat.base.utils.SoftKeyboardUtils;
 import com.chat.base.views.keyboard.SoftKeyboardStateHelper;
-import com.chat.login.entity.CountryCodeEntity;
 import com.chat.login.R;
 import com.chat.login.databinding.ActRegisterLayoutBinding;
+import com.chat.login.entity.CountryCodeEntity;
 import com.chat.login.service.LoginContract;
 import com.chat.login.service.LoginPresenter;
 
@@ -49,6 +49,7 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
     private String code = "0086";
     private LoginPresenter presenter;
     private SoftKeyboardStateHelper softKeyboardStateHelper;
+    private String invite_no;
 
     @Override
     protected ActRegisterLayoutBinding getViewBinding() {
@@ -156,6 +157,8 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
             String phone = wkVBinding.nameEt.getText().toString();
             String verfiCode = wkVBinding.verfiEt.getText().toString();
             String pwd = wkVBinding.pwdEt.getText().toString();
+            invite_no = wkVBinding.etInvitecode.getText().toString();
+
             if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(verfiCode) && !TextUtils.isEmpty(pwd)) {
                 if (pwd.length() < 6 || pwd.length() > 16) {
                     showSingleBtnDialog(getString(R.string.pwd_length_error));
@@ -172,7 +175,12 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
                     showSingleBtnDialog(getString(R.string.phone_error));
                     return;
                 }
-                presenter.registerCode(code, phone);
+                if (TextUtils.isEmpty(invite_no)) {
+                    presenter.registerCode(code, phone);
+                } else {
+                    presenter.registerCode2(code, phone, invite_no);
+                }
+
             }
         });
 

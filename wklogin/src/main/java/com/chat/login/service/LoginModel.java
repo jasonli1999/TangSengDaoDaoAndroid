@@ -145,6 +145,24 @@ public class LoginModel extends WKBaseModel {
         });
     }
 
+    void registerCode2(String zone, String phone, String invite_no,final IGetVerCodeListener iGetVerfi) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("zone", zone);
+        jsonObject.put("phone", phone);
+        jsonObject.put("invite_no", invite_no);
+        request(createService(LoginService.class).registerCode(jsonObject), new IRequestResultListener<VerfiCodeResult>() {
+            @Override
+            public void onSuccess(VerfiCodeResult result) {
+                iGetVerfi.onResult(HttpResponseCode.success, "", result.exist);
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                iGetVerfi.onResult(code, msg, 0);
+            }
+        });
+    }
+
     void forgetPwd(String zone, String phone, final IGetVerCodeListener iGetVerCodeListener) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("zone", zone);

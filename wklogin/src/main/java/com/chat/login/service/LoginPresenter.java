@@ -82,6 +82,19 @@ public class LoginPresenter implements LoginContract.LoginPersenter {
     }
 
     @Override
+    public void registerCode2(String zone, String phone,String invite_no) {
+        LoginModel.getInstance().registerCode2(zone, phone, invite_no,(code, msg, exist) -> {
+            loginView.get().hideLoading();
+            if (code == HttpResponseCode.success) {
+                if (loginView.get() != null)
+                    loginView.get().setRegisterCodeSuccess(code, msg, exist);
+            }else {
+
+            }
+        });
+    }
+
+    @Override
     public void forgetPwd(String zone, String phone) {
         LoginModel.getInstance().forgetPwd(zone, phone, (code, msg, exist) -> {
             loginView.get().hideLoading();
