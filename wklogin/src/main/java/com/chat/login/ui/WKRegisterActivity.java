@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -40,6 +41,7 @@ import com.chat.login.service.LoginContract;
 import com.chat.login.service.LoginPresenter;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 2020-06-19 15:42
@@ -49,7 +51,6 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
     private String code = "0086";
     private LoginPresenter presenter;
     private SoftKeyboardStateHelper softKeyboardStateHelper;
-    private String invite_no;
 
     @Override
     protected ActRegisterLayoutBinding getViewBinding() {
@@ -149,25 +150,50 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
             Intent intent = new Intent(this, ChooseAreaCodeActivity.class);
             intentActivityResultLauncher.launch(intent);
         });
+
+        /**
+         * 注册接口
+         */
         wkVBinding.registerBtn.setOnClickListener(v -> {
 //            if (!wkVBinding.authCheckBox.isChecked()) {
 //                showToast(R.string.agree_auth_tips);
 //                return;
 //            }
-            String phone = wkVBinding.nameEt.getText().toString();
-            String verfiCode = wkVBinding.verfiEt.getText().toString();
-            String pwd = wkVBinding.pwdEt.getText().toString();
-            invite_no = wkVBinding.etInvitecode.getText().toString();
-
-            if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(verfiCode) && !TextUtils.isEmpty(pwd)) {
-                if (pwd.length() < 6 || pwd.length() > 16) {
-                    showSingleBtnDialog(getString(R.string.pwd_length_error));
-                } else {
-                    loadingPopup.show();
-                    presenter.registerApp(verfiCode, code, "", phone, pwd);
+            String phone = Objects.requireNonNull(wkVBinding.nameEt.getText()).toString();
+            String verfiCode = Objects.requireNonNull(wkVBinding.verfiEt.getText()).toString();
+            String pwd = Objects.requireNonNull(wkVBinding.pwdEt.getText()).toString();
+            String invite_no = Objects.requireNonNull(wkVBinding.etInvitecode.getText()).toString();
+            if (TextUtils.isEmpty(invite_no)) {
+                if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(verfiCode) && !TextUtils.isEmpty(pwd)) {
+                    if (pwd.length() < 6 || pwd.length() > 16) {
+                        showSingleBtnDialog(getString(R.string.pwd_length_error));
+                    } else {
+                        loadingPopup.show();
+                        presenter.registerApp(verfiCode, code, "", phone, pwd);
+                    }
+                }
+            } else {
+                if (invite_no.length() < 7) {
+                    Toast.makeText(getContext(), "邀请码为7位数", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(verfiCode) && !TextUtils.isEmpty(pwd)) {
+                    if (pwd.length() < 6 || pwd.length() > 16) {
+                        showSingleBtnDialog(getString(R.string.pwd_length_error));
+                    } else {
+                        loadingPopup.show();
+                        presenter.registerApp2(verfiCode, code, "", phone, pwd, invite_no);
+                    }
                 }
             }
+
+
         });
+
+
+        /**
+         *  获取验证码
+         */
         wkVBinding.getVCodeBtn.setOnClickListener(v -> {
             String phone = wkVBinding.nameEt.getText().toString();
             if (!TextUtils.isEmpty(phone)) {
@@ -175,12 +201,8 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
                     showSingleBtnDialog(getString(R.string.phone_error));
                     return;
                 }
-                if (TextUtils.isEmpty(invite_no)) {
-                    presenter.registerCode(code, phone);
-                } else {
-                    presenter.registerCode2(code, phone, invite_no);
-                }
 
+                presenter.registerCode(code, phone);
             }
         });
 

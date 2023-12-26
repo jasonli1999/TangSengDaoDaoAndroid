@@ -75,24 +75,12 @@ public class LoginPresenter implements LoginContract.LoginPersenter {
             if (code == HttpResponseCode.success) {
                 if (loginView.get() != null)
                     loginView.get().setRegisterCodeSuccess(code, msg, exist);
-            }else {
+            } else {
 
             }
         });
     }
 
-    @Override
-    public void registerCode2(String zone, String phone,String invite_no) {
-        LoginModel.getInstance().registerCode2(zone, phone, invite_no,(code, msg, exist) -> {
-            loginView.get().hideLoading();
-            if (code == HttpResponseCode.success) {
-                if (loginView.get() != null)
-                    loginView.get().setRegisterCodeSuccess(code, msg, exist);
-            }else {
-
-            }
-        });
-    }
 
     @Override
     public void forgetPwd(String zone, String phone) {
@@ -116,6 +104,21 @@ public class LoginPresenter implements LoginContract.LoginPersenter {
             }
         });
     }
+
+    @Override
+    public void registerApp2(String code, String zone, String name, String phone, String password, String invite_no) {
+        LoginModel.getInstance().registerApp2(code, zone, name, phone, password, invite_no, (code1, errorMsg, userInfoEntity) -> {
+            if (code1 == HttpResponseCode.success) {
+                if (loginView.get() != null) loginView.get().loginResult(userInfoEntity);
+            } else {
+                if (loginView.get() != null) {
+                    loginView.get().hideLoading();
+                    loginView.get().showError(errorMsg);
+                }
+            }
+        });
+    }
+
 
     @Override
     public void checkLoginAuth(String uid, String code) {

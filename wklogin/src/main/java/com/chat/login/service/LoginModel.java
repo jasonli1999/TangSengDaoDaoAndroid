@@ -231,6 +231,36 @@ public class LoginModel extends WKBaseModel {
         });
     }
 
+    void registerApp2(String code, String zone, String name, String phone, String password, String invite_no,final ILoginListener iLoginListener) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", code);
+        jsonObject.put("zone", zone);
+        jsonObject.put("name", name);
+        jsonObject.put("phone", phone);
+        jsonObject.put("password", password);
+        JSONObject deviceJson = new JSONObject();
+        deviceJson.put("device_id", WKConstants.getDeviceID());
+        deviceJson.put("device_name", WKDeviceUtils.getInstance().getDeviceName());
+        deviceJson.put("device_model", WKDeviceUtils.getInstance().getSystemModel());
+        jsonObject.put("device", deviceJson);
+        jsonObject.put("invite_no", invite_no);
+
+        request(createService(LoginService.class).register(jsonObject), new IRequestResultListener<UserInfoEntity>() {
+            @Override
+            public void onSuccess(UserInfoEntity userInfo) {
+                if (userInfo != null) {
+                    saveLoginInfo(userInfo);
+                    iLoginListener.onResult(HttpResponseCode.success, "", userInfo);
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                iLoginListener.onResult(code, msg, null);
+            }
+        });
+    }
+
 
     public void uploadAvatar(String filePath, final IUploadBack iUploadBack) {
         String url = WKApiConfig.baseUrl + "users/" + WKConfig.getInstance().getUid() + "/avatar?uuid=" + WKTimeUtils.getInstance().getCurrentMills();

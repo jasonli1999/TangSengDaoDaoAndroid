@@ -25,11 +25,12 @@ public class LoginContract {
         void getCountryCode();
 
         void registerCode(String zone, String phone);
-        void registerCode2(String zone, String phone,String invite_no);
 
         void forgetPwd(String zone, String phone);
 
         void registerApp(String code, String zone, String name, String phone, String password);
+
+        void registerApp2(String code, String zone, String name, String phone, String password,String invite_no);
 
         void checkLoginAuth(String uid, String code);
 
