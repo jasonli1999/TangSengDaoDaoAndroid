@@ -1,9 +1,13 @@
 package com.chat.uikit.user;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -86,6 +90,17 @@ public class MyInfoActivity extends WKBaseActivity<ActMyInfoLayoutBinding> {
                 if (shortNoObject != null) {
                     String shortNo = (String) shortNoObject;
                     wkVBinding.identityTv.setText(shortNo);
+                    wkVBinding.identityTv.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("label", wkVBinding.identityTv.getText().toString());
+                            clipboard.setPrimaryClip(clip);
+                            Toast.makeText(getApplicationContext(), "复制成功", Toast.LENGTH_LONG).show();
+                            return true;
+                        }
+                    });
+
                     wkVBinding.nameTv.setText(entity.name);
                 }
             }
@@ -110,16 +125,18 @@ public class MyInfoActivity extends WKBaseActivity<ActMyInfoLayoutBinding> {
             List<BottomSheetItem> list = new ArrayList<>();
             list.add(new BottomSheetItem(getString(R.string.male), 0, () -> updateSex(1)));
             list.add(new BottomSheetItem(getString(R.string.female), 0, () -> updateSex(0)));
-            WKDialogUtils.getInstance().showBottomSheet(this,getString(R.string.sex),false,list);
+            WKDialogUtils.getInstance().showBottomSheet(this, getString(R.string.sex), false, list);
         });
     }
-    private void updateSex(int value){
+
+    private void updateSex(int value) {
         UserModel.getInstance().updateUserInfo("sex", String.valueOf(value), (code, msg) -> {
             if (code == HttpResponseCode.success)
                 wkVBinding.sexTv.setText(value == 1 ? R.string.male : R.string.female);
             else showToast(msg);
         });
     }
+
     ActivityResultLauncher<Intent> chooseResultLac = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK && result.getData() != null) {
             String resultStr = result.getData().getStringExtra("result");
