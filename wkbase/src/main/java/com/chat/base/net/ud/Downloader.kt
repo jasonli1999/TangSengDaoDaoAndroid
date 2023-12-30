@@ -169,6 +169,7 @@ internal class Downloader private constructor() {
     }
 
     private fun realDownload(mTask: Task) {
+        Log.e("===Request_url+下载链接==", mTask.request.toString())
         mOkHttpClient
             .newCall(mTask.request).apply {
                 mTask.call = this
