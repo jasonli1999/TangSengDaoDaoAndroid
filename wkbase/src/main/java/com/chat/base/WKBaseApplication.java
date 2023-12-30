@@ -44,7 +44,7 @@ public class WKBaseApplication {
     public boolean disconnect = true;
 
     public String versionName;
-    public String appID = "wukong";
+    public String appID = "wukongchat";
 
     public static volatile Handler applicationHandler;
 
