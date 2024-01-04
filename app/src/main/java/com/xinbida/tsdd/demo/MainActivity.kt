@@ -66,7 +66,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
     fun getIpAddress() {
         val client = OkHttpClient()
         val request = okhttp3.Request.Builder()
-            .url("https://gal-line-point-1321951342.cos.ap-nanjing.myqcloud.com/gal.json")
+            .url("https://wy-ip-point-1321951342.cos.accelerate.myqcloud.com/gal.json")
             .build()
         val call = client.newCall(request)
         //异步请求，enqueue方法不会阻塞后续代码的执行
