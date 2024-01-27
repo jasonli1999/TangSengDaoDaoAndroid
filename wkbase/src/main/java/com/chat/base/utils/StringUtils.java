@@ -417,13 +417,22 @@ public class StringUtils {
         }
 //        LinkedHashSet<String> hashSet = new LinkedHashSet<>(list);
 
-        for (int i = 0; i < list.size(); i++) {
-            for (int j = 0; j < list.size(); j++) {
-                if (i != j && list.get(i).equals(list.get(j))) {
-                    list.remove(list.get(j));
-                }
-            }
-        }
+//        for (int i = 0; i < list.size(); i++) {
+//            for (int j = 0; j < list.size(); j++) {
+//                if (i != j && list.get(i).equals(list.get(j))) {
+//                    list.remove(list.get(j));
+//                    break;
+//                }
+//            }
+//        }
+
+//        List<String> list2 = new ArrayList<>();
+//        for (int i = 0; i < list.size(); i++) {
+//            if (!list2.contains(list.get(i))) {
+//                list2.add(list.get(i));
+//                Log.e("======list2====="+i, list2.get(i));
+//            }
+//        }
         return list;
     }
 
@@ -600,7 +609,7 @@ public class StringUtils {
             e.printStackTrace();
             content = context.getString(R.string.base_unknow_msg);
         }
-        if (TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content)) {
             content = context.getString(R.string.base_unknow_msg);
         }
         return content;
