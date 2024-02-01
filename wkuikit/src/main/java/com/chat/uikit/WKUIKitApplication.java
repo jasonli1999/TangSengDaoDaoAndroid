@@ -119,6 +119,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * 2020-03-01 17:32
  * ui kit
@@ -504,6 +506,7 @@ public class WKUIKitApplication {
         EndpointManager.getInstance().invoke("main_show_home_view", from);
         //关闭UI层数据库
         WKBaseApplication.getInstance().closeDbHelper();
+        JPushInterface.stopPush(getContext());
 
     }
 
