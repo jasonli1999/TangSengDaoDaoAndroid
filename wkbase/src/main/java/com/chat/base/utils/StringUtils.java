@@ -426,6 +426,7 @@ public class StringUtils {
 //            }
 //        }
 
+//         等待机会验证去重
 //        List<String> list2 = new ArrayList<>();
 //        for (int i = 0; i < list.size(); i++) {
 //            if (!list2.contains(list.get(i))) {
