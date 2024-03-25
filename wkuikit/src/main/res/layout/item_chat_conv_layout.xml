@@ -67,11 +67,7 @@
                         android:ellipsize="end"
                         android:fontFamily="sans-serif-medium"
                         android:lines="1"
-<<<<<<< HEAD
-                        android:text="多少快乐"
-=======
                         android:text="名字"
->>>>>>> master
                         android:textColor="@color/colorDark"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"

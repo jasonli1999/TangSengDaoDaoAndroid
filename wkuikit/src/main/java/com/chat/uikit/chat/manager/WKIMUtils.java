@@ -41,11 +41,8 @@ import com.chat.base.msgitem.WKUIChatMsgItemEntity;
 import com.chat.base.ui.Theme;
 import com.chat.base.ui.components.AvatarView;
 import com.chat.base.utils.ActManagerUtils;
-<<<<<<< HEAD
-import com.chat.base.utils.StringUtils;
-=======
 import com.chat.base.utils.NotificationCompatUtil;
->>>>>>> master
+import com.chat.base.utils.StringUtils;
 import com.chat.base.utils.WKCommonUtils;
 import com.chat.base.utils.WKDialogUtils;
 import com.chat.base.utils.WKJsoupUtils;

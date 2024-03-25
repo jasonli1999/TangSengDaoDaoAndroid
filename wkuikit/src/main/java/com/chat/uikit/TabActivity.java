@@ -343,23 +343,12 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
             chatIV.setImageResource(R.mipmap.ic_chat_n);
             contactsIV.setImageResource(R.mipmap.ic_contacts_s);
 //            workplaceIV.setImageResource(R.mipmap.ic_contacts_n);
-<<<<<<< HEAD
-        }
-//        else if (index == 2) {
-//            meIV.setImageResource(R.mipmap.ic_mine_n);
-//            chatIV.setImageResource(R.mipmap.ic_chat_n);
-//            contactsIV.setImageResource(R.mipmap.ic_contacts_n);
-////            workplaceIV.setImageResource(R.mipmap.ic_contacts_s);
-//        }
-        else {
-=======
         } else if (index == 2) {
             meIV.setImageResource(R.mipmap.ic_mine_n);
             chatIV.setImageResource(R.mipmap.ic_chat_n);
             contactsIV.setImageResource(R.mipmap.ic_contacts_n);
 //            workplaceIV.setImageResource(R.mipmap.ic_contacts_s);
         } else {
->>>>>>> master
             chatIV.setImageResource(R.mipmap.ic_chat_n);
             contactsIV.setImageResource(R.mipmap.ic_contacts_n);
             meIV.setImageResource(R.mipmap.ic_mine_s);

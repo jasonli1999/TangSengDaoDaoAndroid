@@ -271,8 +271,6 @@
     <string name="delete_messages">删除消息</string>
     <string name="delete_chat">删除聊天</string>
     <string name="clear_history">清除历史记录</string>
-<<<<<<< HEAD
-=======
     <string name="all_staff">全员</string>
     <string name="department">部门</string>
     <string name="community">社区</string>
@@ -285,6 +283,5 @@
     <string name="open_new_msg_notice_desc">在系统通知权限页面的类别分类中，打开‘新消息通知’页面，开启‘允许通知’和‘振动’，‘声音’选项</string>
     <string name="open_new_rtc_notice">打开音视频邀请通知</string>
     <string name="open_new_rtc_notice_desc">在系统通知权限页面的类别分类中，打开‘音视频邀请通知’页面，开启‘允许通知’和‘振动’，‘声音’选项</string>
->>>>>>> master
 </resources>
 

@@ -103,16 +103,12 @@
                 android:layout_gravity="center"
                 android:background="@drawable/msg_go_down">
 
-<<<<<<< HEAD
-=======
                 <com.chat.base.ui.components.RadialProgressView
                     android:id="@+id/progress"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:visibility="gone"
-                    android:layout_gravity="center" />
-
->>>>>>> master
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"

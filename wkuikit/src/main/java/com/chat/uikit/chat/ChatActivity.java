@@ -1014,13 +1014,8 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         WKIM.getInstance().getConnectionManager().addOnConnectionStatusListener(channelId, new IConnectionStatus() {
             @Override
             public void onStatus(int i, String s) {
-<<<<<<< HEAD
-                if (i == WKConnectStatus.syncCompleted) {
-
-=======
                 if (i == WKConnectStatus.syncCompleted && WKUIKitApplication.getInstance().isRefreshChatActivityMessage) {
                     WKUIKitApplication.getInstance().isRefreshChatActivityMessage = false;
->>>>>>> master
                     int firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
                     int endItemPosition = linearLayoutManager.findLastVisibleItemPosition();
 //                    long keepMsgSeq = 0;

@@ -58,12 +58,7 @@
                 android:background="@drawable/reply_line" />
 
             <LinearLayout
-<<<<<<< HEAD
-
-                android:layout_width="wrap_content"
-=======
                 android:layout_width="match_parent"
->>>>>>> master
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="visible">
