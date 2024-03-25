@@ -96,9 +96,19 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
+<<<<<<< HEAD
                         android:visibility="gone"
+=======
+                        android:id="@+id/keepAliveLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+>>>>>>> master
                         android:id="@+id/msgBackupLayout"
-                        style="@style/layoutBg">
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/leftTextView"
@@ -112,7 +122,8 @@
                     <LinearLayout
                         android:visibility="gone"
                         android:id="@+id/msgRecoveryLayout"
-                        style="@style/layoutBg">
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/leftTextView"
@@ -126,7 +137,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/homeColor" />
+                        android:background="@color/homeColor"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/clearChatMsgLayout"

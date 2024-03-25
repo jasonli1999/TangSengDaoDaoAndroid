@@ -12,6 +12,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.FileUtils;
 import android.os.StrictMode;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -19,8 +20,13 @@ import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
 import com.chat.base.WKBaseApplication;
 import com.chat.base.R;
+import com.chat.base.config.WKConstants;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -54,6 +60,7 @@ public class WKFileUtils {
         return FileUtilsBinder.utils;
     }
 
+    private final String DOCUMENTS_DIR = "documents";
     private final File parentPath = Objects.requireNonNull(WKBaseApplication.getInstance().getContext().getExternalFilesDir(null));
     //     Environment.getExternalStorageDirectory();
     private String storagePath = "";
@@ -280,23 +287,55 @@ public class WKFileUtils {
 
                 if ("primary".equalsIgnoreCase(type)) {
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
-
                 }
             }
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
+//                final String id = DocumentsContract.getDocumentId(uri);
+//                if (id.startsWith("raw:")) {
+//                    return id.replaceFirst("raw:", "");
+//                }
+//                if (id.startsWith("msf:")) {
+//                    return id.replaceFirst("msf:", "");
+//                }
+//
+//                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
+//                return getDataColumn(context, contentUri, null, null);
                 final String id = DocumentsContract.getDocumentId(uri);
-                if (id.startsWith("raw:")) {
-                    return id.replaceFirst("raw:", "");
+                if (id != null && id.startsWith("raw:")) {
+                    return id.substring(4);
                 }
-                if (id.startsWith("msf:")) {
-                    return id.replaceFirst("msf:", "");
+                String[] contentUriPrefixesToTry = new String[]{
+                        "content://downloads/public_downloads",
+                        "content://downloads/my_downloads"
+                };
+                for (String contentUriPrefix : contentUriPrefixesToTry) {
+                    try {
+                        // note: id 可能为字符串，如在华为10.0系统上，选择文件后id为："msf:254"，导致转Long异常
+                        Uri contentUri = ContentUris.withAppendedId(Uri.parse(contentUriPrefix), Long.parseLong(id));
+                        String path = getDataColumn(context, contentUri, null, null);
+                        if (!TextUtils.isEmpty(path)) {
+                            return path;
+                        }
+                    } catch (Exception e) {
+
+                    }
                 }
-                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.parseLong(id));
-                return getDataColumn(context, contentUri, null, null);
+
+                String fileName = getFileName(context, uri);
+                File file = generateFileName(fileName);
+                String destinationPath = null;
+                if (file != null) {
+                    destinationPath = file.getAbsolutePath();
+                    saveFileFromUri(context, uri, destinationPath);
+                } else {
+                    Log.e("危机为空", "-->");
+                }
+                return destinationPath;
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
+
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -312,14 +351,13 @@ public class WKFileUtils {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 
                 } else {
+                    Log.e("是否content了", "--->");
                     return uri.getPath();
                 }
 
                 final String selection = "_id=?";
                 final String[] selectionArgs = new String[]{split[1]};
-
                 return getDataColumn(context, contentUri, selection, selectionArgs);
-
             }
 
         }
@@ -330,6 +368,7 @@ public class WKFileUtils {
         }
         // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
+
             return uri.getPath();
 
         }
@@ -337,58 +376,60 @@ public class WKFileUtils {
     }
 
     private String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
-//        Cursor cursor = null;
-//        final String column = "_data";
-//        final String[] projection = {column};
-//        try {
-//            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-//                    null);
-//            if (cursor != null && cursor.moveToFirst()) {
-//                final int column_index = cursor.getColumnIndexOrThrow(column);
-//                return cursor.getString(column_index);
-//            }
-//        } finally {
-//            if (cursor != null)
-//                cursor.close();
-//        }
-//        return null;
-
-        Uri returnUri = uri;
-        Cursor returnCursor = context.getContentResolver().query(returnUri, null, null, null, null);
-        /*
-         * Get the column indexes of the data in the Cursor,
-         *     * move to the first row in the Cursor, get the data,
-         *     * and display it.
-         * */
-        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-        returnCursor.moveToFirst();
-        String name = (returnCursor.getString(nameIndex));
-        String size = (Long.toString(returnCursor.getLong(sizeIndex)));
-        File file = new File(context.getFilesDir(), name);
-        try {
-            InputStream inputStream = context.getContentResolver().openInputStream(uri);
-            FileOutputStream outputStream = new FileOutputStream(file);
-            int read = 0;
-            int maxBufferSize = 1 * 1024 * 1024;
-            int bytesAvailable = inputStream.available();
-
-            //int bufferSize = 1024;
-            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-
-            final byte[] buffers = new byte[bufferSize];
-            while ((read = inputStream.read(buffers)) != -1) {
-                outputStream.write(buffers, 0, read);
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+        try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                String value = cursor.getString(column_index);
+                if (value.startsWith("content://") || !value.startsWith("/") && !value.startsWith("file://")) {
+                    return null;
+                }
+                return value;
             }
-            Log.e("File Size", "Size " + file.length());
-            inputStream.close();
-            outputStream.close();
-            Log.e("File Path", "Path " + file.getPath());
-            Log.e("File Size", "Size " + file.length());
-        } catch (Exception e) {
-            Log.e("Exception", e.getMessage());
+        } catch (Exception ignore) {
+
         }
-        return file.getPath();
+        return null;
+
+//        Uri returnUri = uri;
+//        Cursor returnCursor = context.getContentResolver().query(returnUri, null, null, null, null);
+//        /*
+//         * Get the column indexes of the data in the Cursor,
+//         *     * move to the first row in the Cursor, get the data,
+//         *     * and display it.
+//         * */
+//        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+//        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+//        returnCursor.moveToFirst();
+//        String name = (returnCursor.getString(nameIndex));
+//        String size = (Long.toString(returnCursor.getLong(sizeIndex)));
+//        File file = new File(context.getFilesDir(), name);
+//        try {
+//            InputStream inputStream = context.getContentResolver().openInputStream(uri);
+//            FileOutputStream outputStream = new FileOutputStream(file);
+//            int read = 0;
+//            int maxBufferSize = 1 * 1024 * 1024;
+//            int bytesAvailable = inputStream.available();
+//
+//            //int bufferSize = 1024;
+//            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+//
+//            final byte[] buffers = new byte[bufferSize];
+//            while ((read = inputStream.read(buffers)) != -1) {
+//                outputStream.write(buffers, 0, read);
+//            }
+//            Log.e("File Size", "Size " + file.length());
+//            inputStream.close();
+//            outputStream.close();
+//            Log.e("File Path", "Path " + file.getPath());
+//            Log.e("File Size", "Size " + file.length());
+//        } catch (Exception e) {
+//            Log.e("Exception", e.getMessage());
+//        }
+//        return file.getPath();
     }
 
     /**
@@ -832,6 +873,170 @@ public class WKFileUtils {
             }
         }
         return ret;
+    }
+
+    public String getName(String filename) {
+        if (filename == null) {
+            return null;
+        }
+        int index = filename.lastIndexOf('/');
+        return filename.substring(index + 1);
+    }
+
+    public String getFileName(@NonNull Context context, Uri uri) {
+        String mimeType = context.getContentResolver().getType(uri);
+        String filename = null;
+        if (mimeType == null) {
+            String path = getPath(context, uri);
+            if (path == null) {
+                filename = getName(uri.toString());
+            } else {
+                File file = new File(path);
+                filename = file.getName();
+            }
+        } else {
+            Cursor returnCursor = context.getContentResolver().query(uri, null,
+                    null, null, null);
+            if (returnCursor != null) {
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                returnCursor.moveToFirst();
+                filename = returnCursor.getString(nameIndex);
+                returnCursor.close();
+            }
+        }
+
+        return filename;
+    }
+
+    @Nullable
+    public File generateFileName(@Nullable String name) {
+        if (name == null) {
+            return null;
+        }
+        File file = new File(WKConstants.chatDownloadFileDir, name);
+        if (file.exists()) {
+            String fileName = name;
+            String extension = "";
+            int dotIndex = name.lastIndexOf('.');
+            if (dotIndex > 0) {
+                fileName = name.substring(0, dotIndex);
+                extension = name.substring(dotIndex);
+            }
+            int index = 0;
+            while (file.exists()) {
+                index++;
+                name = fileName + '(' + index + ')' + extension;
+                file = new File(WKConstants.chatDownloadFileDir, name);
+            }
+        }
+        try {
+            if (!file.createNewFile()) {
+                Log.e("返回创建文件", "-->");
+                return null;
+            }
+        } catch (IOException e) {
+            Log.e("报错发暗号", "-->" + e.getLocalizedMessage());
+            return null;
+        }
+        return file;
+    }
+
+    private void saveFileFromUri(Context context, Uri uri, String destinationPath) {
+        InputStream is = null;
+        BufferedOutputStream bos = null;
+        try {
+            is = context.getContentResolver().openInputStream(uri);
+            bos = new BufferedOutputStream(new FileOutputStream(destinationPath, false));
+            byte[] buf = new byte[1024];
+            is.read(buf);
+            do {
+                bos.write(buf);
+            } while (is.read(buf) != -1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) is.close();
+                if (bos != null) bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+
+    @SuppressLint("NewApi")
+    public  String getPath(final Uri uri) {
+        try {
+            final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+            if (isKitKat && DocumentsContract.isDocumentUri(WKBaseApplication.getInstance().application, uri)) {
+                if (isExternalStorageDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+                    if ("primary".equalsIgnoreCase(type)) {
+                        return Environment.getExternalStorageDirectory() + "/" + split[1];
+                    }
+                } else if (isDownloadsDocument(uri)) {
+                    final String id = DocumentsContract.getDocumentId(uri);
+                    final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                    return getDataColumn(WKBaseApplication.getInstance().application, contentUri, null, null);
+                } else if (isMediaDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    Uri contentUri = null;
+                    switch (type) {
+                        case "image":
+                            contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                            break;
+                        case "video":
+                            contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                            break;
+                        case "audio":
+                            contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                            break;
+                    }
+
+                    final String selection = "_id=?";
+                    final String[] selectionArgs = new String[]{
+                            split[1]
+                    };
+
+                    return getDataColumn1(WKBaseApplication.getInstance().application, contentUri, selection, selectionArgs);
+                }
+            } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+                return getDataColumn1(WKBaseApplication.getInstance().application, uri, null, null);
+            } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                return uri.getPath();
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static String getDataColumn1(Context context, Uri uri, String selection, String[] selectionArgs) {
+
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+        try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                String value = cursor.getString(column_index);
+                if (value.startsWith("content://") || !value.startsWith("/") && !value.startsWith("file://")) {
+                    return null;
+                }
+                return value;
+            }
+        } catch (Exception ignore) {
+
+        }
+        return null;
     }
 
 }
