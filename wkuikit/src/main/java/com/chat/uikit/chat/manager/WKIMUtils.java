@@ -810,7 +810,7 @@ public class WKIMUtils {
         //通知内容
         nc.setContentText(showContent);
         //设置通知的小图标
-        nc.setSmallIcon(R.mipmap.ic_logo);
+        nc.setSmallIcon(R.mipmap.logo);
         //设置通知的大图标
         //设定通知显示的时间
         nc.setWhen(System.currentTimeMillis());

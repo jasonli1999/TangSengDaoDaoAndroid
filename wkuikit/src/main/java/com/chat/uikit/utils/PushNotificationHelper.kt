@@ -167,7 +167,7 @@ object PushNotificationHelper {
      * @param builder 构建器
      */
     private fun buildDefaultConfig(builder: NotificationCompat.Builder): Notification {
-        builder.setSmallIcon(R.mipmap.ic_logo)
+        builder.setSmallIcon(R.mipmap.logo)
         return builder.build()
     }
 }
