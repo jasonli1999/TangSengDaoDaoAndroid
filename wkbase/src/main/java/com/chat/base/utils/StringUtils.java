@@ -441,7 +441,9 @@ public class StringUtils {
 
     public static String sizeFormatNum2String(long size) {
         String s;
-        if (size > 1024 * 1024)
+        if (size > 1024 * 1024 * 1024) {
+            s = String.format(Locale.CHINA, "%.2f", (double) size / (pers * 1024)) + "G";
+        } else if (size > 1024 * 1024)
             s = String.format(Locale.CHINA, "%.2f", (double) size / pers) + "M";
         else
             s = String.format(Locale.CHINA, "%.2f", (double) size / (1024)) + "KB";
@@ -593,11 +595,14 @@ public class StringUtils {
             if (list != null && list.length() > 0) {
                 for (int i = 0, size = list.length(); i < size; i++) {
                     JSONObject jsonObject1 = list.optJSONObject(i);
-                    String name = jsonObject1.optString("name");
-                    if (jsonObject1.has("uid")) {
-                        String uid = jsonObject1.optString("uid");
-                        if (!TextUtils.isEmpty(uid) && uid.equals(loginUID)) {
-                            name = "你";
+                    String name = "";
+                    if (jsonObject1 != null) {
+                        name = jsonObject1.optString("name");
+                        if (jsonObject1.has("uid")) {
+                            String uid = jsonObject1.optString("uid");
+                            if (!TextUtils.isEmpty(uid) && uid.equals(loginUID)) {
+                                name = "你";
+                            }
                         }
                     }
                     names.add(name);

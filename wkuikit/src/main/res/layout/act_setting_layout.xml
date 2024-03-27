@@ -96,9 +96,16 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
-                        android:visibility="gone"
+                        android:id="@+id/keepAliveLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+
+                    <LinearLayout
                         android:id="@+id/msgBackupLayout"
-                        style="@style/layoutBg">
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/leftTextView"
@@ -110,9 +117,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/msgRecoveryLayout"
-                        style="@style/layoutBg">
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/leftTextView"
@@ -126,7 +133,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/homeColor" />
+                        android:background="@color/homeColor"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/clearChatMsgLayout"
@@ -170,9 +178,9 @@
 
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/moduleLayout"
-                        style="@style/layoutBg">
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/leftTextView"
@@ -187,9 +195,9 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/thirdShareLayout"
-                        style="@style/layoutBg">
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/leftTextView"
@@ -200,9 +208,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/errorLogLayout"
-                        style="@style/layoutBg">
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/leftTextView"
@@ -218,9 +226,9 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/aboutLayout"
-                        style="@style/layoutBg">
+                        style="@style/layoutBg"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/leftTextView"
