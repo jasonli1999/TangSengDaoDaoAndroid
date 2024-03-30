@@ -28,6 +28,7 @@ import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import java.io.IOException
+import kotlin.random.Random
 
 
 class MainActivity : WKBaseActivity<ActivityMainBinding>() {
@@ -66,7 +67,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
     fun getIpAddress() {
         val client = OkHttpClient()
         val request = okhttp3.Request.Builder()
-            .url("https://wy-ip-point-1321951342.cos.accelerate.myqcloud.com/gal.json")
+            .url("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
             .build()
         val call = client.newCall(request)
         //异步请求，enqueue方法不会阻塞后续代码的执行
@@ -83,7 +84,16 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                         val lineModel: LinesModel = Gson().fromJson("{" + "lines:" + it.string() + "}", LinesModel::class.java
                         )
 
-                        val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(0).address, "8090")
+
+                        // 生成一个0到指定上限之间的随机整数（不包括上限）：
+                        val random = Random.nextInt(lineModel.lines.size)
+                        LogUtil.e("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
+                        LogUtil.e(random.toString())
+
+                        val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
+
+                        LogUtil.e(lineModel.lines.get(random).address)
+
                         EndpointManager.getInstance().invoke("update_base_url", apiMenu)
 
                     }
