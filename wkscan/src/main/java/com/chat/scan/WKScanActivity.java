@@ -22,6 +22,7 @@ import com.chat.base.glide.GlideUtils;
 import com.chat.base.utils.WKPermissions;
 import com.chat.base.utils.systembar.WKStatusBarUtils;
 import com.chat.scan.databinding.ActScanLayoutBinding;
+import com.king.zxing.util.LogUtils;
 
 import java.util.List;
 
@@ -120,6 +121,7 @@ public class WKScanActivity extends WKBaseActivity<ActScanLayoutBinding> impleme
             @Override
             public void showOtherContent(String content) {
                 Intent intent = new Intent(WKScanActivity.this, WKScanOtherResultActivity.class);
+                LogUtils.e("result:"+content);
                 intent.putExtra("result", content);
                 startActivity(intent);
                 finish();
@@ -128,6 +130,7 @@ public class WKScanActivity extends WKBaseActivity<ActScanLayoutBinding> impleme
             @Override
             public void showWebView(String url) {
                 Intent intent = new Intent(WKScanActivity.this, WKWebViewActivity.class);
+                LogUtils.e("url:"+url);
                 intent.putExtra("url", url);
                 startActivity(intent);
                 finish();
