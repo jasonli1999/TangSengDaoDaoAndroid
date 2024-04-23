@@ -83,8 +83,6 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                     response.body?.let {
                         val lineModel: LinesModel = Gson().fromJson("{" + "lines:" + it.string() + "}", LinesModel::class.java
                         )
-
-
                         // 生成一个0到指定上限之间的随机整数（不包括上限）：
                         val random = Random.nextInt(lineModel.lines.size)
                         LogUtil.e("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")

@@ -24,6 +24,7 @@ import com.chat.base.utils.systembar.WKStatusBarUtils;
 import com.chat.scan.databinding.ActScanLayoutBinding;
 import com.king.zxing.util.LogUtils;
 
+
 import java.util.List;
 
 
@@ -130,7 +131,7 @@ public class WKScanActivity extends WKBaseActivity<ActScanLayoutBinding> impleme
             @Override
             public void showWebView(String url) {
                 Intent intent = new Intent(WKScanActivity.this, WKWebViewActivity.class);
-                LogUtils.e("url:"+url);
+                LogUtil.e("url:"+url);
                 intent.putExtra("url", url);
                 startActivity(intent);
                 finish();

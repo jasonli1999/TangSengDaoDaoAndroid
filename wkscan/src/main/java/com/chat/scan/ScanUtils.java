@@ -18,6 +18,7 @@ import com.chat.base.endpoint.entity.ScanResultMenu;
 import com.chat.base.net.IRequestResultListener;
 import com.chat.base.utils.WKToastUtils;
 import com.chat.scan.entity.ScanResult;
+import com.king.zxing.util.LogUtils;
 import com.xinbida.wukongim.WKIM;
 import com.xinbida.wukongim.entity.WKChannelMember;
 import com.xinbida.wukongim.entity.WKChannelType;
@@ -50,6 +51,7 @@ class ScanUtils extends WKBaseModel {
     }
 
     void handleScanResult(AppCompatActivity activity, String result, @NonNull final IHandleScanResult iHandleScanResult) {
+        LogUtil.e("result:   "+result);
         this.iHandleScanResult = iHandleScanResult;
         try {
             if (result.startsWith("HTTP") || result.startsWith("http") || result.startsWith("www") || result.startsWith("WWW")) {
