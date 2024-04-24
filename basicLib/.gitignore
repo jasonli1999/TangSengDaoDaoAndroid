@@ -1,6 +1,6 @@
 *.iml
+*.idea
 .gradle
-.idea
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -10,13 +10,7 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
-/wkbase/build
-/wklogin/build
-/wkscan/build
-/wkpush/build
-/wkuikit/build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
-cashload/
