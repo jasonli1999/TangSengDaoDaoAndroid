@@ -1,0 +1,107 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.idss.cashloans'
+    compileSdk 34
+
+    defaultConfig {
+//        applicationId "com.idss.cashloans"
+        minSdk 23
+        targetSdk 34
+        multiDexEnabled true
+    }
+
+//    signingConfigs {
+//        debug {
+//        }
+//
+//        release {
+//            storeFile file("2023060789.jks")
+//            storePassword "775854"
+//            keyAlias "key0"
+//            keyPassword "775854"
+//        }
+//    }
+
+    defaultConfig {
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+
+
+//    buildTypes {
+//        release {
+//            debuggable false
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//        }
+//        debug {
+//            debuggable false
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.debug
+//        }
+//    }
+//
+//
+//    android.applicationVariants.configureEach { variant ->
+//        variant.outputs.configureEach {
+//            def date = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT+08"))
+//            if (variant.buildType.name.equals('debug')) {
+//                outputFileName = "miyoujin_debug.apk"
+//            }
+//            if (variant.buildType.name.equals('release')) {
+//                outputFileName = "miyoujin-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
+//            }
+//        }
+//    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation(fileTree('libs'))
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.navigation:navigation-fragment:2.7.7'
+    implementation 'androidx.navigation:navigation-ui:2.7.7'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation "io.reactivex.rxjava3:rxjava:3.1.8"
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.2"
+    implementation project(path: ':basicLib')
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //# 阿里云实人认证服务三方依赖库，不能省略
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'com.squareup.okio:okio:3.2.0'
+    implementation 'com.alibaba:fastjson:1.2.83'
+    implementation 'com.aliyun.dpa:oss-android-sdk:2.9.11'
+    implementation 'androidx.activity:activity:1.9.0'
+    // 友盟统计SDK
+    implementation 'com.umeng.umsdk:common:9.4.7'// 必选
+    implementation 'com.umeng.umsdk:asms:1.4.0'// 必选
+    implementation 'com.umeng.umsdk:abtest:1.0.0'//使用U-App中ABTest能力，可选
+    implementation 'com.umeng.umsdk:apm:1.4.2'// U-APM产品包依赖，必选
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.meiqia:androidx:4.0.3'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'com.android.volley:volley:1.2.1'
+
+}
