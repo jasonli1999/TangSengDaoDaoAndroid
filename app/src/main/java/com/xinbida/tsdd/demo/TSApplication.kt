@@ -1,6 +1,7 @@
 package com.xinbida.tsdd.demo
 
 import android.app.ActivityManager
+import android.app.Application
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -26,7 +27,6 @@ import com.chat.base.endpoint.entity.UpdateBaseAPIMenu
 import com.chat.base.net.RetrofitUtils
 import com.chat.base.ui.Theme
 import com.chat.base.utils.ActManagerUtils
-import com.chat.base.utils.WKPlaySound
 import com.chat.base.utils.WKTimeUtils
 import com.chat.base.utils.language.WKMultiLanguageUtil
 import com.chat.customerservice.WKCustomerServiceApplication
@@ -40,12 +40,16 @@ import com.chat.uikit.TabActivity
 import com.chat.uikit.WKUIKitApplication
 import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
-import kotlin.system.exitProcess
 import com.chat.video.WKVideoApplication
-import com.xinbida.rtc.WKRTCApplication
+import com.idss.cashloans.api.BaseApplication
+import java.lang.reflect.Method
+import kotlin.system.exitProcess
+
 
 class TSApplication : MultiDexApplication() {
     private var baseApplication: TSApplication? = null
+    private var cashapplication: BaseApplication? = null
+
     override fun onCreate() {
         super.onCreate()
         baseApplication= this
@@ -77,9 +81,6 @@ class TSApplication : MultiDexApplication() {
         exitProcess(0)
     }
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(WKMultiLanguageUtil.getInstance().attachBaseContext(base))
-    }
 
     private fun initAll() {
 
@@ -240,6 +241,40 @@ class TSApplication : MultiDexApplication() {
             )
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(WKMultiLanguageUtil.getInstance().attachBaseContext(base))
+        cashapplication = getModuleApplicationInstance(this)
+        try {
+            //通过反射调用moduleApplication的attach方法
+            val method: Method? =
+                Application::class.java.getDeclaredMethod("attach", Context::class.java)
+            if (method != null) {
+                method.setAccessible(true)
+                method.invoke(cashapplication, baseContext)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    //映射获取ModuleApplication
+    private fun getModuleApplicationInstance(paramContext: Context): BaseApplication? {
+        try {
+            if (cashapplication == null) {
+                val classLoader = paramContext.classLoader
+                if (classLoader != null) {
+                    val mClass = classLoader.loadClass(BaseApplication::class.java.getName())
+                    if (mClass != null) cashapplication =
+                        mClass.newInstance() as BaseApplication
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return cashapplication
     }
 
 }

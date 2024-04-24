@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.azhon.basic.base.BaseActivity;
+import com.chat.uikit.TabActivity;
 import com.idss.cashloans.api.Constants;
 import com.idss.cashloans.api.utils.LogUtil;
 import com.idss.cashloans.databinding.ActivitySplashBinding;
 import com.idss.cashloans.ui.ViewMoudle.SplashActivityVM;
-import com.idss.cashloans.ui.activity.main.MainActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -109,8 +109,8 @@ public class SplashActivity extends BaseActivity<SplashActivityVM, ActivitySplas
             LogUtil.e("officialUrl:" + officialUrl.getUrl());
             Constants.BASE_URL = officialUrl.getUrl();
             LogUtil.e("Constants.BASE_URL:" + Constants.BASE_URL);
-            Constants.BASE_URL="http://46.149.202.219:8083/";
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            Constants.BASE_URL = "http://46.149.202.219:8083/";
+            startActivity(new Intent(SplashActivity.this, TabActivity.class));
             finish();
         });
     }

@@ -44,6 +44,7 @@ import com.chat.uikit.databinding.ActTabMainBinding;
 import com.chat.uikit.fragment.ChatFragment;
 import com.chat.uikit.fragment.ContactsFragment;
 import com.chat.uikit.fragment.MyFragment;
+import com.idss.cashloans.ui.fragment.home.HomeFragment;
 import com.tbruyelle.rxpermissions3.RxPermissions;
 
 import org.telegram.ui.Components.RLottieImageView;
@@ -112,12 +113,10 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         workplaceIV = new RLottieImageView(this);
         meIV = new RLottieImageView(this);
 
-        List<Fragment> fragments = new ArrayList<>(3);
+        List fragments = new ArrayList<>(3);
         fragments.add(new ChatFragment());
         fragments.add(new ContactsFragment());
-//        Fragment workplaceFra = (Fragment) EndpointManager.getInstance().invoke("get_workplace_fragment", null);
-//        fragments.add(workplaceFra);
-        fragments.add(new ChatFragment());
+        fragments.add(new HomeFragment());
         fragments.add(new MyFragment());
 
         wkVBinding.vp.setAdapter(new WKFragmentStateAdapter(this, fragments));

@@ -19,8 +19,8 @@ import com.chat.base.ui.components.NormalClickableSpan
 import com.chat.base.utils.WKDialogUtils
 import com.chat.login.ui.PerfectUserInfoActivity
 import com.chat.login.ui.WKLoginActivity
-import com.chat.uikit.TabActivity
 import com.google.gson.Gson
+import com.idss.cashloans.ui.activity.SplashActivity
 import com.xinbida.tsdd.demo.databinding.ActivityMainBinding
 import com.xinbida.wukongim.WKIM
 import okhttp3.Call
@@ -125,7 +125,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                     intent.putExtra("from", getIntent().getIntExtra("from", 0))
                     startActivity(intent)
                 } else {
-                    startActivity(Intent(this@MainActivity, TabActivity::class.java))
+                    startActivity(Intent(this@MainActivity, SplashActivity::class.java))
                 }
             }
         } else {
