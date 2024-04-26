@@ -3,6 +3,7 @@ package com.idss.cashloans.api;
 import com.alipay.alipaysecuritysdk.mpaas.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.idss.cashloans.api.utils.LogUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +66,7 @@ public class ApiClient {
                 //设置网络请求的主机地址
                 .baseUrl(Constants.BASE_URL)
                 .build();
-
+        LogUtil.e("=======Constants.BASE_URL======="+Constants.BASE_URL);
         mApiService = retrofit.create(ApiService.class);
     }
 }

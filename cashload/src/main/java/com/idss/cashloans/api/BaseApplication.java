@@ -9,6 +9,7 @@ import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import com.idss.cashloans.api.utils.ActivityManager;
+import com.idss.cashloans.api.utils.LogUtil;
 import com.meiqia.core.callback.OnInitCallback;
 import com.meiqia.meiqiasdk.util.MQConfig;
 import com.umeng.commonsdk.UMConfigure;
@@ -27,10 +28,10 @@ public class BaseApplication extends MultiDexApplication {
         super.onCreate();
         baseApplication = this;
         registerActivityLifecycleCallbacks();
-        initWebView();
+//        initWebView();
         // 主要是添加下面这句代码
         MultiDex.install(this);
-
+        LogUtil.e("==============BaseApplication==========");
         //初始化组件化基础库, 所有友盟业务SDK都必须调用此初始化接口。
         UMConfigure.init(this, "65faef6f8d21b86a18438e5c", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
 

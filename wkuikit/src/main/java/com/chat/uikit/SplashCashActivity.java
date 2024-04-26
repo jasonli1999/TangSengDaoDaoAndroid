@@ -1,20 +1,28 @@
-package com.idss.cashloans.ui.activity;
+package com.chat.uikit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.azhon.basic.base.BaseActivity;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.idss.cashloans.api.Constants;
+import com.idss.cashloans.api.moudle.OfficialUrl;
 import com.idss.cashloans.api.utils.LogUtil;
-import com.idss.cashloans.databinding.ActivitySplashBinding;
-import com.idss.cashloans.ui.ViewMoudle.SplashActivityVM;
-import com.idss.cashloans.ui.activity.main.MainActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +30,8 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class SplashActivity extends BaseActivity<SplashActivityVM, ActivitySplashBinding> {
+public class SplashCashActivity extends AppCompatActivity {
+
     private static final String[] PERMISSIONS_STORAGE = {
             "android.permission.CAMERA",
             "android.permission.WRITE_SETTINGS",
@@ -46,22 +55,24 @@ public class SplashActivity extends BaseActivity<SplashActivityVM, ActivitySplas
             "android.permission.GET_ACCOUNTS"};
     private static final int REQUEST_CODE = 1;
 
+
     @Override
-    protected void onCreate(View view, Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        LogUtil.e("==============SplashCashActivity==========");
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         View stateView = getWindow().getDecorView();
         int vis = stateView.getSystemUiVisibility();
         vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR; //黑色
 //        vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR; //白色
         stateView.setSystemUiVisibility(vis);//设置状态栏字体颜色
-        getWindow().setStatusBarColor(getColor(com.azhon.basic.R.color.white));
+        getWindow().setStatusBarColor(getColor(R.color.white));
+        getOfficialUrl(SplashCashActivity.this);
+        //申请权限
+        ActivityCompat.requestPermissions(SplashCashActivity.this, PERMISSIONS_STORAGE, REQUEST_CODE);
     }
 
-    @Override
-    protected void initView() {
-        //申请权限
-        ActivityCompat.requestPermissions(SplashActivity.this, PERMISSIONS_STORAGE, REQUEST_CODE);
-    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
@@ -90,7 +101,7 @@ public class SplashActivity extends BaseActivity<SplashActivityVM, ActivitySplas
 
                         @Override
                         public void onComplete() {
-                            viewModel.getOfficialUrl(SplashActivity.this);
+                            getOfficialUrl(SplashCashActivity.this);
                         }
                     });
                 } else {
@@ -102,16 +113,29 @@ public class SplashActivity extends BaseActivity<SplashActivityVM, ActivitySplas
         }
     }
 
+    public void getOfficialUrl(Context context) {
 
-    @Override
-    protected void initData() {
-        viewModel.getOfficialUrlMutableLiveData().observe(this, officialUrl -> {
-            LogUtil.e("officialUrl:" + officialUrl.getUrl());
-            Constants.BASE_URL = officialUrl.getUrl();
-            LogUtil.e("Constants.BASE_URL:" + Constants.BASE_URL);
-            Constants.BASE_URL = "http://46.149.202.219:8083/";
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            finish();
+        RequestQueue mQueue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Constants.OFFICAL_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new Gson();
+                        OfficialUrl officialUrl = gson.fromJson(response, OfficialUrl.class);
+
+                        Constants.BASE_URL = officialUrl.getUrl();
+                        LogUtil.e("Constants.BASE_URL:" + Constants.BASE_URL);
+                        Constants.BASE_URL = "http://46.149.202.219:8083/";
+                        startActivity(new Intent(SplashCashActivity.this, TabActivity.class));
+                        finish();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("=======", error.getMessage(), error);
+            }
         });
+        mQueue.add(stringRequest);
+
     }
 }

@@ -53,6 +53,12 @@ class TSApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         baseApplication= this
+
+
+        //同步Module的Application的onCreate
+        cashapplication?.onCreate()
+
+
         //极光初始化
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)

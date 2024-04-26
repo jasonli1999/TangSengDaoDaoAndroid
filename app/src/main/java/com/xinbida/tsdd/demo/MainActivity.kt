@@ -19,8 +19,9 @@ import com.chat.base.ui.components.NormalClickableSpan
 import com.chat.base.utils.WKDialogUtils
 import com.chat.login.ui.PerfectUserInfoActivity
 import com.chat.login.ui.WKLoginActivity
+import com.chat.uikit.SplashCashActivity
+import com.chat.uikit.TabActivity
 import com.google.gson.Gson
-import com.idss.cashloans.ui.activity.SplashActivity
 import com.xinbida.tsdd.demo.databinding.ActivityMainBinding
 import com.xinbida.wukongim.WKIM
 import okhttp3.Call
@@ -111,6 +112,12 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
 
 
     private fun gotoApp() {
+
+//        val intent = Intent(this@MainActivity, SplashCashActivity::class.java)
+//        intent.putExtra("from", getIntent().getIntExtra("from", 0))
+//        startActivity(intent)
+
+
         if (!TextUtils.isEmpty(WKConfig.getInstance().token)) {
             if (TextUtils.isEmpty(WKConfig.getInstance().userInfo.name)) {
                 startActivity(Intent(this@MainActivity, PerfectUserInfoActivity::class.java))
@@ -125,7 +132,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                     intent.putExtra("from", getIntent().getIntExtra("from", 0))
                     startActivity(intent)
                 } else {
-                    startActivity(Intent(this@MainActivity, SplashActivity::class.java))
+                    startActivity(Intent(this@MainActivity, TabActivity::class.java))
                 }
             }
         } else {
