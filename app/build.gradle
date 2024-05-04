@@ -76,10 +76,10 @@ android {
         variant.outputs.configureEach {
             def date = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT+08"))
             if (variant.buildType.name.equals('debug')) {
-                outputFileName = "weiyu_debug.apk"
+                outputFileName = "yueyan_debug.apk"
             }
             if (variant.buildType.name.equals('release')) {
-                outputFileName = "weiyu-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
+                outputFileName = "yueyan-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
             }
         }
     }

@@ -91,7 +91,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                         val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
 
                         LogUtil.e(lineModel.lines.get(random).address)
-                        
+
                         EndpointManager.getInstance().invoke("update_base_url", apiMenu)
 
                     }
