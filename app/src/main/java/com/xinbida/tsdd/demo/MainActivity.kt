@@ -67,7 +67,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
     fun getIpAddress() {
         val client = OkHttpClient()
         val request = okhttp3.Request.Builder()
-            .url("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
+            .url("https://siyyy2454-1321341241.cos.accelerate.myqcloud.com/foryyan.json")
             .build()
         val call = client.newCall(request)
         //异步请求，enqueue方法不会阻塞后续代码的执行
@@ -91,7 +91,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                         val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
 
                         LogUtil.e(lineModel.lines.get(random).address)
-
+                        
                         EndpointManager.getInstance().invoke("update_base_url", apiMenu)
 
                     }
