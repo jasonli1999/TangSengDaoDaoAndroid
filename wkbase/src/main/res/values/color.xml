@@ -3,13 +3,13 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="colorFFC107">#FFC107</color>
-    <color name="red">#F80303</color>
-    <color name="reminderColor">#FF5353</color>
+    <color name="red">#FF1717</color>
+    <color name="reminderColor">#FF1717</color>
     <color name="redDisable">#F7A5A5</color>
     <color name="transparent">#00000000</color>
     <color name="colorF5F5F5">#f5f5f5</color>
-    <color name="colorAccent">#f65835</color>
-    <color name="colorAccentUn">#95F65835</color>
+    <color name="colorAccent">#FF1717</color>
+    <color name="colorAccentUn">#FF1717</color>
     <color name="colorAccentDisabled">#7E7E7E</color>
     <color name="color_text_select_cursor">#95F65835</color>
     <color name="colorSystemBg">#26000000</color>

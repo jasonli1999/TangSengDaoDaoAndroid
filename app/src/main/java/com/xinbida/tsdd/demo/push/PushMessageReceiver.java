@@ -20,7 +20,7 @@ import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageService;
 
 public class PushMessageReceiver extends JPushMessageService {
-    private static final String TAG = "===============jpush===";
+    private static final String TAG = "com.odds.yueyan"+"123push";
 
 
     /**
@@ -88,7 +88,7 @@ public class PushMessageReceiver extends JPushMessageService {
      */
     @Override
     public void onNotifyMessageDismiss(Context context, NotificationMessage notificationMessage) {
-        Log.d(TAG, "onNotifyMessageDismiss notificationMessage=" + notificationMessage);
+        Log.e(TAG, "onNotifyMessageDismiss notificationMessage=" + notificationMessage);
     }
 
     /**
@@ -111,7 +111,7 @@ public class PushMessageReceiver extends JPushMessageService {
      */
     @Override
     public void onConnected(Context context, boolean isConnected) {
-        Log.d(TAG, "onConnected isConnected=" + isConnected);
+        Log.e(TAG, "onConnected isConnected=" + isConnected);
     }
 
     @Override
