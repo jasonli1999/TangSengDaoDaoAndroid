@@ -1,2 +1,2 @@
 configurations.maybeCreate("default")
-artifacts.add("default", file('wkrtc.aar'))
+artifacts.add("default", file('wkrtc_v9.aar'))
