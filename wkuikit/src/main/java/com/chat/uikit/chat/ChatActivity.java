@@ -312,10 +312,13 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         wkVBinding.topLayout.rightView.addView(numberTextView, LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.MATCH_PARENT, Gravity.END, 0, 0, 15, 0));
 
         callIV = new AppCompatImageView(this);
+        //甲方要求隱藏
+        callIV.setVisibility(View.GONE);
         callIV.setImageResource(R.mipmap.ic_call);
         wkVBinding.topLayout.rightView.addView(callIV, LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.MATCH_PARENT, Gravity.END, 0, 0, 15, 0));
         callIV.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(this, R.color.popupTextColor), PorterDuff.Mode.MULTIPLY));
         callIV.setBackground(Theme.createSelectorDrawable(Theme.getPressedColor()));
+
 
         CommonAnim.getInstance().showOrHide(numberTextView, false, false);
 

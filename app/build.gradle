@@ -106,6 +106,8 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar']) //导入所欲jar文件
+    implementation(fileTree('libs'))
     api project(':wkbase')
     implementation project(path: ':wkuikit')
     implementation project(path: ':wklogin')

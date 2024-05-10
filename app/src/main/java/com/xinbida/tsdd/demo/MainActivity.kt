@@ -19,14 +19,20 @@ import com.chat.base.ui.components.NormalClickableSpan
 import com.chat.base.utils.WKDialogUtils
 import com.chat.login.ui.PerfectUserInfoActivity
 import com.chat.login.ui.WKLoginActivity
+import com.chat.push.SharePreferencesUtil
 import com.chat.uikit.TabActivity
+import com.fm.openinstall.OpenInstall
+import com.fm.openinstall.listener.AppWakeUpAdapter
+import com.fm.openinstall.model.AppData
 import com.google.gson.Gson
 import com.xinbida.tsdd.demo.databinding.ActivityMainBinding
+import com.xinbida.tsdd.demo.push.InviteDataModel
 import com.xinbida.wukongim.WKIM
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import org.json.JSONException
 import java.io.IOException
 import kotlin.random.Random
 
@@ -44,6 +50,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
             return
         }
     }
+
     override fun initView() {
         super.initView()
 //        val isShowDialog: Boolean =
@@ -52,12 +59,70 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
 //            showDialog()
 //        } else gotoApp()
 
+
+        // 获取拉起参数
+        OpenInstall.getWakeUp(intent, wakeUpAdapter)
+
+
+        // 获取参数，处理业务
+        OpenInstall.getInstall({ appData, error ->
+            if (error != null && error.shouldRetry()) {
+                // 未获取到数据，可以重试
+                LogUtil.e("OpenInstall2:" + "error")
+            } else {
+                try {
+                    // 获取渠道数据
+                    val channelCode = appData!!.getChannel()
+
+                    // 获取H5落地页传递的数据
+                    val bindData = appData!!.getData()
+                    // 根据获取到的数据处理业务
+                    LogUtil.e("OpenInstall2:$channelCode")
+                    LogUtil.e("OpenInstall2:$bindData")
+                    if (!bindData.isEmpty()) {
+                        val inviteDataModel: InviteDataModel = Gson().fromJson(
+                            bindData,
+                            InviteDataModel::class.java
+                        )
+                        SharePreferencesUtil.addString(
+                            this@MainActivity,
+                            "inviteCode",
+                            inviteDataModel.getInviteCode()
+                        )
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+            }
+        }, 8)
+
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        // 此处要调用，否则App在后台运行时，会无法获取
+        OpenInstall.getWakeUp(intent, wakeUpAdapter)
     }
 
 
     override fun initData() {
         super.initData()
         getIpAddress()
+    }
+
+    var wakeUpAdapter: AppWakeUpAdapter = object : AppWakeUpAdapter() {
+        override fun onWakeUp(appData: AppData) {
+            // 打印数据便于调试
+            LogUtil.e("OpenInstall1getWakeUp : wakeupData = $appData")
+            //  获取渠道编号参数
+            val channelCode = appData.getChannel()
+            // 获取自定义参数
+            val bindData = appData.getData()
+            LogUtil.e("channelCode:$channelCode")
+            LogUtil.e("bindData:$bindData")
+        }
     }
 
 
@@ -81,14 +146,18 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     response.body?.let {
-                        val lineModel: LinesModel = Gson().fromJson("{" + "lines:" + it.string() + "}", LinesModel::class.java
+                        val lineModel: LinesModel = Gson().fromJson(
+                            "{" + "lines:" + it.string() + "}", LinesModel::class.java
                         )
                         // 生成一个0到指定上限之间的随机整数（不包括上限）：
                         val random = Random.nextInt(lineModel.lines.size)
                         LogUtil.e("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
                         LogUtil.e(random.toString())
 
-                        val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
+                        val apiMenu = UpdateBaseAPIMenu(
+                            "http://" + lineModel.lines.get(random).address,
+                            "8090"
+                        )
 
                         LogUtil.e(lineModel.lines.get(random).address)
 
