@@ -16,7 +16,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -313,7 +312,10 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
         callIV = new AppCompatImageView(this);
         //甲方要求隱藏
-        callIV.setVisibility(View.GONE);
+        if (channelType == WKChannelType.GROUP) {
+            callIV.setVisibility(View.GONE);
+        }
+
         callIV.setImageResource(R.mipmap.ic_call);
         wkVBinding.topLayout.rightView.addView(callIV, LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.MATCH_PARENT, Gravity.END, 0, 0, 15, 0));
         callIV.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(this, R.color.popupTextColor), PorterDuff.Mode.MULTIPLY));
@@ -502,7 +504,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 //                }
 
                 if (lastItemPosition < chatAdapter.getItemCount() - 1) {
-                    wkVBinding.chatUnreadLayout.newMsgLayout.post(() -> CommonAnim.getInstance().showOrHide(wkVBinding.chatUnreadLayout.newMsgLayout, dy > 0 || redDot > 0 , true, true));
+                    wkVBinding.chatUnreadLayout.newMsgLayout.post(() -> CommonAnim.getInstance().showOrHide(wkVBinding.chatUnreadLayout.newMsgLayout, dy > 0 || redDot > 0, true, true));
                 } else {
                     wkVBinding.chatUnreadLayout.newMsgLayout.post(() -> CommonAnim.getInstance().showOrHide(wkVBinding.chatUnreadLayout.newMsgLayout, redDot > 0, true, true));
                 }
