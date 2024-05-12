@@ -67,7 +67,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
     fun getIpAddress() {
         val client = OkHttpClient()
         val request = okhttp3.Request.Builder()
-            .url("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
+            .url("https://siyqq1238-1321341241.cos.accelerate.myqcloud.com/foryqq.json")
             .build()
         val call = client.newCall(request)
         //异步请求，enqueue方法不会阻塞后续代码的执行
@@ -85,7 +85,6 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                         )
                         // 生成一个0到指定上限之间的随机整数（不包括上限）：
                         val random = Random.nextInt(lineModel.lines.size)
-                        LogUtil.e("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
                         LogUtil.e(random.toString())
 
                         val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
