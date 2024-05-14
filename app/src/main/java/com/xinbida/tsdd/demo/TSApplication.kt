@@ -47,10 +47,13 @@ class TSApplication : MultiDexApplication() {
     private var baseApplication: TSApplication? = null
     override fun onCreate() {
         super.onCreate()
-        baseApplication= this
+        baseApplication = this
+
+
         //极光初始化
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)
+
 
         val processName = getProcessName(this, Process.myPid())
         if (processName != null) {
@@ -59,6 +62,12 @@ class TSApplication : MultiDexApplication() {
                 initAll()
             }
         }
+
+
+        baseApplication?.let { OpenInstall.preInit(it) }
+        //OpenInstall统计功能
+        OpenInstall.clipBoardEnabled(true) //false为不读取，true为读取
+        OpenInstall.init(this)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -98,10 +107,7 @@ class TSApplication : MultiDexApplication() {
         addAppFrontBack()
         addListener()
 
-        baseApplication?.let { OpenInstall.preInit(it) }
-        //OpenInstall统计功能
-        OpenInstall.clipBoardEnabled(true) //false为不读取，true为读取
-        OpenInstall.init(this)
+
     }
 
     private fun initApi() {
