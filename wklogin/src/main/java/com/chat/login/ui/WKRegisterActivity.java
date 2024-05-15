@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 
+import com.chat.base.SharePreferencesUtil;
 import com.chat.base.base.WKBaseActivity;
 import com.chat.base.config.WKApiConfig;
 import com.chat.base.config.WKConstants;
@@ -68,6 +70,8 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
 
     @Override
     protected void initView() {
+        wkVBinding.etInvitecode.setText(SharePreferencesUtil.getString(getApplicationContext(), "inviteCode", ""));
+
         wkVBinding.getVCodeBtn.getBackground().setTint(Theme.colorAccount);
         wkVBinding.registerBtn.getBackground().setTint(Theme.colorAccount);
         wkVBinding.privacyPolicyTv.setTextColor(Theme.colorAccount);
@@ -162,6 +166,7 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
             String verfiCode = Objects.requireNonNull(wkVBinding.verfiEt.getText()).toString();
             String pwd = Objects.requireNonNull(wkVBinding.pwdEt.getText()).toString();
             String invite_no = Objects.requireNonNull(wkVBinding.etInvitecode.getText()).toString();
+            Log.e("invite_no", invite_no);
             if (TextUtils.isEmpty(invite_no)) {
                 if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(verfiCode) && !TextUtils.isEmpty(pwd)) {
                     if (pwd.length() < 6 || pwd.length() > 16) {
