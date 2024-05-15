@@ -121,6 +121,7 @@ public class MyInfoActivity extends WKBaseActivity<ActMyInfoLayoutBinding> {
 //            }
 //        });
         SingleClickUtil.onSingleClick(wkVBinding.qrLayout, view1 -> startActivity(new Intent(this, UserQrActivity.class)));
+        SingleClickUtil.onSingleClick(wkVBinding.share, view1 -> startActivity(new Intent(this, ShareActivity.class)));
         wkVBinding.sexLayout.setOnClickListener(v -> {
             List<BottomSheetItem> list = new ArrayList<>();
             list.add(new BottomSheetItem(getString(R.string.male), 0, () -> updateSex(1)));

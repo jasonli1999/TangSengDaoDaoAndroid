@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.chat.push.SharePreferencesUtil;
+import com.chat.base.SharePreferencesUtil;
 import com.chat.uikit.TabActivity;
 import com.xinbida.tsdd.demo.MainActivity;
 import com.xinbida.tsdd.demo.NotificationTools;

@@ -19,7 +19,7 @@ import com.chat.base.ui.components.NormalClickableSpan
 import com.chat.base.utils.WKDialogUtils
 import com.chat.login.ui.PerfectUserInfoActivity
 import com.chat.login.ui.WKLoginActivity
-import com.chat.push.SharePreferencesUtil
+import com.chat.base.SharePreferencesUtil
 import com.chat.uikit.TabActivity
 import com.fm.openinstall.OpenInstall
 import com.fm.openinstall.listener.AppWakeUpAdapter
@@ -32,7 +32,6 @@ import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Response
-import org.json.JSONException
 import java.io.IOException
 import kotlin.random.Random
 
@@ -77,18 +76,11 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                     // 获取H5落地页传递的数据
                     val bindData = appData!!.getData()
                     // 根据获取到的数据处理业务
-                    LogUtil.e("OpenInstall2:$channelCode")
-                    LogUtil.e("OpenInstall2:$bindData")
+                    LogUtil.e("OpenInstall2:channelCode: $channelCode")
+                    LogUtil.e("OpenInstall2:_bindData: $bindData")
                     if (!bindData.isEmpty()) {
-                        val inviteDataModel: InviteDataModel = Gson().fromJson(
-                            bindData,
-                            InviteDataModel::class.java
-                        )
-                        SharePreferencesUtil.addString(
-                            this@MainActivity,
-                            "inviteCode",
-                            inviteDataModel.getInviteCode()
-                        )
+                        val inviteDataModel: InviteDataModel = Gson().fromJson(bindData, InviteDataModel::class.java)
+                        SharePreferencesUtil.addString(this@MainActivity, "inviteCode",channelCode)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -100,12 +92,11 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
 
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        // 此处要调用，否则App在后台运行时，会无法获取
-        OpenInstall.getWakeUp(intent, wakeUpAdapter)
-    }
-
+//    override fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//        // 此处要调用，否则App在后台运行时，会无法获取
+//        OpenInstall.getWakeUp(intent, wakeUpAdapter)
+//    }
 
     override fun initData() {
         super.initData()
