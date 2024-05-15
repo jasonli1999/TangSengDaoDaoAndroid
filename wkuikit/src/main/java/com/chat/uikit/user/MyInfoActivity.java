@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import com.chat.base.SharePreferencesUtil;
 import com.chat.base.base.WKBaseActivity;
 import com.chat.base.common.WKCommonModel;
 import com.chat.base.config.WKConfig;
@@ -20,6 +22,7 @@ import com.chat.base.entity.UserInfoEntity;
 import com.chat.base.entity.WKAPPConfig;
 import com.chat.base.net.HttpResponseCode;
 import com.chat.base.utils.WKDialogUtils;
+import com.chat.base.utils.WKLogUtils;
 import com.chat.base.utils.singleclick.SingleClickUtil;
 import com.chat.uikit.R;
 import com.chat.uikit.databinding.ActMyInfoLayoutBinding;
@@ -90,6 +93,8 @@ public class MyInfoActivity extends WKBaseActivity<ActMyInfoLayoutBinding> {
                 if (shortNoObject != null) {
                     String shortNo = (String) shortNoObject;
                     wkVBinding.identityTv.setText(shortNo);
+                    WKLogUtils.e("shortNo:   "+shortNo);
+                    SharePreferencesUtil.addString(getApplicationContext(),"shortNo",shortNo);
                     wkVBinding.identityTv.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {

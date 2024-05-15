@@ -78,9 +78,12 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                     // 根据获取到的数据处理业务
                     LogUtil.e("OpenInstall2:channelCode: $channelCode")
                     LogUtil.e("OpenInstall2:_bindData: $bindData")
+
+                    SharePreferencesUtil.addString(this@MainActivity, "inviteCode",channelCode)
+                    LogUtil.e("OpenInstall2:channelCode: ${SharePreferencesUtil.getString(this@MainActivity,"inviteCode","")}")
                     if (!bindData.isEmpty()) {
                         val inviteDataModel: InviteDataModel = Gson().fromJson(bindData, InviteDataModel::class.java)
-                        SharePreferencesUtil.addString(this@MainActivity, "inviteCode",channelCode)
+
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

@@ -5,9 +5,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application>
-        <activity
-            android:name=".user.ShareActivity"
-            android:exported="false" />
+
         <activity
             android:name=".chat.ChatActivity"
             android:configChanges="locale|orientation|screenSize|keyboardHidden|navigation"
@@ -66,6 +64,9 @@
         <activity android:name=".group.GroupHeaderActivity" />
         <activity android:name=".message.BackupRestoreMessageActivity" />
         <activity android:name=".setting.ErrorLogsActivity" />
+        <activity
+            android:name=".user.ShareActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

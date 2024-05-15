@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,36 +20,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.chat.base.SharePreferencesUtil;
 import com.chat.base.utils.WKLogUtils;
 import com.chat.uikit.R;
+import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class ShareActivity extends AppCompatActivity {
 
-    private TextView tv_share_num, tv_vip_time, tv_share;
+    private TextView tv_share;
     private ClipboardManager mClipboard = null;
     private String shareUrl;
     private String sharTitle = "欢迎下载悦言";
+    private ImageView imageView;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_share);
-        ImageView imageView = findViewById(R.id.iv_img);
+        imageView = findViewById(R.id.iv_img);
         tv_share = findViewById(R.id.tv_share);
-        Bitmap bitmap;
-        try {
-            shareUrl = "https://ql3332.yueyan.me/?channelCode" + SharePreferencesUtil.getString(getApplicationContext(), "inviteCode", "");
-            WKLogUtils.e(shareUrl);
-            bitmap = encodeAsBitmap(shareUrl, 600, 600);
-            imageView.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
-
-        tv_share.setText("复制分享链接");
 
 
         findViewById(R.id.iv_back).setOnClickListener(v -> finish());
@@ -84,6 +85,46 @@ public class ShareActivity extends AppCompatActivity {
 
         });
 
+        getShareUrl();
+
+    }
+
+    private void getShareUrl() {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url("https://sharesyyy515-1321341241.cos.accelerate.myqcloud.com/foryyshare.json").build();
+        //enqueue就是将此次的call请求加入异步请求队列，会开启新的线程执行，并将执行的结果通过Callback接口回调的形式返回。
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败的回调方法
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                ShareUrl shareUrl1json = new Gson().fromJson(response.body().string(), ShareUrl.class);
+                //请求成功的回调方法
+                shareUrl = shareUrl1json.url + SharePreferencesUtil.getString(getApplicationContext(), "shortNo", "");
+                WKLogUtils.e(shareUrl);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bitmap bitmap;
+                        try {
+                            WKLogUtils.e(shareUrl);
+                            bitmap = encodeAsBitmap(shareUrl, 600, 600);
+                            imageView.setImageBitmap(bitmap);
+                        } catch (WriterException e) {
+                            e.printStackTrace();
+                        }
+
+                        tv_share.setText("复制分享链接");
+                    }
+                });
+
+                //关闭body
+                response.body().close();
+            }
+        });
 
     }
 
