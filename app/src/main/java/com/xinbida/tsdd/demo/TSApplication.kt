@@ -48,8 +48,6 @@ class TSApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         baseApplication = this
-
-
         //极光初始化
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)
@@ -90,7 +88,6 @@ class TSApplication : MultiDexApplication() {
     }
 
     private fun initAll() {
-
         WKMultiLanguageUtil.getInstance().init(this)
         WKBaseApplication.getInstance().init(getAppPackageName(), this)
         Theme.applyTheme()
