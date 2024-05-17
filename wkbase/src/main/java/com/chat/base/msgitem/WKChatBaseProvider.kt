@@ -11,8 +11,18 @@ import android.graphics.PorterDuffColorFilter
 import android.graphics.RectF
 import android.text.TextUtils
 import android.util.Log
-import android.view.*
-import android.view.View.*
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.MotionEvent
+import android.view.View
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.MeasureSpec
+import android.view.View.OnTouchListener
+import android.view.View.TRANSLATION_X
+import android.view.View.VISIBLE
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -27,14 +37,35 @@ import com.chat.base.config.WKConstants
 import com.chat.base.endpoint.EndpointCategory
 import com.chat.base.endpoint.EndpointManager
 import com.chat.base.endpoint.EndpointSID
-import com.chat.base.endpoint.entity.*
+import com.chat.base.endpoint.entity.CanReactionMenu
+import com.chat.base.endpoint.entity.ChatChooseContacts
+import com.chat.base.endpoint.entity.ChatItemPopupMenu
+import com.chat.base.endpoint.entity.ChooseChatMenu
+import com.chat.base.endpoint.entity.MsgConfig
+import com.chat.base.endpoint.entity.MsgReactionMenu
+import com.chat.base.endpoint.entity.ReadMsgDetailMenu
+import com.chat.base.endpoint.entity.ShowMsgReactionMenu
+import com.chat.base.endpoint.entity.WithdrawMsgMenu
 import com.chat.base.entity.PopupMenuItem
 import com.chat.base.msg.ChatAdapter
 import com.chat.base.ui.Theme
-import com.chat.base.ui.components.*
+import com.chat.base.ui.components.ActionBarMenuSubItem
+import com.chat.base.ui.components.ActionBarPopupWindow
 import com.chat.base.ui.components.ActionBarPopupWindow.ActionBarPopupWindowLayout
+import com.chat.base.ui.components.AvatarView
+import com.chat.base.ui.components.ChatScrimPopupContainerLayout
+import com.chat.base.ui.components.CheckBox
+import com.chat.base.ui.components.PopupSwipeBackLayout
+import com.chat.base.ui.components.ReactionsContainerLayout
 import com.chat.base.ui.components.ReactionsContainerLayout.ReactionsContainerDelegate
-import com.chat.base.utils.*
+import com.chat.base.ui.components.SecretDeleteTimer
+import com.chat.base.utils.AndroidUtilities
+import com.chat.base.utils.LayoutHelper
+import com.chat.base.utils.StringUtils
+import com.chat.base.utils.WKDialogUtils
+import com.chat.base.utils.WKLogUtils
+import com.chat.base.utils.WKTimeUtils
+import com.chat.base.utils.WKToastUtils
 import com.chat.base.views.ChatItemView
 import com.google.android.material.snackbar.Snackbar
 import com.xinbida.wukongim.WKIM
@@ -46,7 +77,7 @@ import com.xinbida.wukongim.message.type.WKSendMsgResult
 import com.xinbida.wukongim.msgmodel.WKVoiceContent
 import org.telegram.ui.Components.RLottieDrawable
 import org.telegram.ui.Components.RLottieImageView
-import java.util.*
+import java.util.Objects
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -561,8 +592,8 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
         } else {
             fullContentLayoutParams.gravity = Gravity.START
             if (uiChatMsgItemEntity.wkMsg.channelType == WKChannelType.PERSONAL) {
+                fullContentLayoutParams.leftMargin = AndroidUtilities.dp(50f + margin)
                 fullContentLayoutParams.rightMargin = AndroidUtilities.dp(55f)
-                fullContentLayoutParams.leftMargin = AndroidUtilities.dp(margin)
             } else {
                 fullContentLayoutParams.leftMargin = AndroidUtilities.dp(50f + margin)
                 fullContentLayoutParams.rightMargin = AndroidUtilities.dp(55f)
