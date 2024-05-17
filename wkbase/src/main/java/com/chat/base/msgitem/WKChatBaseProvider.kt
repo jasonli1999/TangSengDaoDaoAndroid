@@ -490,8 +490,10 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
         }
         // 控制头像是否显示
         if (uiChatMsgItemEntity.wkMsg.channelType == WKChannelType.PERSONAL) {
+            WKLogUtils.e("WKChannelType.PERSONAL")
             avatarView.visibility = VISIBLE
         } else {
+            WKLogUtils.e("WKChannelType.GROUP")
             if (from == WKChatIteMsgFromType.SEND) {
                 avatarView.visibility = GONE
             } else avatarView.visibility =
