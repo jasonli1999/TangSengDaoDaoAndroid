@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.demo
+package com.xinbida.tsdd.yuqiao
 
 import android.app.ActivityManager
 import android.app.Notification
@@ -41,7 +41,6 @@ import com.chat.uikit.WKUIKitApplication
 import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
 import com.chat.video.WKVideoApplication
-import com.xinbida.tsdd.yuqiao.R
 import kotlin.system.exitProcess
 
 class TSApplication : MultiDexApplication() {

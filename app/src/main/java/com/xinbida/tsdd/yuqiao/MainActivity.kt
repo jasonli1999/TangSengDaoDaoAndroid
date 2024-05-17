@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.demo
+package com.xinbida.tsdd.yuqiao
 
 import android.content.Intent
 import android.os.Bundle
@@ -21,7 +21,7 @@ import com.chat.login.ui.PerfectUserInfoActivity
 import com.chat.login.ui.WKLoginActivity
 import com.chat.uikit.TabActivity
 import com.google.gson.Gson
-import com.xinbida.tsdd.demo.databinding.ActivityMainBinding
+import com.xinbida.tsdd.yuqiao.databinding.ActivityMainBinding
 import com.xinbida.wukongim.WKIM
 import okhttp3.Call
 import okhttp3.Callback
