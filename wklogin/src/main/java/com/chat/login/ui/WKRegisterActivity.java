@@ -144,6 +144,7 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
                 checkStatus();
             }
         });
+
         wkVBinding.loginTv.setOnClickListener(v -> startActivity(new Intent(this, WKLoginActivity.class)));
         wkVBinding.chooseCodeTv.setOnClickListener(v -> {
             Intent intent = new Intent(this, ChooseAreaCodeActivity.class);
