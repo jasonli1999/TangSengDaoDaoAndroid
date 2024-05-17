@@ -16,6 +16,7 @@ import android.os.Process
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
 import cn.jpush.android.api.JPushInterface
+import com.chat.advanced.WKAdvancedApplication
 import com.chat.base.WKBaseApplication
 import com.chat.base.config.WKApiConfig
 import com.chat.base.config.WKConfig
@@ -40,6 +41,7 @@ import com.chat.uikit.WKUIKitApplication
 import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
 import com.chat.video.WKVideoApplication
+import com.xinbida.tsdd.yuqiao.R
 import kotlin.system.exitProcess
 
 class TSApplication : MultiDexApplication() {
@@ -90,6 +92,7 @@ class TSApplication : MultiDexApplication() {
         WKPushApplication.getInstance().init(getAppPackageName(), this)
         WKGroupManageApplication.getInstance().init()
         WKCustomerServiceApplication.instance.init("wukongchat")
+        WKAdvancedApplication.instance.init()
         WKVideoApplication.getInstance().init(this)
         WKRTCApplications.instance.init()
         WKFileApplication.getInstance().init(this)
