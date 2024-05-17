@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.demo.push;
+package com.xinbida.tsdd.yuqiao.push;
 
 
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.util.Log;
 
 import com.chat.base.SharePreferencesUtil;
 import com.chat.uikit.TabActivity;
-import com.xinbida.tsdd.demo.MainActivity;
-import com.xinbida.tsdd.demo.NotificationTools;
+import com.xinbida.tsdd.yuqiao.MainActivity;
+import com.xinbida.tsdd.yuqiao.NotificationTools;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
