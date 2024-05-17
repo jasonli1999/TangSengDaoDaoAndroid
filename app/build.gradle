@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.xinbida.tsdd.demo'
+    namespace 'com.xinbida.tsdd.yuqiao'
     compileSdk rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     aaptOptions.cruncherEnabled = false
