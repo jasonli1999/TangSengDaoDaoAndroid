@@ -66,6 +66,7 @@ import com.chat.base.utils.AndroidUtilities;
 import com.chat.base.utils.LayoutHelper;
 import com.chat.base.utils.UserUtils;
 import com.chat.base.utils.WKDialogUtils;
+import com.chat.base.utils.WKLogUtils;
 import com.chat.base.utils.WKPermissions;
 import com.chat.base.utils.WKPlaySound;
 import com.chat.base.utils.WKReader;
@@ -184,6 +185,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
     @Override
     protected void setTitle(TextView titleTv) {
+
     }
 
     @Override
@@ -272,7 +274,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
     @Override
     protected void initView() {
-
+        WKLogUtils.e("ChatActivity");
         EndpointManager.getInstance().invoke("set_chat_bg", new SetChatBgMenu(channelId, channelType, wkVBinding.imageView, wkVBinding.rootLayout, wkVBinding.blurView));
         wkVBinding.timeTv.setShadowLayer(AndroidUtilities.dp(5f), 0f, 0f, 0);
         CommonAnim.getInstance().showOrHide(wkVBinding.timeTv, false, true);
