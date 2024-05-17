@@ -16,6 +16,7 @@ import android.os.Process
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
 import cn.jpush.android.api.JPushInterface
+import com.chat.advanced.WKAdvancedApplication
 import com.chat.base.WKBaseApplication
 import com.chat.base.config.WKApiConfig
 import com.chat.base.config.WKConfig
@@ -97,6 +98,7 @@ class TSApplication : MultiDexApplication() {
         WKUIKitApplication.getInstance().init(this)
         WKPushApplication.getInstance().init(getAppPackageName(), this)
         WKGroupManageApplication.getInstance().init()
+        WKAdvancedApplication.instance.init()
         WKCustomerServiceApplication.instance.init("wukongchat")
         WKVideoApplication.getInstance().init(this)
         WKRTCApplications.instance.init()
