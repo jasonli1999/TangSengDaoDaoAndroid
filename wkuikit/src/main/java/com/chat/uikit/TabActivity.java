@@ -37,6 +37,7 @@ import com.chat.base.ui.components.CounterView;
 import com.chat.base.utils.ActManagerUtils;
 import com.chat.base.utils.LayoutHelper;
 import com.chat.base.utils.WKDialogUtils;
+import com.chat.base.utils.WKReader;
 import com.chat.base.utils.WKTimeUtils;
 import com.chat.base.utils.language.WKMultiLanguageUtil;
 import com.chat.uikit.contacts.service.FriendModel;
@@ -130,7 +131,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         });
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
-        WKCommonModel.getInstance().getAppConfig();
+        WKCommonModel.getInstance().getAppConfig(null);
         wkVBinding.bottomNavigation.getOrCreateBadge(R.id.i_chat).setVisible(false);
         wkVBinding.bottomNavigation.getOrCreateBadge(R.id.i_my).setVisible(false);
         wkVBinding.bottomNavigation.getOrCreateBadge(R.id.i_chat).setVisible(false);
@@ -300,7 +301,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         int newFriendCount = WKSharedPreferencesUtil.getInstance().getInt(WKConfig.getInstance().getUid() + "_new_friend_count");
         totalCount = totalCount + newFriendCount;
         List<MailListDot> list = EndpointManager.getInstance().invokes(EndpointCategory.wkGetMailListRedDot, null);
-        if (list != null && list.size() > 0) {
+        if (WKReader.isNotEmpty(list)) {
             for (MailListDot MailListDot : list) {
                 if (MailListDot != null) {
                     totalCount += MailListDot.numCount;

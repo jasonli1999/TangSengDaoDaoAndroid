@@ -78,7 +78,7 @@ public class P2PRTCProviderItem extends WKChatBaseProvider {
             }
         }
         contentTv.setText(content);
-        addLongClick(callView, uiChatMsgItemEntity.wkMsg);
+//        addLongClick(callView, uiChatMsgItemEntity.wkMsg);
         callView.setOnClickListener(v -> EndpointManager.getInstance().invoke("wk_p2p_call", new RTCMenu(((ChatAdapter) Objects.requireNonNull(getAdapter())).getConversationContext(), RTCMsgContent.callType)));
     }
 

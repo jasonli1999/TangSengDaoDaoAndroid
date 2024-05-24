@@ -86,7 +86,7 @@ override val itemViewType: Int
 WKMsgItemViewManager.getInstance().addChatItemViewProvider(WKContentType.WK_LOCATION, WKCardProvider())
 ```
 对此自定义消息Item已经完成，在收到此类型的消息时就会展示到聊天列表中了
-
+详细实现步骤可以查看代码`wkuikit`模块中`provider`包中的`WKImageProvider`文件
 ## 效果图
 
 |对方正在输入|语音消息|合并转发|
