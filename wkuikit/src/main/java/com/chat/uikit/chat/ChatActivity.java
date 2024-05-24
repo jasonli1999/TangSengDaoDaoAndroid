@@ -1376,13 +1376,10 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
             @Override
             public void onResult(List<WKMsg> list) {
-<<<<<<< HEAD
-=======
                 if (isShowPinnedView) {
                     EndpointManager.getInstance().invoke("is_syncing_message", 0);
                 }
                 isSyncLastMsg = false;
->>>>>>> master
                 showData(list, pullMode, isSetNewData, isScrollToEnd);
                 if (WKReader.isNotEmpty(chatAdapter.getData())) {
                     for (int i = 0, size = chatAdapter.getData().size(); i < size; i++) {
@@ -1438,12 +1435,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         if (WKReader.isNotEmpty(msgList)) {
             long pre_msg_time = chatAdapter.getLastTimeMsg();
             for (int i = 0, size = msgList.size(); i < size; i++) {
-<<<<<<< HEAD
-                if (!WKTimeUtils.getInstance().isSameDay(msgList.get(i).timestamp, pre_msg_time) && msgList.get(i).type != WKContentType.emptyView) {
-=======
-
                 if (!WKTimeUtils.getInstance().isSameDay(msgList.get(i).timestamp, pre_msg_time) && msgList.get(i).type != WKContentType.emptyView && msgList.get(i).type != WKContentType.spanEmptyView) {
->>>>>>> master
                     //显示聊天时间
                     WKUIChatMsgItemEntity uiChatMsgEntity = new WKUIChatMsgItemEntity(this, new WKMsg(), null);
                     uiChatMsgEntity.wkMsg.type = WKContentType.msgPromptTime;

@@ -198,13 +198,8 @@ public class WKIMUtils {
             String channelID = "";
             byte channelType = WKChannelType.PERSONAL;
             WKMsg sensitiveWordsMsg = null;
-<<<<<<< HEAD
-            if (msgList != null && msgList.size() > 0) {
-                String loginUID = WKConfig.getInstance().getUid();
-=======
             String loginUID = WKConfig.getInstance().getUid();
             if (WKReader.isNotEmpty(msgList)) {
->>>>>>> master
                 channelID = msgList.get(msgList.size() - 1).channelID;
                 channelType = msgList.get(msgList.size() - 1).channelType;
                 for (int i = 0, size = msgList.size(); i < size; i++) {
