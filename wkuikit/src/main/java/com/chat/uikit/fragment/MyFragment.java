@@ -2,9 +2,6 @@ package com.chat.uikit.fragment;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.TextView;
-
 import com.chat.base.base.WKBaseFragment;
 import com.chat.base.common.WKCommonModel;
 import com.chat.base.config.WKConfig;
@@ -12,6 +9,7 @@ import com.chat.base.endpoint.EndpointCategory;
 import com.chat.base.endpoint.EndpointManager;
 import com.chat.base.endpoint.entity.PersonalInfoMenu;
 import com.chat.base.ui.Theme;
+import com.chat.base.utils.WKLogUtils;
 import com.chat.base.utils.singleclick.SingleClickUtil;
 import com.chat.uikit.R;
 import com.chat.uikit.databinding.FragMyLayoutBinding;
@@ -65,18 +63,9 @@ public class MyFragment extends WKBaseFragment<FragMyLayoutBinding> {
     }
 
     void gotoMyInfo() {
+//        String str = WKDeviceUtils.getSignature(getActivity());
+//        Log.e("签名",str+"");
         startActivity(new Intent(getActivity(), MyInfoActivity.class));
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-
-    @Override
-    protected void setTitle(TextView titleTv) {
-
     }
 
     @Override
@@ -107,7 +96,7 @@ public class MyFragment extends WKBaseFragment<FragMyLayoutBinding> {
                     }
                 });
             } catch (Exception e) {
-                e.printStackTrace();
+                WKLogUtils.w("检查新版本错误");
             }
         }
     }
