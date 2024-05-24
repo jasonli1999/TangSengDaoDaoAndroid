@@ -577,7 +577,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                 isSyncLastMsg = true;
                 // chatAdapter.setList(new ArrayList<>());
                 wkVBinding.chatUnreadLayout.progress.setVisibility(View.VISIBLE);
-//                wkVBinding.chatUnreadLayout.msgDownIv.setVisibility(View.GONE);
+                wkVBinding.chatUnreadLayout.msgDownIv.setVisibility(View.GONE);
                 unreadStartMsgOrderSeq = 0;
                 lastPreviewMsgOrderSeq = 0;
                 new Handler().postDelayed(() -> {
@@ -1402,7 +1402,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                 isSyncLastMsg = false;
                 showData(list, pullMode, isSetNewData, isScrollToEnd);
                 wkVBinding.chatUnreadLayout.progress.setVisibility(View.GONE);
-//                wkVBinding.chatUnreadLayout.msgDownIv.setVisibility(View.VISIBLE);
+                wkVBinding.chatUnreadLayout.msgDownIv.setVisibility(View.VISIBLE);
 
                 if (WKReader.isNotEmpty(chatAdapter.getData())) {
                     for (int i = 0, size = chatAdapter.getData().size(); i < size; i++) {
