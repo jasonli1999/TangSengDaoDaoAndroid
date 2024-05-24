@@ -108,16 +108,25 @@ public class WKCommonModel extends WKBaseModel {
         void onNewVersion(AppVersion version);
     }
 
-    public void getAppConfig() {
-        request(createService(WKCommonService.class).getAppConfig(), new IRequestResultListener<WKAPPConfig>() {
+    public interface IAppConfig {
+        void onResult(int code, String msg, WKAPPConfig wkappConfig);
+    }
+
+    public void getAppConfig(IAppConfig iAppConfig) {
+        request(createService(WKCommonService.class).getAppConfig(), new IRequestResultListener<>() {
             @Override
             public void onSuccess(WKAPPConfig result) {
                 WKConfig.getInstance().saveAppConfig(result);
+                if (iAppConfig != null) {
+                    iAppConfig.onResult(HttpResponseCode.success, "", result);
+                }
             }
 
             @Override
             public void onFail(int code, String msg) {
-
+                if (iAppConfig != null) {
+                    iAppConfig.onResult(code, msg, null);
+                }
             }
         });
     }

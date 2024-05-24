@@ -109,10 +109,13 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:visibility="gone" />
+
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/msgDownIv"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
+                    android:tint="@color/popupTextColor"
                     android:src="@mipmap/icon_msg_down" />
             </FrameLayout>
         </FrameLayout>

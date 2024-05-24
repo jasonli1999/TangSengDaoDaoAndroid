@@ -33,6 +33,7 @@ import com.chat.customerservice.WKCustomerServiceApplication
 import com.chat.file.WKFileApplication
 import com.chat.groupmanage.WKGroupManageApplication
 import com.chat.login.WKLoginApplication
+import com.chat.pinned.message.WKPinnedMessageApplication
 import com.chat.push.WKPushApplication
 import com.chat.rtc.WKRTCApplications
 import com.chat.scan.WKScanApplication
@@ -95,6 +96,7 @@ class TSApplication : MultiDexApplication() {
         WKVideoApplication.getInstance().init(this)
         WKRTCApplications.instance.init()
         WKFileApplication.getInstance().init(this)
+        WKPinnedMessageApplication.init()
         addAppFrontBack()
         addListener()
     }
