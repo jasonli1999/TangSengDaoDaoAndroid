@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.yuqiao
+package com.xinbida.tsdd.yueyan
 
 import android.content.Intent
 import android.os.Bundle
@@ -25,8 +25,8 @@ import com.fm.openinstall.OpenInstall
 import com.fm.openinstall.listener.AppWakeUpAdapter
 import com.fm.openinstall.model.AppData
 import com.google.gson.Gson
-import com.xinbida.tsdd.yuqiao.databinding.ActivityMainBinding
-import com.xinbida.tsdd.yuqiao.push.InviteDataModel
+import com.xinbida.tsdd.yueyan.databinding.ActivityMainBinding
+import com.xinbida.tsdd.yueyan.push.InviteDataModel
 import com.xinbida.wukongim.WKIM
 import okhttp3.Call
 import okhttp3.Callback

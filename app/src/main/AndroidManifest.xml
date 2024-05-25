@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.xinbida.tsdd.yuqiao">
+    package="com.xinbida.tsdd.yueyan">
 
     <queries>
         <package android:name="com.tencent.mm" />
@@ -105,7 +105,7 @@
     </queries>
 
     <application
-        android:name="com.xinbida.tsdd.yuqiao.TSApplication"
+        android:name="com.xinbida.tsdd.yueyan.TSApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/logo"
@@ -120,7 +120,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.xinbida.tsdd.yuqiao.MainActivity"
+            android:name="com.xinbida.tsdd.yueyan.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -141,7 +141,7 @@
         </activity>
 
         <service
-            android:name="com.xinbida.tsdd.yuqiao.push.JMessageService"
+            android:name="com.xinbida.tsdd.yueyan.push.JMessageService"
             android:enabled="true"
             android:exported="false"
             android:process=":pushcore">
@@ -151,7 +151,7 @@
         </service>
 
         <service
-            android:name="com.xinbida.tsdd.yuqiao.push.PushMessageReceiver"
+            android:name="com.xinbida.tsdd.yueyan.push.PushMessageReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

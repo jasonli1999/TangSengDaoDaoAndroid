@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.yuqiao.push;
+package com.xinbida.tsdd.yueyan.push;
 
 import com.google.gson.annotations.SerializedName;
 
