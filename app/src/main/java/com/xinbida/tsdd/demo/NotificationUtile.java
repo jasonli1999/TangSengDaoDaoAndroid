@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.yuqiao;
+package com.xinbida.tsdd.demo;
 
 import android.app.AlertDialog;
 import android.app.AppOpsManager;
@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

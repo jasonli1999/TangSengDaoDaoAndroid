@@ -90,7 +90,8 @@ public class WKUIChatMsgItemEntity {
     }
 
     public void formatSpans(IConversationContext conversationContext, WKMsg wkMsg) {
-        if (wkMsg.type != WKContentType.WK_TEXT || wkMsg.baseContentMsgModel == null) {
+        if (wkMsg.type != WKContentType.WK_TEXT
+                || wkMsg.baseContentMsgModel == null) {
             return;
         }
 

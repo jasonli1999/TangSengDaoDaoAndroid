@@ -9,7 +9,6 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.chat.base.SharePreferencesUtil;
 import com.chat.base.WKBaseApplication;
 import com.chat.base.config.WKConstants;
 import com.chat.base.endpoint.EndpointCategory;

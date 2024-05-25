@@ -66,7 +66,6 @@ import com.chat.base.utils.AndroidUtilities
 import com.chat.base.utils.LayoutHelper
 import com.chat.base.utils.StringUtils
 import com.chat.base.utils.WKDialogUtils
-import com.chat.base.utils.WKLogUtils
 import com.chat.base.utils.WKTimeUtils
 import com.chat.base.utils.WKToastUtils
 import com.chat.base.views.ChatItemView
@@ -597,10 +596,8 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
         }
         // 控制头像是否显示
         if (uiChatMsgItemEntity.wkMsg.channelType == WKChannelType.PERSONAL) {
-            WKLogUtils.e("WKChannelType.PERSONAL")
-            avatarView.visibility = VISIBLE
+            avatarView.visibility = GONE
         } else {
-            WKLogUtils.e("WKChannelType.GROUP")
             if (from == WKChatIteMsgFromType.SEND) {
                 avatarView.visibility = GONE
             } else avatarView.visibility =

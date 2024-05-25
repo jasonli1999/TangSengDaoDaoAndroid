@@ -1,6 +1,7 @@
 package com.chat.base.common;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -46,7 +47,6 @@ public class WKCommonModel extends WKBaseModel {
 
     private WKCommonModel() {
     }
-
 
     private static class CommonModelBinder {
         final static WKCommonModel model = new WKCommonModel();
@@ -112,11 +112,6 @@ public class WKCommonModel extends WKBaseModel {
         void onResult(int code, String msg, WKAPPConfig wkappConfig);
     }
 
-    public interface SharePeopleNumInterface {
-        void onResult(int code, String msg, SharePeopleNumModel sharePeopleNumModel);
-    }
-
-
     public void getAppConfig(IAppConfig iAppConfig) {
         request(createService(WKCommonService.class).getAppConfig(), new IRequestResultListener<>() {
             @Override
@@ -135,23 +130,6 @@ public class WKCommonModel extends WKBaseModel {
             }
         });
     }
-
-
-    public void getPersonNum(SharePeopleNumInterface sharePeopleNumInterface) {
-        request(createService(WKCommonService.class).getSharepersonNum(WKConfig.getInstance().getUid()), new IRequestResultListener<>() {
-            @Override
-            public void onSuccess(SharePeopleNumModel result) {
-                sharePeopleNumInterface.onResult(HttpResponseCode.success, "", result);
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                sharePeopleNumInterface.onResult(code, msg, null);
-            }
-        });
-    }
-
-
 
     public void getChannelState(String channelID, byte channelType, final IChannelState iChannelState) {
         request(createService(WKCommonService.class).getChannelState(channelID, channelType), new IRequestResultListener<WKChannelState>() {

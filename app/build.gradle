@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.xinbida.tsdd.yuqiao'
+    namespace 'com.xinbida.tsdd.demo'
     compileSdk rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     aaptOptions.cruncherEnabled = false
@@ -13,7 +13,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.odds.yueyan"
+        applicationId "com.xinbida.tsdd.weiyu12"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 11
@@ -34,7 +34,7 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "c32f1523e2379436fa073530", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_APPKEY : "5564e30aeccdccde6c39295e", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
@@ -76,10 +76,10 @@ android {
         variant.outputs.configureEach {
             def date = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT+08"))
             if (variant.buildType.name.equals('debug')) {
-                outputFileName = "yueyan_debug.apk"
+                outputFileName = "weiyu_debug.apk"
             }
             if (variant.buildType.name.equals('release')) {
-                outputFileName = "yueyan-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
+                outputFileName = "weiyu-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
             }
         }
     }
@@ -106,8 +106,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar']) //导入所欲jar文件
-    implementation(fileTree('libs'))
     api project(':wkbase')
     implementation project(path: ':wkuikit')
     implementation project(path: ':wklogin')

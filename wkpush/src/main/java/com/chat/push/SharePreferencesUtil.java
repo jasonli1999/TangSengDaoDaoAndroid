@@ -1,4 +1,4 @@
-package com.chat.base;
+package com.chat.push;
 
 import android.content.Context;
 import android.content.SharedPreferences;
