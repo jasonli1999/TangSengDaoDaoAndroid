@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.demo
+package com.xinbida.tsdd.yuqiao
 
 import android.app.ActivityManager
 import android.app.Notification
@@ -16,6 +16,7 @@ import android.os.Process
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
 import cn.jpush.android.api.JPushInterface
+import com.chat.advanced.WKAdvancedApplication
 import com.chat.base.WKBaseApplication
 import com.chat.base.config.WKApiConfig
 import com.chat.base.config.WKConfig
@@ -41,6 +42,7 @@ import com.chat.uikit.WKUIKitApplication
 import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
 import com.chat.video.WKVideoApplication
+import com.fm.openinstall.OpenInstall
 import kotlin.system.exitProcess
 
 class TSApplication : MultiDexApplication() {
@@ -52,6 +54,7 @@ class TSApplication : MultiDexApplication() {
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)
 
+
         val processName = getProcessName(this, Process.myPid())
         if (processName != null) {
             val defaultProcess = processName == getAppPackageName()
@@ -59,6 +62,12 @@ class TSApplication : MultiDexApplication() {
                 initAll()
             }
         }
+
+
+        baseApplication?.let { OpenInstall.preInit(it) }
+        //OpenInstall统计功能
+        OpenInstall.clipBoardEnabled(true) //false为不读取，true为读取
+        OpenInstall.init(this)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -90,6 +99,7 @@ class TSApplication : MultiDexApplication() {
         WKUIKitApplication.getInstance().init(this)
         WKPushApplication.getInstance().init(getAppPackageName(), this)
         WKGroupManageApplication.getInstance().init()
+        WKAdvancedApplication.instance.init()
         WKCustomerServiceApplication.instance.init("wukongchat")
         WKVideoApplication.getInstance().init(this)
         WKRTCApplications.instance.init()
@@ -97,6 +107,8 @@ class TSApplication : MultiDexApplication() {
         WKPinnedMessageApplication.init()
         addAppFrontBack()
         addListener()
+
+
     }
 
     private fun initApi() {
@@ -110,7 +122,7 @@ class TSApplication : MultiDexApplication() {
     }
 
     private fun getAppPackageName(): String {
-        return "com.xinbida.tsdd.weiyu12"
+        return "com.odds.yueyan"
     }
 
     private fun getProcessName(cxt: Context, pid: Int): String? {

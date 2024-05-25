@@ -63,7 +63,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="50dp"
                         android:layout_marginEnd="30dp"
-                        android:src="@mipmap/msg_qrcode"
+                        android:src="@mipmap/ic_ab_more"
                         android:tint="@color/popupTextColor" />
 
                 </RelativeLayout>

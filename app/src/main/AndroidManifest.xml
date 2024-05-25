@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.xinbida.tsdd.demo">
+    package="com.xinbida.tsdd.yuqiao">
 
     <queries>
         <package android:name="com.tencent.mm" />
@@ -69,9 +69,11 @@
         android:name="android.hardware.telephony"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.READ_LOGS"
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
-    <permission android:name="android.permission.WRITE_SETTINGS"
+    <permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ReservedSystemPermission" />
     <!--华为推送权限-->
     <!--HMS-SDK引导升级HMS功能，保存下载的升级包需要SD卡写权限 | HMS-SDK upgrade HMS Feature, save downloaded upgrade pack requires SD card Write permission-->
@@ -103,7 +105,7 @@
     </queries>
 
     <application
-        android:name=".TSApplication"
+        android:name="com.xinbida.tsdd.yuqiao.TSApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/logo"
@@ -118,18 +120,28 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.xinbida.tsdd.yuqiao.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="j3ysxi" />
+            </intent-filter>
         </activity>
+
         <service
-            android:name=".push.JMessageService"
+            android:name="com.xinbida.tsdd.yuqiao.push.JMessageService"
             android:enabled="true"
             android:exported="false"
             android:process=":pushcore">
@@ -139,9 +151,9 @@
         </service>
 
         <service
-            android:name=".push.PushMessageReceiver"
+            android:name="com.xinbida.tsdd.yuqiao.push.PushMessageReceiver"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.SERVICE_MESSAGE" />
                 <category android:name="${applicationId}" />
@@ -157,6 +169,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <meta-data
+            android:name="com.openinstall.APP_KEY"
+            android:value="j3ysxi" />
+
     </application>
 
 </manifest>

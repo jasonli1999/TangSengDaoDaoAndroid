@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.demo.push;
+package com.xinbida.tsdd.yuqiao.push;
 
 
 import android.content.Context;
@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.chat.push.SharePreferencesUtil;
+import com.chat.base.SharePreferencesUtil;
 import com.chat.uikit.TabActivity;
-import com.xinbida.tsdd.demo.MainActivity;
-import com.xinbida.tsdd.demo.NotificationTools;
+import com.xinbida.tsdd.yuqiao.MainActivity;
+import com.xinbida.tsdd.yuqiao.NotificationTools;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -20,7 +20,7 @@ import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageService;
 
 public class PushMessageReceiver extends JPushMessageService {
-    private static final String TAG = "===============jpush===";
+    private static final String TAG = "com.odds.yueyan"+"123push";
 
 
     /**
@@ -88,7 +88,7 @@ public class PushMessageReceiver extends JPushMessageService {
      */
     @Override
     public void onNotifyMessageDismiss(Context context, NotificationMessage notificationMessage) {
-        Log.d(TAG, "onNotifyMessageDismiss notificationMessage=" + notificationMessage);
+        Log.e(TAG, "onNotifyMessageDismiss notificationMessage=" + notificationMessage);
     }
 
     /**
@@ -111,7 +111,7 @@ public class PushMessageReceiver extends JPushMessageService {
      */
     @Override
     public void onConnected(Context context, boolean isConnected) {
-        Log.d(TAG, "onConnected isConnected=" + isConnected);
+        Log.e(TAG, "onConnected isConnected=" + isConnected);
     }
 
     @Override

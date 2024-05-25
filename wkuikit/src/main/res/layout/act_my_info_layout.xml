@@ -127,6 +127,28 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
+                        android:id="@+id/share"
+                        style="@style/layoutBg">
+
+                        <TextView
+                            style="@style/leftTextView"
+                            android:layout_weight="1"
+                            android:text="@string/my_share" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/color999"
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/msg_qrcode" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:background="@color/homeColor" />
+
+                    <LinearLayout
                         android:id="@+id/sexLayout"
                         style="@style/layoutBg">
 
