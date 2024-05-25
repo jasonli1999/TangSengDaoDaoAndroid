@@ -1,16 +1,24 @@
 package com.chat.uikit.user;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.chat.base.SharePreferencesUtil;
 import com.chat.base.base.WKBaseActivity;
+import com.chat.base.common.WKCommonModel;
 import com.chat.base.config.WKConfig;
 import com.chat.base.endpoint.EndpointManager;
 import com.chat.base.entity.PopupMenuItem;
 import com.chat.base.net.HttpResponseCode;
 import com.chat.base.utils.ImageUtils;
 import com.chat.base.utils.WKDialogUtils;
+import com.chat.base.utils.WKLogUtils;
 import com.chat.uikit.R;
 import com.chat.uikit.databinding.ActUserQrLayoutBinding;
 import com.chat.uikit.user.service.UserModel;
@@ -66,7 +74,21 @@ public class UserQrActivity extends WKBaseActivity<ActUserQrLayoutBinding> {
                 wkVBinding.qrIv.setImageBitmap(mBitmap);
             } else showToast(msg);
         });
+
+
+        WKCommonModel.getInstance().getPersonNum((code, msg, SharePeopleNumModel) -> {
+            if (code == HttpResponseCode.success) {
+                wkVBinding.shareNumbers.setText("下级人数:  "+SharePeopleNumModel.totalUnderCount);
+            } else showToast(msg);
+
+        });
+
+
+
+
     }
+
+
 
     @Override
     protected void initListener() {

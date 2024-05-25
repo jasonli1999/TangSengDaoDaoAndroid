@@ -31,4 +31,7 @@ interface WKCommonService {
 
     @GET("common/appmodule")
     Observable<List<AppModule>> getAppModule();
+
+    @GET("user/relationship/{uid}")
+    Observable<SharePeopleNumModel> getSharepersonNum(@Path("uid") String uid);
 }
