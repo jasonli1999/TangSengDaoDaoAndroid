@@ -7,6 +7,7 @@ import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.chat.base.SharePreferencesUtil
 import com.chat.base.WKBaseApplication
 import com.chat.base.base.WKBaseActivity
 import com.chat.base.config.WKApiConfig
@@ -51,7 +52,38 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
 //        if (isShowDialog) {
 //            showDialog()
 //        } else gotoApp()
+        // 获取拉起参数
+        OpenInstall.getWakeUp(intent, wakeUpAdapter)
 
+
+        // 获取参数，处理业务
+        OpenInstall.getInstall({ appData, error ->
+            if (error != null && error.shouldRetry()) {
+                // 未获取到数据，可以重试
+                LogUtil.e("OpenInstall2:" + "error")
+            } else {
+                try {
+                    // 获取渠道数据
+                    val channelCode = appData!!.getChannel()
+
+                    // 获取H5落地页传递的数据
+                    val bindData = appData!!.getData()
+                    // 根据获取到的数据处理业务
+                    LogUtil.e("OpenInstall2:channelCode: $channelCode")
+                    LogUtil.e("OpenInstall2:_bindData: $bindData")
+
+                    SharePreferencesUtil.addString(this@MainActivity, "inviteCode",channelCode)
+                    LogUtil.e("OpenInstall2:channelCode: ${SharePreferencesUtil.getString(this@MainActivity,"inviteCode","")}")
+                    if (!bindData.isEmpty()) {
+                        val inviteDataModel: InviteDataModel = Gson().fromJson(bindData, InviteDataModel::class.java)
+
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+            }
+        }, 8)
     }
 
 
