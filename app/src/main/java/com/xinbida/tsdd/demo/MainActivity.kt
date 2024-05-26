@@ -21,8 +21,10 @@ import com.chat.base.utils.WKDialogUtils
 import com.chat.login.ui.PerfectUserInfoActivity
 import com.chat.login.ui.WKLoginActivity
 import com.chat.uikit.TabActivity
+import com.fm.openinstall.OpenInstall
 import com.google.gson.Gson
 import com.xinbida.tsdd.demo.databinding.ActivityMainBinding
+import com.xinbida.tsdd.demo.push.InviteDataModel
 import com.xinbida.wukongim.WKIM
 import okhttp3.Call
 import okhttp3.Callback
