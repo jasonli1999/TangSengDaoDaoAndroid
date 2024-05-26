@@ -82,6 +82,7 @@
     <string name="name">名字</string>
     <string name="identity">微语号与邀请码</string>
     <string name="my_qr">我的二维码</string>
+    <string name="my_share">我的分享</string>
     <string name="sex">性别</string>
     <string name="male">男</string>
     <string name="female">女</string>
