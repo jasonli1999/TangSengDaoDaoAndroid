@@ -194,7 +194,7 @@
                 android:layout_weight="1"
                 android:background="@color/transparent"
                 android:gravity="center_vertical"
-                android:hint="请输入邀请码(选填)"
+                android:hint="请输入邀请码(必填)"
                 android:inputType="text"
                 android:maxLength="10"
                 android:textColor="@color/colorDark"
