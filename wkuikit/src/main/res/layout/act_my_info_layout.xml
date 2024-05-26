@@ -127,6 +127,7 @@
                         android:background="@color/homeColor" />
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/share"
                         style="@style/layoutBg">
 
