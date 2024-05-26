@@ -39,7 +39,7 @@ public class ShareActivity extends AppCompatActivity {
     private TextView tv_share;
     private ClipboardManager mClipboard = null;
     private String shareUrl;
-    private String sharTitle = "欢迎下载悦言";
+    private String sharTitle = "";
     private ImageView imageView;
 
     @SuppressLint("MissingInflatedId")
