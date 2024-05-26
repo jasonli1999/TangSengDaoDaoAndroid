@@ -62,6 +62,8 @@
         <activity android:name=".group.GroupHeaderActivity" />
         <activity android:name=".message.BackupRestoreMessageActivity" />
         <activity android:name=".setting.ErrorLogsActivity" />
-
+        <activity
+            android:name=".user.ShareActivity"
+            android:exported="false" />
     </application>
 </manifest>

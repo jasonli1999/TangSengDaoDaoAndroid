@@ -106,6 +106,7 @@ public class MyInfoActivity extends WKBaseActivity<ActMyInfoLayoutBinding> {
             }
         });
         SingleClickUtil.onSingleClick(wkVBinding.headLayout, view -> startActivity(new Intent(MyInfoActivity.this, MyHeadPortraitActivity.class)));
+        SingleClickUtil.onSingleClick(wkVBinding.share, view1 -> startActivity(new Intent(this, ShareActivity.class)));
         SingleClickUtil.onSingleClick(wkVBinding.nameLayout, view1 -> {
             Intent intent = new Intent(this, UpdateUserInfoActivity.class);
             intent.putExtra("oldStr", wkVBinding.nameTv.getText().toString());

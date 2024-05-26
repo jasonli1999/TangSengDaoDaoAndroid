@@ -42,6 +42,7 @@ import com.chat.uikit.WKUIKitApplication
 import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
 import com.chat.video.WKVideoApplication
+import com.fm.openinstall.OpenInstall
 import kotlin.system.exitProcess
 
 class TSApplication : MultiDexApplication() {
@@ -60,6 +61,11 @@ class TSApplication : MultiDexApplication() {
                 initAll()
             }
         }
+
+        baseApplication?.let { OpenInstall.preInit(it) }
+        //OpenInstall统计功能
+        OpenInstall.clipBoardEnabled(true) //false为不读取，true为读取
+        OpenInstall.init(this)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
