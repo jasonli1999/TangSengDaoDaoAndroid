@@ -77,12 +77,12 @@
                 android:gravity="center_vertical"
                 android:hint="@string/hint_name"
                 android:inputType="phone"
-                android:maxLength="20"
+                android:maxLength="11"
                 android:paddingStart="10dp"
                 android:paddingEnd="0dp"
                 android:textColor="@color/colorDark"
                 android:textColorHint="@color/color999"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -180,6 +180,13 @@
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邀请码：" />
+
+
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_invitecode"
                 android:layout_width="0dp"
@@ -189,7 +196,7 @@
                 android:gravity="center_vertical"
                 android:hint="请输入邀请码(选填)"
                 android:inputType="text"
-                android:maxLength="20"
+                android:maxLength="10"
                 android:textColor="@color/colorDark"
                 android:textColorHint="@color/color999"
                 android:textSize="14sp" />
