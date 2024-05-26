@@ -22,6 +22,8 @@ import com.chat.login.ui.PerfectUserInfoActivity
 import com.chat.login.ui.WKLoginActivity
 import com.chat.uikit.TabActivity
 import com.fm.openinstall.OpenInstall
+import com.fm.openinstall.listener.AppWakeUpAdapter
+import com.fm.openinstall.model.AppData
 import com.google.gson.Gson
 import com.xinbida.tsdd.demo.databinding.ActivityMainBinding
 import com.xinbida.tsdd.demo.push.InviteDataModel
@@ -93,6 +95,20 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
         super.initData()
         getIpAddress()
     }
+
+    var wakeUpAdapter: AppWakeUpAdapter = object : AppWakeUpAdapter() {
+        override fun onWakeUp(appData: AppData) {
+            // 打印数据便于调试
+            LogUtil.e("OpenInstall1getWakeUp : wakeupData = $appData")
+            //  获取渠道编号参数
+            val channelCode = appData.getChannel()
+            // 获取自定义参数
+            val bindData = appData.getData()
+            LogUtil.e("channelCode:$channelCode")
+            LogUtil.e("bindData:$bindData")
+        }
+    }
+
 
 
     /**
