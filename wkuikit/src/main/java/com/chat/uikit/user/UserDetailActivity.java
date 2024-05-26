@@ -344,7 +344,11 @@ public class UserDetailActivity extends WKBaseActivity<ActUserDetailLayoutBindin
                     } else {
                         wkVBinding.fromLayout.setVisibility(View.GONE);
                     }
-
+                    if (userInfo.status == 1) {
+                        wkVBinding.identityLayout.setVisibility(View.GONE);
+                    } else {
+                        wkVBinding.identityLayout.setVisibility(View.VISIBLE);
+                    }
                     if (userInfo.status == 2) {
                         wkVBinding.blacklistTv.setText(R.string.pull_out_black_list);
                     } else {
