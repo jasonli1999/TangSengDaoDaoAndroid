@@ -69,6 +69,7 @@ import com.chat.base.utils.AndroidUtilities;
 import com.chat.base.utils.LayoutHelper;
 import com.chat.base.utils.UserUtils;
 import com.chat.base.utils.WKDialogUtils;
+import com.chat.base.utils.WKLogUtils;
 import com.chat.base.utils.WKPermissions;
 import com.chat.base.utils.WKPlaySound;
 import com.chat.base.utils.WKReader;
@@ -183,6 +184,11 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
     //查询聊天数据偏移量
     private final int limit = 20;
     private RecyclerAnimationScrollHelper scrollHelper;
+    //
+//    @Override
+//    protected void setTitle(TextView titleTv) {
+//
+//    }
     private boolean isShowPinnedView = false;
     private boolean isTipMessage = false;
     private int hideChannelAllPinnedMessage = 0;
@@ -274,7 +280,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
     @Override
     protected void initView() {
-
+        WKLogUtils.e("ChatActivity");
         EndpointManager.getInstance().invoke("set_chat_bg", new SetChatBgMenu(channelId, channelType, wkVBinding.imageView, wkVBinding.rootLayout, wkVBinding.blurView));
         Object pinnedLayoutView = EndpointManager.getInstance().invoke("get_pinned_message_view", this);
         if (pinnedLayoutView instanceof View) {
@@ -327,6 +333,11 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         Object isRegisterRTC = EndpointManager.getInstance().invoke("is_register_rtc", null);
 
         callIV = new AppCompatImageView(this);
+        //甲方要求隱藏
+        if (channelType == WKChannelType.GROUP) {
+            callIV.setVisibility(View.GONE);
+        }
+
         callIV.setImageResource(R.mipmap.ic_call);
         if (isRegisterRTC instanceof Boolean) {
             boolean isRegister = (boolean) isRegisterRTC;
@@ -336,6 +347,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         }
         callIV.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(this, R.color.popupTextColor), PorterDuff.Mode.MULTIPLY));
         callIV.setBackground(Theme.createSelectorDrawable(Theme.getPressedColor()));
+
 
         CommonAnim.getInstance().showOrHide(numberTextView, false, false);
 
@@ -1415,10 +1427,10 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                 isRefreshLoading = false;
                 isMoreLoading = false;
                 if (pullMode == 0) {
-                    if (WKReader.isEmpty(list) )
+                    if (WKReader.isEmpty(list))
                         isCanRefresh = false;
                 } else {
-                    if (WKReader.isEmpty(list) ) {
+                    if (WKReader.isEmpty(list)) {
                         isCanLoadMore = false;
                     }
                 }

@@ -116,7 +116,7 @@ public class AvatarView extends FrameLayout {
 
     public void showAvatar(String channelID, byte channelType, String avatarCacheKey) {
         String url = getAvatarURL(channelID, channelType);
-        Log.e("======avatarView=========url=============",url);
+        Log.e("==vatarView====",url);
         GlideUtils.getInstance().showAvatarImg(getContext(), url, avatarCacheKey, imageView);
     }
 

@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.demo
+package com.xinbida.tsdd.yueyan
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.chat.base.SharePreferencesUtil
 import com.chat.base.WKBaseApplication
 import com.chat.base.base.WKBaseActivity
 import com.chat.base.config.WKApiConfig
@@ -20,13 +19,14 @@ import com.chat.base.ui.components.NormalClickableSpan
 import com.chat.base.utils.WKDialogUtils
 import com.chat.login.ui.PerfectUserInfoActivity
 import com.chat.login.ui.WKLoginActivity
+import com.chat.base.SharePreferencesUtil
 import com.chat.uikit.TabActivity
 import com.fm.openinstall.OpenInstall
 import com.fm.openinstall.listener.AppWakeUpAdapter
 import com.fm.openinstall.model.AppData
 import com.google.gson.Gson
-import com.xinbida.tsdd.demo.databinding.ActivityMainBinding
-import com.xinbida.tsdd.demo.push.InviteDataModel
+import com.xinbida.tsdd.yueyan.databinding.ActivityMainBinding
+import com.xinbida.tsdd.yueyan.push.InviteDataModel
 import com.xinbida.wukongim.WKIM
 import okhttp3.Call
 import okhttp3.Callback
@@ -49,6 +49,7 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
             return
         }
     }
+
     override fun initView() {
         super.initView()
 //        val isShowDialog: Boolean =
@@ -56,6 +57,8 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
 //        if (isShowDialog) {
 //            showDialog()
 //        } else gotoApp()
+
+
         // 获取拉起参数
         OpenInstall.getWakeUp(intent, wakeUpAdapter)
 
@@ -88,8 +91,15 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
 
             }
         }, 8)
+
+
     }
 
+//    override fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//        // 此处要调用，否则App在后台运行时，会无法获取
+//        OpenInstall.getWakeUp(intent, wakeUpAdapter)
+//    }
 
     override fun initData() {
         super.initData()
@@ -110,14 +120,13 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
     }
 
 
-
     /**
      * 测试okhttp的get方法
      */
     fun getIpAddress() {
         val client = OkHttpClient()
         val request = okhttp3.Request.Builder()
-            .url("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
+            .url("https://siyyy2454-1321341241.cos.accelerate.myqcloud.com/foryyan.json")
             .build()
         val call = client.newCall(request)
         //异步请求，enqueue方法不会阻塞后续代码的执行
@@ -131,14 +140,18 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     response.body?.let {
-                        val lineModel: LinesModel = Gson().fromJson("{" + "lines:" + it.string() + "}", LinesModel::class.java
+                        val lineModel: LinesModel = Gson().fromJson(
+                            "{" + "lines:" + it.string() + "}", LinesModel::class.java
                         )
                         // 生成一个0到指定上限之间的随机整数（不包括上限）：
                         val random = Random.nextInt(lineModel.lines.size)
                         LogUtil.e("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
                         LogUtil.e(random.toString())
 
-                        val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
+                        val apiMenu = UpdateBaseAPIMenu(
+                            "http://" + lineModel.lines.get(random).address,
+                            "8090"
+                        )
 
                         LogUtil.e(lineModel.lines.get(random).address)
 

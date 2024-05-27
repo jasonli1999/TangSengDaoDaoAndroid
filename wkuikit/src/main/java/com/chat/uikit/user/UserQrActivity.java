@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chat.base.base.WKBaseActivity;
+import com.chat.base.common.WKCommonModel;
 import com.chat.base.config.WKConfig;
 import com.chat.base.endpoint.EndpointManager;
 import com.chat.base.entity.PopupMenuItem;
@@ -49,7 +50,7 @@ public class UserQrActivity extends WKBaseActivity<ActUserQrLayoutBinding> {
             ImageUtils.getInstance().saveBitmap(UserQrActivity.this, bitmap, true, path -> showToast(R.string.saved_album));
         }));
         ImageView rightIV = findViewById(R.id.titleRightIv);
-        WKDialogUtils.getInstance().showScreenPopup(rightIV,  list);
+        WKDialogUtils.getInstance().showScreenPopup(rightIV, list);
 
     }
 
@@ -66,7 +67,16 @@ public class UserQrActivity extends WKBaseActivity<ActUserQrLayoutBinding> {
                 wkVBinding.qrIv.setImageBitmap(mBitmap);
             } else showToast(msg);
         });
+
+
+        WKCommonModel.getInstance().getPersonNum((code, msg, SharePeopleNumModel) -> {
+            if (code == HttpResponseCode.success) {
+                wkVBinding.shareNumbers.setText("下级人数: " + SharePeopleNumModel.totalUnderCount);
+            } else showToast(msg);
+
+        });
     }
+
 
     @Override
     protected void initListener() {
