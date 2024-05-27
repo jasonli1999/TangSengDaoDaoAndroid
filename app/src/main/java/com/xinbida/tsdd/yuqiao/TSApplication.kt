@@ -32,6 +32,7 @@ import com.chat.base.utils.language.WKMultiLanguageUtil
 import com.chat.customerservice.WKCustomerServiceApplication
 import com.chat.file.WKFileApplication
 import com.chat.groupmanage.WKGroupManageApplication
+import com.chat.keepalive.WKKeepAliveApplication
 import com.chat.login.WKLoginApplication
 import com.chat.pinned.message.WKPinnedMessageApplication
 import com.chat.push.WKPushApplication
@@ -103,6 +104,7 @@ class TSApplication : MultiDexApplication() {
         WKRTCApplications.instance.init()
         WKFileApplication.getInstance().init(this)
         WKPinnedMessageApplication.init()
+        WKKeepAliveApplication.instance.init()
         addAppFrontBack()
         addListener()
     }
