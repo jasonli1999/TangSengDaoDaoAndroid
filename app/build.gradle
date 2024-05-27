@@ -40,9 +40,6 @@ android {
     }
 
     signingConfigs {
-        debug {
-        }
-
         release {
             storeFile file("2023060789.jks")
             storePassword "775854"
