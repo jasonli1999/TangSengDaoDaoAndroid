@@ -118,7 +118,7 @@ class TSApplication : MultiDexApplication() {
     }
 
     private fun getAppPackageName(): String {
-        return "com.xinbida.tsdd.weiyu12"
+        return "com.xinbida.tsdd.weiyu"
     }
 
     private fun getProcessName(cxt: Context, pid: Int): String? {
