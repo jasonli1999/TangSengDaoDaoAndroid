@@ -103,11 +103,7 @@
     </queries>
 
     <application
-<<<<<<< HEAD
         android:name="com.xinbida.tsdd.demo.TSApplication"
-=======
-        android:name=".TSApplication"
->>>>>>> develop_tangseng_weiyu
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/logo"
