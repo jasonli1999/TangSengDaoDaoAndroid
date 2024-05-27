@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.chat.base.SharePreferencesUtil;
+import com.chat.push.SharePreferencesUtil;
 import com.chat.uikit.TabActivity;
 import com.xinbida.tsdd.demo.MainActivity;
 import com.xinbida.tsdd.demo.NotificationTools;
@@ -20,7 +20,7 @@ import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageService;
 
 public class PushMessageReceiver extends JPushMessageService {
-    private static final String TAG = "com.odds.yueyan"+"123push";
+    private static final String TAG = "===============jpush===";
 
 
     /**
@@ -88,7 +88,7 @@ public class PushMessageReceiver extends JPushMessageService {
      */
     @Override
     public void onNotifyMessageDismiss(Context context, NotificationMessage notificationMessage) {
-        Log.e(TAG, "onNotifyMessageDismiss notificationMessage=" + notificationMessage);
+        Log.d(TAG, "onNotifyMessageDismiss notificationMessage=" + notificationMessage);
     }
 
     /**
@@ -111,7 +111,7 @@ public class PushMessageReceiver extends JPushMessageService {
      */
     @Override
     public void onConnected(Context context, boolean isConnected) {
-        Log.e(TAG, "onConnected isConnected=" + isConnected);
+        Log.d(TAG, "onConnected isConnected=" + isConnected);
     }
 
     @Override

@@ -16,7 +16,6 @@ import android.os.Process
 import android.text.TextUtils
 import androidx.multidex.MultiDexApplication
 import cn.jpush.android.api.JPushInterface
-import com.chat.advanced.WKAdvancedApplication
 import com.chat.base.WKBaseApplication
 import com.chat.base.config.WKApiConfig
 import com.chat.base.config.WKConfig
@@ -55,7 +54,6 @@ class TSApplication : MultiDexApplication() {
         JPushInterface.setDebugMode(true)
         JPushInterface.init(this)
 
-
         val processName = getProcessName(this, Process.myPid())
         if (processName != null) {
             val defaultProcess = processName == getAppPackageName()
@@ -63,7 +61,6 @@ class TSApplication : MultiDexApplication() {
                 initAll()
             }
         }
-
 
         baseApplication?.let { OpenInstall.preInit(it) }
         //OpenInstall统计功能
@@ -100,7 +97,6 @@ class TSApplication : MultiDexApplication() {
         WKUIKitApplication.getInstance().init(this)
         WKPushApplication.getInstance().init(getAppPackageName(), this)
         WKGroupManageApplication.getInstance().init()
-        WKAdvancedApplication.instance.init()
         WKCustomerServiceApplication.instance.init("wukongchat")
         WKVideoApplication.getInstance().init(this)
         WKRTCApplications.instance.init()
@@ -109,8 +105,6 @@ class TSApplication : MultiDexApplication() {
         WKKeepAliveApplication.instance.init()
         addAppFrontBack()
         addListener()
-
-
     }
 
     private fun initApi() {
@@ -124,7 +118,7 @@ class TSApplication : MultiDexApplication() {
     }
 
     private fun getAppPackageName(): String {
-        return "com.odds.yueyan"
+        return "com.xinbida.tsdd.weiyu12"
     }
 
     private fun getProcessName(cxt: Context, pid: Int): String? {

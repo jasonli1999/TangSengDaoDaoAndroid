@@ -172,6 +172,7 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
                 showSingleBtnDialog("邀请码不能为空。");
                 return;
             }
+
             Log.e("invite_no", invite_no);
             if (TextUtils.isEmpty(invite_no)) {
                 if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(verfiCode) && !TextUtils.isEmpty(pwd)) {
