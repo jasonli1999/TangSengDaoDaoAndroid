@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.yueyan;
+package com.xinbida.tsdd.demo;
 
 import android.app.AlertDialog;
 import android.app.AppOpsManager;
