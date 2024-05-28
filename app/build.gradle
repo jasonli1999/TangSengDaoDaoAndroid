@@ -13,7 +13,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.xinbida.tsdd.weiyu12"
+        applicationId "com.xinbida.tsdd.weiyu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 11
@@ -117,6 +117,8 @@ dependencies {
     implementation project(path: ':wkrtc')
     implementation project(path: ':MyLibs:wkadvanced')
     implementation project(path: ':MyLibs:wkpin')
+    implementation project(path: ':MyLibs:wkimageeditor')
+    implementation 'com.facebook.fresco:fresco:2.6.0'
     implementation project(path: ':wkkeepalive')
     testImplementation 'org.testng:testng:6.9.6'
     // 此处以JPush 5.0.0 版本为例，5.0.0 版本开始可以自动拉取 JCore 包，无需另外配置
