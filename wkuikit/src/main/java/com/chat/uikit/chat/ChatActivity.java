@@ -327,6 +327,12 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         Object isRegisterRTC = EndpointManager.getInstance().invoke("is_register_rtc", null);
 
         callIV = new AppCompatImageView(this);
+        
+        //甲方要求隱藏
+        if (channelType == WKChannelType.GROUP) {
+            callIV.setVisibility(View.GONE);
+        }
+
         callIV.setImageResource(R.mipmap.ic_call);
         if (isRegisterRTC instanceof Boolean) {
             boolean isRegister = (boolean) isRegisterRTC;
