@@ -597,7 +597,7 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
         }
         // 控制头像是否显示
         if (uiChatMsgItemEntity.wkMsg.channelType == WKChannelType.PERSONAL) {
-            avatarView.visibility = VISIBLE
+            avatarView.visibility = GONE
         } else {
             WKLogUtils.e("WKChannelType.GROUP")
             if (from == WKChatIteMsgFromType.SEND) {
@@ -657,7 +657,7 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
         } else {
             fullContentLayoutParams.gravity = Gravity.START
             if (uiChatMsgItemEntity.wkMsg.channelType == WKChannelType.PERSONAL) {
-                fullContentLayoutParams.leftMargin = AndroidUtilities.dp(50f + margin)
+                fullContentLayoutParams.leftMargin = AndroidUtilities.dp(margin)
                 fullContentLayoutParams.rightMargin = AndroidUtilities.dp(10f)
             } else {
                 fullContentLayoutParams.leftMargin = AndroidUtilities.dp(50f + margin)
