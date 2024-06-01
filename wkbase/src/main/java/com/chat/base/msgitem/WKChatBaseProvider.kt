@@ -599,7 +599,7 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
             avatarView.visibility = VISIBLE
         } else {
             if (from == WKChatIteMsgFromType.SEND) {
-                avatarView.visibility = GONE
+                avatarView.visibility = VISIBLE
             } else avatarView.visibility =
                 if (isShowAvatar(
                         uiChatMsgItemEntity.wkMsg,
@@ -650,8 +650,8 @@ abstract class WKChatBaseProvider : BaseItemProvider<WKUIChatMsgItemEntity>() {
         if (isBubble) margin = 0f
         if (from == WKChatIteMsgFromType.SEND) {
             fullContentLayoutParams.gravity = Gravity.END
-            fullContentLayoutParams.rightMargin = AndroidUtilities.dp(margin)
-            fullContentLayoutParams.leftMargin = AndroidUtilities.dp(55f)
+            fullContentLayoutParams.rightMargin = AndroidUtilities.dp(50f + margin)
+            fullContentLayoutParams.leftMargin = AndroidUtilities.dp(10f)
         } else {
             fullContentLayoutParams.gravity = Gravity.START
             if (uiChatMsgItemEntity.wkMsg.channelType == WKChannelType.PERSONAL) {
