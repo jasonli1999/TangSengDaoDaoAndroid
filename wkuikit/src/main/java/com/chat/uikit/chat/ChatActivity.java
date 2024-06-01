@@ -614,7 +614,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                 EndpointManager.getInstance().invoke("show_avatar_other_info", new AvatarOtherViewMenu(wkVBinding.topLayout.otherLayout, channel, wkVBinding.topLayout.avatarView, true));
                 //用户在线状态
                 if (channel.channelType == WKChannelType.PERSONAL) {
-                    setOnlineView(channel);
+//                    setOnlineView(channel);
                 } else {
                     if (channel.remoteExtraMap != null) {
                         Object memberCountObject = channel.remoteExtraMap.get(WKChannelCustomerExtras.memberCount);
@@ -625,10 +625,10 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                         Object onlineCountObject = channel.remoteExtraMap.get(WKChannelCustomerExtras.onlineCount);
                         if (onlineCountObject instanceof Integer) {
                             int onlineCount = (int) onlineCountObject;
-                            if (onlineCount > 0) {
-                                wkVBinding.topLayout.subtitleCountTv.setVisibility(View.VISIBLE);
-                                wkVBinding.topLayout.subtitleCountTv.setText(String.format(getString(R.string.online_count), onlineCount));
-                            }
+//                            if (onlineCount > 0) {
+//                                wkVBinding.topLayout.subtitleCountTv.setVisibility(View.VISIBLE);
+//                                wkVBinding.topLayout.subtitleCountTv.setText(String.format(getString(R.string.online_count), onlineCount));
+//                            }
                         }
                     }
                 }
@@ -1215,10 +1215,10 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
             if (channelState != null) {
                 signal = channelState.signal_on;
                 wkVBinding.chatInputPanel.setSignal(signal);
-                if (channelType == WKChannelType.GROUP && channelState.online_count > 0) {
-                    wkVBinding.topLayout.subtitleCountTv.setVisibility(View.VISIBLE);
-                    wkVBinding.topLayout.subtitleCountTv.setText(String.format(getString(R.string.online_count), channelState.online_count));
-                }
+//                if (channelType == WKChannelType.GROUP && channelState.online_count > 0) {
+//                    wkVBinding.topLayout.subtitleCountTv.setVisibility(View.VISIBLE);
+//                    wkVBinding.topLayout.subtitleCountTv.setText(String.format(getString(R.string.online_count), channelState.online_count));
+//                }
             }
         });
 
@@ -1304,7 +1304,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
             hideOrShowRightView(true);
             wkVBinding.topLayout.subtitleCountTv.setVisibility(View.GONE);
             if (channel != null) {
-                setOnlineView(channel);
+//                setOnlineView(channel);
                 showChannelName(channel);
             }
         }
