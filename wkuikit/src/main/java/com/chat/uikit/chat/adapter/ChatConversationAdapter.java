@@ -390,7 +390,7 @@ public class ChatConversationAdapter extends BaseQuickAdapter<ChatConversationMs
             } else {
                 avatarView.defaultAvatarTv.setVisibility(View.GONE);
                 avatarView.imageView.setVisibility(View.VISIBLE);
-                avatarView.showAvatar(item.getWkChannel(), true);
+                avatarView.showAvatar(item.getWkChannel(), false);
                 Log.e("================avatarView========",item.getWkChannel()+"");
             }
             EndpointManager.getInstance().invoke("show_avatar_other_info", new AvatarOtherViewMenu(helper.getView(R.id.otherLayout), item.getWkChannel(), avatarView, false));
