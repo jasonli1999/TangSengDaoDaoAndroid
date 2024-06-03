@@ -153,7 +153,7 @@ class FriendAdapter :
                         .getShowDateAndMinute(item.channel.lastOffline * 1000L)
                     val content =
                         String.format("%s %s", context.getString(R.string.last_seen_time), time)
-                    holder.setText(R.id.offlineTv, content)
+                    holder.setText(R.id.offlineTv, "")
                 } else {
                     holder.setGone(R.id.offlineTv, true)
                 }
