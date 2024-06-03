@@ -34,7 +34,7 @@ class FriendAdapter :
         holder.setGone(R.id.pyTv, index != index1)
         val avatarView: AvatarView = holder.getView(R.id.avatarView)
         avatarView.setSize(50f)
-        avatarView.showAvatar(item.channel, true)
+        avatarView.showAvatar(item.channel, false)
         val linearLayout: LinearLayout = holder.getView(R.id.categoryLayout)
         linearLayout.removeAllViews()
         if (!TextUtils.isEmpty(item.channel.category)) {

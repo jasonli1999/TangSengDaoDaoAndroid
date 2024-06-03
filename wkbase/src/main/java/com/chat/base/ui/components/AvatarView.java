@@ -173,7 +173,7 @@ public class AvatarView extends FrameLayout {
             }
         } else {
             spotView.setVisibility(GONE);
-            onlineTv.setVisibility(INVISIBLE);
+            onlineTv.setVisibility(GONE);
         }
     }
 
