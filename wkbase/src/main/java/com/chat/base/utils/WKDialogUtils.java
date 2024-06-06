@@ -6,6 +6,7 @@ import static android.view.View.VISIBLE;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -37,7 +38,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.chat.base.R;
-import com.chat.base.WKBaseApplication;
+import com.chat.base.act.WKWebViewActivity;
 import com.chat.base.config.WKApiConfig;
 import com.chat.base.endpoint.EndpointManager;
 import com.chat.base.endpoint.entity.EditMsgMenu;
@@ -51,7 +52,6 @@ import com.chat.base.ui.components.ActionBarPopupWindow;
 import com.chat.base.ui.components.AlertDialog;
 import com.chat.base.ui.components.BottomSheet;
 import com.chat.base.ui.components.CheckBoxSquare;
-import com.chat.base.ui.components.FlatCheckBox;
 import com.chat.base.views.CustomImageViewerPopup;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
@@ -412,9 +412,12 @@ public class WKDialogUtils {
             }
         });
         sureBtn.setOnClickListener(view1 -> {
-            DownloadApkUtils.getInstance().downloadAPK(WKBaseApplication.getInstance().getContext(),
-                    versionEntity.app_version,
-                    WKApiConfig.getShowUrl(versionEntity.download_url));
+//            DownloadApkUtils.getInstance().downloadAPK(WKBaseApplication.getInstance().getContext(),
+//                    versionEntity.app_version,
+//                    WKApiConfig.getShowUrl(versionEntity.download_url));
+            Intent intent = new Intent(context, WKWebViewActivity.class);
+            intent.putExtra("url", WKApiConfig.getShowUrl(versionEntity.download_url));
+            context.startActivity(intent);
             alertDialog.dismiss();
 
         });
