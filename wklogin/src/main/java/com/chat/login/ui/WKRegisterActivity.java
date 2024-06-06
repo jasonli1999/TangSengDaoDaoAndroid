@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -167,7 +166,7 @@ public class WKRegisterActivity extends WKBaseActivity<ActRegisterLayoutBinding>
             String phone = Objects.requireNonNull(wkVBinding.nameEt.getText()).toString();
             String verfiCode = Objects.requireNonNull(wkVBinding.verfiEt.getText()).toString();
             String pwd = Objects.requireNonNull(wkVBinding.pwdEt.getText()).toString();
-            String invite_no = Objects.requireNonNull(wkVBinding.etInvitecode.getText()).toString();
+            String invite_no = Objects.requireNonNull(wkVBinding.etInvitecode.getText()).toString().replace(" ", "");
 //            if (invite_no.isEmpty()){
 //                showSingleBtnDialog("邀请码不能为空。");
 //                return;
