@@ -1,4 +1,4 @@
-*.iml
+f*.iml
 .gradle
 .idea
 /local.properties
@@ -19,4 +19,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-cashload/
