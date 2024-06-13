@@ -137,12 +137,15 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                         val random = Random.nextInt(lineModel.lines.size)
                         LogUtil.e(random.toString())
 
-                        val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
-
-                        LogUtil.e(lineModel.lines.get(random).address)
-
-                        EndpointManager.getInstance().invoke("update_base_url", apiMenu)
-
+                        if(lineModel.lines.get(random).address.startsWith("http")){
+                            val apiMenu = UpdateBaseAPIMenu( lineModel.lines.get(random).address, "")
+                            LogUtil.e(lineModel.lines.get(random).address)
+                            EndpointManager.getInstance().invoke("update_base_url", apiMenu)
+                        }else{
+                            val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
+                            LogUtil.e(lineModel.lines.get(random).address)
+                            EndpointManager.getInstance().invoke("update_base_url", apiMenu)
+                        }
                     }
 
                     WKSharedPreferencesUtil.getInstance().putBoolean("show_agreement_dialog", false)
