@@ -38,6 +38,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.chat.base.R;
+import com.chat.base.WKBaseApplication;
 import com.chat.base.act.WKWebViewActivity;
 import com.chat.base.config.WKApiConfig;
 import com.chat.base.endpoint.EndpointManager;
@@ -415,6 +416,7 @@ public class WKDialogUtils {
 //            DownloadApkUtils.getInstance().downloadAPK(WKBaseApplication.getInstance().getContext(),
 //                    versionEntity.app_version,
 //                    WKApiConfig.getShowUrl(versionEntity.download_url));
+//            alertDialog.dismiss();
             Intent intent = new Intent(context, WKWebViewActivity.class);
             intent.putExtra("url", WKApiConfig.getShowUrl(versionEntity.download_url));
             context.startActivity(intent);

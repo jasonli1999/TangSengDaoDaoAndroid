@@ -145,18 +145,17 @@ class MainActivity : WKBaseActivity<ActivityMainBinding>() {
                         )
                         // 生成一个0到指定上限之间的随机整数（不包括上限）：
                         val random = Random.nextInt(lineModel.lines.size)
-                        LogUtil.e("https://siyawy66789-1321341241.cos.accelerate.myqcloud.com/forsiyan.json")
                         LogUtil.e(random.toString())
 
-                        val apiMenu = UpdateBaseAPIMenu(
-                            "http://" + lineModel.lines.get(random).address,
-                            "8090"
-                        )
-
-                        LogUtil.e(lineModel.lines.get(random).address)
-
-                        EndpointManager.getInstance().invoke("update_base_url", apiMenu)
-
+                        if(lineModel.lines.get(random).address.startsWith("http")){
+                            val apiMenu = UpdateBaseAPIMenu( lineModel.lines.get(random).address, "")
+                            LogUtil.e(lineModel.lines.get(random).address)
+                            EndpointManager.getInstance().invoke("update_base_url", apiMenu)
+                        }else{
+                            val apiMenu = UpdateBaseAPIMenu("http://" + lineModel.lines.get(random).address, "8090")
+                            LogUtil.e(lineModel.lines.get(random).address)
+                            EndpointManager.getInstance().invoke("update_base_url", apiMenu)
+                        }
                     }
 
                     WKSharedPreferencesUtil.getInstance().putBoolean("show_agreement_dialog", false)
