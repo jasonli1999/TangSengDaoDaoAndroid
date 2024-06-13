@@ -37,6 +37,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chat.base.SharePreferencesUtil;
+import com.chat.base.WKBaseApplication;
 import com.chat.base.base.WKBaseActivity;
 import com.chat.base.common.WKCommonModel;
 import com.chat.base.config.WKConfig;
@@ -94,6 +96,10 @@ import com.chat.uikit.message.MsgModel;
 import com.chat.uikit.robot.service.WKRobotModel;
 import com.chat.uikit.view.ChatInputPanel;
 import com.chat.uikit.view.WKPlayVoiceUtils;
+import com.tencent.qcloud.tuicore.TUILogin;
+import com.tencent.qcloud.tuicore.interfaces.TUICallback;
+import com.tencent.qcloud.tuikit.tuicallengine.TUICallDefine;
+import com.tencent.qcloud.tuikit.tuicallkit.TUICallKit;
 import com.xinbida.wukongim.WKIM;
 import com.xinbida.wukongim.entity.WKCMDKeys;
 import com.xinbida.wukongim.entity.WKChannel;
@@ -206,6 +212,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
     protected void initPresenter() {
         //频道ID
         channelId = getIntent().getStringExtra("channelId");
+        Log.e("channelId====", channelId);
         //频道类型
         channelType = getIntent().getByteExtra("channelType", WKChannelType.PERSONAL);
         maxMsgOrderSeq = WKIM.getInstance().getMsgManager().getMaxOrderSeqWithChannel(channelId, channelType);
@@ -430,9 +437,42 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                                 showToast(R.string.call_blacklist);
                                 return;
                             }
+
+
+                            //=======================begin==============================
+                            String userId = WKConfig.getInstance().getUid();     // 请替换为您的UserId
+                            int sdkAppId = 1600040006;            // 请替换为第一步在控制台得到的SDKAppID
+                            String secretKey = "66bf0e39b88be03903a73b97caa3784eaa954d1ef2a0566cc3bc674c778532d2";   // 请替换为第一步在控制台得到的SecretKey
+
+                            String userSig1 = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "SIG", "");
+                            Log.e("====userId", userId);
+                            Log.e("====sdkAppId", String.valueOf(sdkAppId));
+                            Log.e("====userSig1", userSig1);
+                            String userSig = GenerateTestUserSig.genTestUserSig(userId);
+                            Log.e("====userSig", userSig);
+                            TUILogin.login(ChatActivity.this, sdkAppId, userId, userSig, new TUICallback() {
+                                @Override
+                                public void onSuccess() {
+                                    Log.e("userSig====", "onSuccess");
+                                    // 发起1对1语音通话(假设被叫方的 userID 为 mike)
+//                                    TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).call("635c7f6978b4485088a112548c12220e", TUICallDefine.MediaType.Audio);
+
+                                }
+
+                                @Override
+                                public void onError(int errorCode, String errorMessage) {
+                                    Log.e("userSig====errorCode", String.valueOf(errorCode));
+                                    Log.e("userSig====errorMessage", errorMessage);
+                                }
+                            });
+                            //==============================接入tencent視頻聊天========end====================================
+
+
                             List<PopupMenuItem> list = new ArrayList<>();
-                            list.add(new PopupMenuItem(getString(R.string.video_call), R.mipmap.chat_calls_video, () -> p2pCall(1)));
-                            list.add(new PopupMenuItem(getString(R.string.audio_call), R.mipmap.chat_calls_voice, () -> p2pCall(0)));
+//                            list.add(new PopupMenuItem(getString(R.string.video_call), R.mipmap.chat_calls_video, () -> p2pCall(1)));
+//                            list.add(new PopupMenuItem(getString(R.string.audio_call), R.mipmap.chat_calls_voice, () -> p2pCall(0)));
+                            list.add(new PopupMenuItem(getString(R.string.video_call), R.mipmap.chat_calls_video, () -> TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).call(channelId, TUICallDefine.MediaType.Video)));
+                            list.add(new PopupMenuItem(getString(R.string.audio_call), R.mipmap.chat_calls_voice, () -> TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).call(channelId, TUICallDefine.MediaType.Audio)));
                             WKDialogUtils.getInstance().showScreenPopup(view, list);
                         } else {
                             WKChannelMember channelMember = WKIM.getInstance().getChannelMembersManager().getMember(channelId, channelType, WKConfig.getInstance().getUid());

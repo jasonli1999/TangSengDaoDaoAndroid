@@ -28,6 +28,9 @@ public interface LoginService {
     @GET("user/grant_login")
     Observable<CommonResponse> webLoginConfirm(@Query("auth_code") String auth_code);
 
+    @GET("/v1/user/tencentToken")
+    Observable<SigModel> gettencentToken();
+
 
     @GET("common/countries")
     Observable<List<CountryCodeEntity>> getCountries();

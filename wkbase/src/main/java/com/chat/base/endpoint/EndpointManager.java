@@ -1,5 +1,7 @@
 package com.chat.base.endpoint;
 
+import android.util.Log;
+
 import com.chat.base.utils.WKReader;
 
 import java.util.ArrayList;
@@ -85,6 +87,7 @@ public class EndpointManager {
         }
         if (Endpoint != null && Endpoint.iHandler != null) {
             return Endpoint.iHandler.invoke(param);
+
         }
         return Endpoint;
     }

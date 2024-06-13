@@ -4,6 +4,8 @@ package com.chat.login.service;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chat.base.SharePreferencesUtil;
+import com.chat.base.WKBaseApplication;
 import com.chat.base.base.WKBaseModel;
 import com.chat.base.config.WKApiConfig;
 import com.chat.base.config.WKConfig;
@@ -109,6 +111,20 @@ public class LoginModel extends WKBaseModel {
         });
     }
 
+
+    public void gettencentToken() {
+        request(createService(LoginService.class).gettencentToken(), new IRequestResultListener<SigModel>() {
+            @Override
+            public void onSuccess(SigModel sigModel) {
+                SharePreferencesUtil.addString(WKBaseApplication.getInstance().getContext(), "SIG", sigModel.sig);
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+            }
+        });
+    }
+
     void getCountries(IChooseCountryCode iChooseCountryCode) {
         request(createService(LoginService.class).getCountries(), new IRequestResultListener<List<CountryCodeEntity>>() {
             @Override
@@ -145,7 +161,7 @@ public class LoginModel extends WKBaseModel {
         });
     }
 
-    void registerCode2(String zone, String phone, String invite_no,final IGetVerCodeListener iGetVerfi) {
+    void registerCode2(String zone, String phone, String invite_no, final IGetVerCodeListener iGetVerfi) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("zone", zone);
         jsonObject.put("phone", phone);
@@ -231,7 +247,7 @@ public class LoginModel extends WKBaseModel {
         });
     }
 
-    void registerApp2(String code, String zone, String name, String phone, String password, String invite_no,final ILoginListener iLoginListener) {
+    void registerApp2(String code, String zone, String name, String phone, String password, String invite_no, final ILoginListener iLoginListener) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", code);
         jsonObject.put("zone", zone);

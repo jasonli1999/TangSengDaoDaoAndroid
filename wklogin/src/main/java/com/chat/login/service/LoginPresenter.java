@@ -31,6 +31,8 @@ public class LoginPresenter implements LoginContract.LoginPersenter {
         LoginModel.getInstance().loginApp(name, pwd, (code, msg, userInfoEntity) -> {
             if (code == HttpResponseCode.success) {
                 if (loginView.get() != null) loginView.get().loginResult(userInfoEntity);
+                LoginModel.getInstance().gettencentToken();
+
             } else {
                 if (loginView.get() != null) {
                     loginView.get().hideLoading();

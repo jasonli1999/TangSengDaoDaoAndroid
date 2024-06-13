@@ -38,6 +38,7 @@ android {
 }
 dependencies {
     api project(':wkbase')
+    api project(':tuicallkit-kt')
     // 此处以JPush 5.0.0 版本为例，5.0.0 版本开始可以自动拉取 JCore 包，无需另外配置
     implementation 'cn.jiguang.sdk:jpush:5.2.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

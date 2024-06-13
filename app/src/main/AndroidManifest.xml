@@ -105,6 +105,7 @@
     </queries>
 
     <application
+        tools:replace="android:allowBackup"
         android:name="com.xinbida.tsdd.yueyan.TSApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
