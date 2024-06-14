@@ -71,7 +71,6 @@ import com.chat.base.utils.AndroidUtilities;
 import com.chat.base.utils.LayoutHelper;
 import com.chat.base.utils.UserUtils;
 import com.chat.base.utils.WKDialogUtils;
-import com.chat.base.utils.WKLogUtils;
 import com.chat.base.utils.WKPermissions;
 import com.chat.base.utils.WKPlaySound;
 import com.chat.base.utils.WKReader;
@@ -287,7 +286,6 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
     @Override
     protected void initView() {
-        WKLogUtils.e("ChatActivity");
         EndpointManager.getInstance().invoke("set_chat_bg", new SetChatBgMenu(channelId, channelType, wkVBinding.imageView, wkVBinding.rootLayout, wkVBinding.blurView));
         Object pinnedLayoutView = EndpointManager.getInstance().invoke("get_pinned_message_view", this);
         if (pinnedLayoutView instanceof View) {
@@ -457,6 +455,20 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                                     // 发起1对1语音通话(假设被叫方的 userID 为 mike)
 //                                    TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).call("635c7f6978b4485088a112548c12220e", TUICallDefine.MediaType.Audio);
 
+//                                    //更換頭像
+//                                    String avarterurl=SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
+//                                    TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).setSelfInfo(channelId,avarterurl , new TUICommonDefine.Callback() {
+//                                        @Override
+//                                        public void onSuccess() {
+//                                            Log.e("userSig====setSelfInfo", "onSuccess");
+//                                        }
+//
+//                                        @Override
+//                                        public void onError(int i, String s) {
+//                                            Log.e("userSig====setSelfInfo+i", String.valueOf(i));
+//                                            Log.e("userSig====setSelfInfo+s", String.valueOf(s));
+//                                        }
+//                                    });
                                 }
 
                                 @Override
@@ -1301,6 +1313,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
             }
             EndpointManager.getInstance().invoke("show_avatar_other_info", new AvatarOtherViewMenu(wkVBinding.topLayout.otherLayout, channel, wkVBinding.topLayout.avatarView, true));
         }
+
         wkVBinding.topLayout.avatarView.showAvatar(channelId, channelType, avatarKey);
 
         //如果是群聊就同步群成员信息

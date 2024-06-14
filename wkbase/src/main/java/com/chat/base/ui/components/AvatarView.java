@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.chat.base.R;
+import com.chat.base.SharePreferencesUtil;
+import com.chat.base.WKBaseApplication;
 import com.chat.base.config.WKApiConfig;
 import com.chat.base.config.WKConstants;
 import com.chat.base.glide.GlideUtils;
@@ -116,7 +118,8 @@ public class AvatarView extends FrameLayout {
 
     public void showAvatar(String channelID, byte channelType, String avatarCacheKey) {
         String url = getAvatarURL(channelID, channelType);
-        Log.e("==vatarView====",url);
+        Log.e("==vatarView====", url);
+        SharePreferencesUtil.addString(WKBaseApplication.getInstance().getContext(), "AvatarURL", url);
         GlideUtils.getInstance().showAvatarImg(getContext(), url, avatarCacheKey, imageView);
     }
 
