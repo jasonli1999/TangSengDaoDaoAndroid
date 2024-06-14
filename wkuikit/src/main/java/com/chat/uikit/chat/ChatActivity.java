@@ -97,6 +97,7 @@ import com.chat.uikit.view.ChatInputPanel;
 import com.chat.uikit.view.WKPlayVoiceUtils;
 import com.tencent.qcloud.tuicore.TUILogin;
 import com.tencent.qcloud.tuicore.interfaces.TUICallback;
+import com.tencent.qcloud.tuikit.TUICommonDefine;
 import com.tencent.qcloud.tuikit.tuicallengine.TUICallDefine;
 import com.tencent.qcloud.tuikit.tuicallkit.TUICallKit;
 import com.xinbida.wukongim.WKIM;
@@ -452,23 +453,21 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                                 @Override
                                 public void onSuccess() {
                                     Log.e("userSig====", "onSuccess");
-                                    // 发起1对1语音通话(假设被叫方的 userID 为 mike)
-//                                    TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).call("635c7f6978b4485088a112548c12220e", TUICallDefine.MediaType.Audio);
+                                    //更換頭像
+                                    String avarterurl = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
+                                    String nickname = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "NICKNAME", "");
+                                    TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).setSelfInfo(nickname, avarterurl, new TUICommonDefine.Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Log.e("userSig====setSelfInfo", "onSuccess");
+                                        }
 
-//                                    //更換頭像
-//                                    String avarterurl=SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
-//                                    TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).setSelfInfo(channelId,avarterurl , new TUICommonDefine.Callback() {
-//                                        @Override
-//                                        public void onSuccess() {
-//                                            Log.e("userSig====setSelfInfo", "onSuccess");
-//                                        }
-//
-//                                        @Override
-//                                        public void onError(int i, String s) {
-//                                            Log.e("userSig====setSelfInfo+i", String.valueOf(i));
-//                                            Log.e("userSig====setSelfInfo+s", String.valueOf(s));
-//                                        }
-//                                    });
+                                        @Override
+                                        public void onError(int i, String s) {
+                                            Log.e("userSig====setSelfInfo+i", String.valueOf(i));
+                                            Log.e("userSig====setSelfInfo+s", String.valueOf(s));
+                                        }
+                                    });
                                 }
 
                                 @Override
@@ -684,7 +683,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                         }
                     }
                 }
-                //判断是否显示聊天昵称
+////                判断是否显示聊天昵称
 //                boolean showNick = channel.showNick == 1;
 //                if (showNickName != showNick) {
 //                    showNickName = showNick;
@@ -1814,6 +1813,8 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                 if (channel != null) showName = channel.channelName;
             }
             wkReply.from_name = showName;
+            SharePreferencesUtil.addString(WKBaseApplication.getInstance().getContext(), "NICKNAME", showName);
+            Log.e("userSig==1==nickname", showName);
             wkReply.from_uid = replyWKMsg.fromUID;
             wkReply.message_id = replyWKMsg.messageID;
             wkReply.message_seq = replyWKMsg.messageSeq;
@@ -2323,6 +2324,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         } else {
             String showName = TextUtils.isEmpty(channel.channelRemark) ? channel.channelName : channel.channelRemark;
             wkVBinding.topLayout.titleCenterTv.setText(showName);
+            SharePreferencesUtil.addString(WKBaseApplication.getInstance().getContext(), "NICKNAME", showName);
         }
     }
 
