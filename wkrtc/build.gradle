@@ -28,6 +28,7 @@ android {
 
 dependencies {
     api project(':wkbase')
+    api project(':tuicallkit-kt')
     implementation project(path: ':MyLibs:wkrtc')
     implementation('io.socket:socket.io-client:1.0.0') {
         exclude group: 'org.json', module: 'json'
