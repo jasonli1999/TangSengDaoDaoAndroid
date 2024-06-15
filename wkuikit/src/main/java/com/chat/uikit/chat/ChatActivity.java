@@ -412,6 +412,12 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         }));
         helper.attachToRecyclerView(wkVBinding.recyclerView);
         wkVBinding.topLayout.backIv.setOnClickListener(v -> setBackListener());
+
+
+
+
+
+
         callIV.setOnClickListener(view -> {
             WKChannelMember member = WKIM.getInstance().getChannelMembersManager().getMember(channelId, channelType, WKConfig.getInstance().getUid());
             if (getChatChannelInfo().forbidden == 1 || (member != null && member.forbiddenExpirationTime > 0)) {
@@ -438,45 +444,6 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                             }
 
 
-                            //=======================begin==============================
-                            String userId = WKConfig.getInstance().getUid();     // 请替换为您的UserId
-                            int sdkAppId = 1600040006;            // 请替换为第一步在控制台得到的SDKAppID
-                            String secretKey = "66bf0e39b88be03903a73b97caa3784eaa954d1ef2a0566cc3bc674c778532d2";   // 请替换为第一步在控制台得到的SecretKey
-
-                            String userSig1 = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "SIG", "");
-                            Log.e("====userId", userId);
-                            Log.e("====sdkAppId", String.valueOf(sdkAppId));
-                            Log.e("====userSig1", userSig1);
-                            String userSig = GenerateTestUserSig.genTestUserSig(userId);
-                            Log.e("====userSig", userSig);
-                            TUILogin.login(ChatActivity.this, sdkAppId, userId, userSig, new TUICallback() {
-                                @Override
-                                public void onSuccess() {
-                                    Log.e("userSig====", "onSuccess");
-                                    //更換頭像
-                                    String avarterurl = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
-                                    String nickname = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "NICKNAME", "");
-                                    TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).setSelfInfo(nickname, avarterurl, new TUICommonDefine.Callback() {
-                                        @Override
-                                        public void onSuccess() {
-                                            Log.e("userSig====setSelfInfo", "onSuccess");
-                                        }
-
-                                        @Override
-                                        public void onError(int i, String s) {
-                                            Log.e("userSig====setSelfInfo+i", String.valueOf(i));
-                                            Log.e("userSig====setSelfInfo+s", String.valueOf(s));
-                                        }
-                                    });
-                                }
-
-                                @Override
-                                public void onError(int errorCode, String errorMessage) {
-                                    Log.e("userSig====errorCode", String.valueOf(errorCode));
-                                    Log.e("userSig====errorMessage", errorMessage);
-                                }
-                            });
-                            //==============================接入tencent視頻聊天========end====================================
 
 
                             List<PopupMenuItem> list = new ArrayList<>();

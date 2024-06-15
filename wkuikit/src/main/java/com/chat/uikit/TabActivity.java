@@ -22,6 +22,8 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.chat.base.SharePreferencesUtil;
+import com.chat.base.WKBaseApplication;
 import com.chat.base.adapter.WKFragmentStateAdapter;
 import com.chat.base.base.WKBaseActivity;
 import com.chat.base.common.WKCommonModel;
@@ -40,19 +42,22 @@ import com.chat.base.utils.WKDialogUtils;
 import com.chat.base.utils.WKReader;
 import com.chat.base.utils.WKTimeUtils;
 import com.chat.base.utils.language.WKMultiLanguageUtil;
+import com.chat.uikit.chat.GenerateTestUserSig;
 import com.chat.uikit.contacts.service.FriendModel;
 import com.chat.uikit.databinding.ActTabMainBinding;
 import com.chat.uikit.fragment.ChatFragment;
 import com.chat.uikit.fragment.ContactsFragment;
 import com.chat.uikit.fragment.MyFragment;
 import com.tbruyelle.rxpermissions3.RxPermissions;
+import com.tencent.qcloud.tuicore.TUILogin;
+import com.tencent.qcloud.tuicore.interfaces.TUICallback;
+import com.tencent.qcloud.tuikit.TUICommonDefine;
+import com.tencent.qcloud.tuikit.tuicallkit.TUICallKit;
 
 import org.telegram.ui.Components.RLottieImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.rxjava3.disposables.Disposable;
 
 
 /**
@@ -62,7 +67,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
     CounterView msgCounterView;
     CounterView contactsCounterView;
-//    CounterView workplaceCounterView;
+    //    CounterView workplaceCounterView;
     View contactsSpotView;
     RLottieImageView chatIV, contactsIV, workplaceIV, meIV;
     private long lastClickChatTabTime = 0L;
@@ -96,7 +101,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
             RxPermissions rxPermissions = new RxPermissions(this);
             rxPermissions.request(Manifest.permission.POST_NOTIFICATIONS).subscribe(aBoolean -> {
                 if (!aBoolean) {
-                    WKDialogUtils.getInstance().showDialog(this,  getString(com.chat.base.R.string.authorization_request), desc,true, getString(R.string.cancel), getString(R.string.to_set),0,Theme.colorAccount, index -> {
+                    WKDialogUtils.getInstance().showDialog(this, getString(com.chat.base.R.string.authorization_request), desc, true, getString(R.string.cancel), getString(R.string.to_set), 0, Theme.colorAccount, index -> {
                         if (index == 1) {
                             EndpointManager.getInstance().invoke("show_open_notification_dialog", this);
                         }
@@ -172,6 +177,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 
     /**
      * 获取应用程序的版本号
+     *
      * @return 应用程序的版本号
      */
     public String getAppVersion() {
@@ -221,7 +227,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         wkVBinding.bottomNavigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.i_chat) {
                 long nowTime = WKTimeUtils.getInstance().getCurrentMills();
-                if (wkVBinding.vp.getCurrentItem() == 0){
+                if (wkVBinding.vp.getCurrentItem() == 0) {
                     if (nowTime - lastClickChatTabTime <= 300) {
                         EndpointManager.getInstance().invoke("scroll_to_unread_channel", null);
                     }
@@ -265,6 +271,65 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
                 }
             });
         }
+
+
+        initTencentCall();
+    }
+
+
+    /**
+     * 初始化腾云语音
+     */
+    private void initTencentCall() {
+        //=======================begin==============================
+        String userId = WKConfig.getInstance().getUid();     // 请替换为您的UserId
+        int sdkAppId = 1600040006;            // 请替换为第一步在控制台得到的SDKAppID
+        String secretKey = "66bf0e39b88be03903a73b97caa3784eaa954d1ef2a0566cc3bc674c778532d2";   // 请替换为第一步在控制台得到的SecretKey
+
+//        String userSig1 = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "SIG", "");
+//        Log.e("====userSig1", userSig1);
+
+        Log.e("====userId", userId);
+        Log.e("====sdkAppId", String.valueOf(sdkAppId));
+
+        String userSig = GenerateTestUserSig.genTestUserSig(userId);
+        Log.e("====userSig", userSig);
+        TUILogin.login(TabActivity.this, sdkAppId, userId, userSig, new TUICallback() {
+            @Override
+            public void onSuccess() {
+                Log.e("userSig====", "onSuccess");
+                //更換頭像
+                String avarterurl = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
+                Log.e("userSig====avarterurl", avarterurl);
+//                String nickname = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "NICKNAME", "");
+                String nickname = WKConfig.getInstance().getUserName();
+                Log.e("userSig====nickname", nickname);
+                TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).setSelfInfo(nickname, avarterurl, new TUICommonDefine.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.e("userSig====setSelfInfo", "onSuccess");
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        Log.e("userSig====setSelfInfo+i", String.valueOf(i));
+                        Log.e("userSig====setSelfInfo+s", String.valueOf(s));
+                    }
+                });
+            }
+
+            @Override
+            public void onError(int errorCode, String errorMessage) {
+                Log.e("userSig====errorCode", String.valueOf(errorCode));
+                Log.e("userSig====errorMessage", errorMessage);
+            }
+        });
+
+        /**        开启悬浮窗
+         */
+        TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).enableFloatWindow(true);
+
+        //==============================接入tencent視頻聊天========end====================================
     }
 
     public void setMsgCount(int number) {
@@ -324,7 +389,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.e("=====keyCode=======","onKeyDown");
+        Log.e("=====keyCode=======", "onKeyDown");
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             moveTaskToBack(true);
             return true;
