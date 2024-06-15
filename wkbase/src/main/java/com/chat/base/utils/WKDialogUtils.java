@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -413,14 +414,21 @@ public class WKDialogUtils {
             }
         });
         sureBtn.setOnClickListener(view1 -> {
-//            DownloadApkUtils.getInstance().downloadAPK(WKBaseApplication.getInstance().getContext(),
-//                    versionEntity.app_version,
-//                    WKApiConfig.getShowUrl(versionEntity.download_url));
-//            alertDialog.dismiss();
-            Intent intent = new Intent(context, WKWebViewActivity.class);
-            intent.putExtra("url", WKApiConfig.getShowUrl(versionEntity.download_url));
-            context.startActivity(intent);
             alertDialog.dismiss();
+
+//            DownloadApkUtils.getInstance().downloadAPK(WKBaseApplication.getInstance().getContext(),
+//            versionEntity.app_version,
+//            WKApiConfig.getShowUrl(versionEntity.download_url));
+
+//            Intent intent = new Intent(context, WKWebViewActivity.class);
+//            intent.putExtra("url", WKApiConfig.getShowUrl(versionEntity.download_url));
+//            context.startActivity(intent);
+//            alertDialog.dismiss();
+
+            String url =  WKApiConfig.getShowUrl(versionEntity.download_url);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            context.startActivity(intent);
 
         });
 

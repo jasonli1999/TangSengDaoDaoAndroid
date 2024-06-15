@@ -373,7 +373,6 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e("=================onStop==========","onStop");
     }
 
 
