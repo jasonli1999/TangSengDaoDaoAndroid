@@ -248,6 +248,10 @@ public abstract class WKBaseActivity<WKVBinding extends ViewBinding> extends Swi
         WKDialogUtils.getInstance().showDialog(this, "", content, true, "", "", 0, 0, iClickListener);
     }
 
+    protected void showDialog2(String content, WKDialogUtils.IClickListener iClickListener) {
+        WKDialogUtils.getInstance().showDialog(this, "", content, false, "", "", 0, 0, iClickListener);
+    }
+
     protected void showSingleBtnDialog(String content) {
         WKDialogUtils.getInstance().showSingleBtnDialog(this, "", content, "", null);
     }

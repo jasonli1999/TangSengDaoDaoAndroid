@@ -442,10 +442,6 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                                 showToast(R.string.call_blacklist);
                                 return;
                             }
-
-
-
-
                             List<PopupMenuItem> list = new ArrayList<>();
 //                            list.add(new PopupMenuItem(getString(R.string.video_call), R.mipmap.chat_calls_video, () -> p2pCall(1)));
 //                            list.add(new PopupMenuItem(getString(R.string.audio_call), R.mipmap.chat_calls_voice, () -> p2pCall(0)));

@@ -4,11 +4,13 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,17 +18,18 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.chat.base.SharePreferencesUtil;
 import com.chat.base.WKBaseApplication;
 import com.chat.base.adapter.WKFragmentStateAdapter;
 import com.chat.base.base.WKBaseActivity;
 import com.chat.base.common.WKCommonModel;
+import com.chat.base.config.WKApiConfig;
 import com.chat.base.config.WKConfig;
 import com.chat.base.config.WKConstants;
 import com.chat.base.config.WKSharedPreferencesUtil;
@@ -173,6 +176,43 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         playAnimation(0);
 
 
+
+    }
+
+    private void initNotitionPermeision() {
+        int currentApiVersion = Build.VERSION.SDK_INT;
+        if (currentApiVersion >= Build.VERSION_CODES.M) {
+            // 当前系统版本为 Android 6.0 及以上版本
+            if (Settings.canDrawOverlays(WKBaseApplication.getInstance().getContext())) {
+                // 应用拥有悬浮窗权限
+                initTencentCall();
+            } else {
+                // 应用没有悬浮窗权限
+                showDialog2("为了更好的使用悦言,请打开悬浮窗权限", new WKDialogUtils.IClickListener() {
+                    @Override
+                    public void onClick(int index) {
+                        PermissionHelper.requestSystemAlertWindowPermission(TabActivity.this);
+                    }
+                });
+            }
+        } else {
+            // 当前系统版本低于 Android 6.0
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PermissionHelper.REQUEST_CODE_SYSTEM_ALERT_WINDOW) {
+
+            if (Settings.canDrawOverlays(WKBaseApplication.getInstance().getContext())) {
+                // 权限获取成功，可以创建悬浮窗
+                initNotitionPermeision();
+            } else {
+                // 用户拒绝授权
+                Toast.makeText(TabActivity.this,"不开启悬浮窗会影响app的使用.",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     /**
@@ -273,6 +313,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
         }
 
 
+        initNotitionPermeision();
         initTencentCall();
     }
 
@@ -294,13 +335,17 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 
         String userSig = GenerateTestUserSig.genTestUserSig(userId);
         Log.e("====userSig", userSig);
+        TUICallKit.createInstance(TabActivity.this).enableIncomingBanner(true);
         TUILogin.login(TabActivity.this, sdkAppId, userId, userSig, new TUICallback() {
             @Override
             public void onSuccess() {
                 Log.e("userSig====", "onSuccess");
                 //更換頭像
-                String avarterurl = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
-                Log.e("userSig====avarterurl", avarterurl);
+//                String avarterurl = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
+//                Log.e("userSig====avarterurl1", avarterurl);
+                String avarterurl = WKApiConfig.getAvatarUrl(WKConfig.getInstance().getUid());
+                Log.e("userSig====avarterurl2", avarterurl);
+
 //                String nickname = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "NICKNAME", "");
                 String nickname = WKConfig.getInstance().getUserName();
                 Log.e("userSig====nickname", nickname);
@@ -325,7 +370,8 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
             }
         });
 
-        /**        开启悬浮窗
+        /**
+         * 接通前先展示一个弹窗
          */
         TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).enableFloatWindow(true);
 
