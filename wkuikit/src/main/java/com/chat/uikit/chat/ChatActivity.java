@@ -415,9 +415,6 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
 
 
-
-
-
         callIV.setOnClickListener(view -> {
             WKChannelMember member = WKIM.getInstance().getChannelMembersManager().getMember(channelId, channelType, WKConfig.getInstance().getUid());
             if (getChatChannelInfo().forbidden == 1 || (member != null && member.forbiddenExpirationTime > 0)) {

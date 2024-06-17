@@ -67,7 +67,7 @@ public class NotificationTools {
         builder.setChannelId("push");
         //判断是否是8.0Android.O
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel chan1 = new NotificationChannel("push", "Test Channel", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel chan1 = new NotificationChannel("push", "yueyan Channel", NotificationManager.IMPORTANCE_HIGH);
             chan1.enableLights(true);
             chan1.enableVibration(true);
             chan1.setDescription("push");

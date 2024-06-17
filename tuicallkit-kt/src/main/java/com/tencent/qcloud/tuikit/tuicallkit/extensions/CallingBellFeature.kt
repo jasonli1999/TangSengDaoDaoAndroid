@@ -50,9 +50,9 @@ class CallingBellFeature(context: Context) {
                 }
 
                 TUICallDefine.Status.Waiting -> {
-                    if (DeviceUtils.isAppRunningForeground(TUIConfig.getAppContext()) || isNeedPlayRing()) {
+//                    if (DeviceUtils.isAppRunningForeground(TUIConfig.getAppContext()) || isNeedPlayRing()) {
                         startRing()
-                    }
+//                    }
                 }
 
                 TUICallDefine.Status.Accept -> {
