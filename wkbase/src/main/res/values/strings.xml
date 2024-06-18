@@ -116,4 +116,5 @@
     <string name="str_delete_message_tip">您确定要删除这条消息吗？</string>
     <string name="str_delete_message_also_to">同时为 %s 删除</string>
     <string name="str_delete_message_for_all">为所有成员删除</string>
+    <string name="common_setting" translatable="false">若需要消息、音视频通知，请点击去设置 \n 1) 找到权限管理，打开‘显示悬浮窗’、‘后台弹出界面’、‘锁屏显示’权限 \n 2) 找到通知管理，打开‘悬浮窗通知’、‘锁屏显示’权限,各选项重要程度設置成‘紧急’</string>
 </resources>

@@ -80,6 +80,8 @@ import com.chat.base.views.CommonAnim;
 import com.chat.base.views.RecyclerAnimationScrollHelper;
 import com.chat.base.views.keyboard.KeyboardHelper;
 import com.chat.base.views.keyboard.PanelType;
+import com.chat.rtc.msg.WKCallResultType;
+import com.chat.rtc.service.RTCModel;
 import com.chat.uikit.R;
 import com.chat.uikit.WKUIKitApplication;
 import com.chat.uikit.chat.manager.SendMsgEntity;
@@ -99,6 +101,8 @@ import com.tencent.qcloud.tuicore.TUILogin;
 import com.tencent.qcloud.tuicore.interfaces.TUICallback;
 import com.tencent.qcloud.tuikit.TUICommonDefine;
 import com.tencent.qcloud.tuikit.tuicallengine.TUICallDefine;
+import com.tencent.qcloud.tuikit.tuicallengine.TUICallEngine;
+import com.tencent.qcloud.tuikit.tuicallengine.TUICallObserver;
 import com.tencent.qcloud.tuikit.tuicallkit.TUICallKit;
 import com.xinbida.wukongim.WKIM;
 import com.xinbida.wukongim.entity.WKCMDKeys;
@@ -208,6 +212,34 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         EndpointManager.getInstance().invoke("wk_p2p_call", new RTCMenu(this, callType));
     }
 
+
+    private TUICallObserver mCallObserver = new TUICallObserver() {
+        @Override
+        public void onCallCancelled(String callerId) {
+              //  RTCModel.getInstance().cancelP2PCall(WKCallResultType.cancel, channelId, null);
+
+        }
+
+        @Override
+        public void onCallEnd(
+                TUICommonDefine.RoomId room,
+                TUICallDefine.MediaType callMediaType,
+                TUICallDefine.Role callRole,
+                long totalTime
+        ) {
+            if (callRole != TUICallDefine.Role.Called) {
+                RTCModel.getInstance().hangupP2PCall(channelId, (int) totalTime, 0, callRole.ordinal(), null);
+            }
+        }
+//
+//        @Override
+//        public void onUserReject(String userId) {
+//            if (channelId != userId) {
+//                RTCModel.getInstance().refuseP2PCall(0, channelId, null);
+//            }
+//        }
+    };
+
     @Override
     protected void initPresenter() {
         //频道ID
@@ -238,7 +270,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
             }
         }
-
+        TUICallEngine.createInstance(WKBaseApplication.getInstance().getContext()).addObserver(mCallObserver);
 //        String desc = String.format(getString(R.string.microphone_permissions_des), getString(R.string.app_name));
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 //            WKPermissions.getInstance().checkPermissions(new WKPermissions.IPermissionResult() {
@@ -415,6 +447,9 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
 
 
 
+
+
+
         callIV.setOnClickListener(view -> {
             WKChannelMember member = WKIM.getInstance().getChannelMembersManager().getMember(channelId, channelType, WKConfig.getInstance().getUid());
             if (getChatChannelInfo().forbidden == 1 || (member != null && member.forbiddenExpirationTime > 0)) {
@@ -439,6 +474,10 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                                 showToast(R.string.call_blacklist);
                                 return;
                             }
+
+
+
+
                             List<PopupMenuItem> list = new ArrayList<>();
 //                            list.add(new PopupMenuItem(getString(R.string.video_call), R.mipmap.chat_calls_video, () -> p2pCall(1)));
 //                            list.add(new PopupMenuItem(getString(R.string.audio_call), R.mipmap.chat_calls_voice, () -> p2pCall(0)));

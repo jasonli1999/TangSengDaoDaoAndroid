@@ -63,8 +63,8 @@ public class P2PRTCProviderItem extends WKChatBaseProvider {
         } else if (RTCMsgContent.resultType == WKCallResultType.cancel) {
             // 取消
             if (from == WKChatIteMsgFromType.RECEIVED) {
-                content = getContext().getString(R.string.caller_cancel);
-            } else content = getContext().getString(R.string.my_cancel);
+                content = getContext().getString(R.string.my_cancel);
+            } else content = getContext().getString(R.string.caller_cancel);
         } else if (RTCMsgContent.resultType == WKCallResultType.missed) {
             if (from == WKChatIteMsgFromType.RECEIVED) {
                 content = getContext().getString(R.string.caller_missed);
@@ -78,8 +78,8 @@ public class P2PRTCProviderItem extends WKChatBaseProvider {
             }
         }
         contentTv.setText(content);
-        addLongClick(callView, uiChatMsgItemEntity);
-        callView.setOnClickListener(v -> EndpointManager.getInstance().invoke("wk_p2p_call", new RTCMenu(((ChatAdapter) Objects.requireNonNull(getAdapter())).getConversationContext(), RTCMsgContent.callType)));
+        //addLongClick(callView, uiChatMsgItemEntity);
+        //callView.setOnClickListener(v -> EndpointManager.getInstance().invoke("wk_p2p_call", new RTCMenu(((ChatAdapter) Objects.requireNonNull(getAdapter())).getConversationContext(), RTCMsgContent.callType)));
     }
 
     @Override
