@@ -30,6 +30,7 @@ import com.chat.base.WKBaseApplication;
 import com.chat.base.adapter.WKFragmentStateAdapter;
 import com.chat.base.base.WKBaseActivity;
 import com.chat.base.common.WKCommonModel;
+import com.chat.base.config.WKApiConfig;
 import com.chat.base.config.WKConfig;
 import com.chat.base.config.WKConstants;
 import com.chat.base.config.WKSharedPreferencesUtil;
@@ -318,13 +319,17 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 
         String userSig = GenerateTestUserSig.genTestUserSig(userId);
         Log.e("====userSig", userSig);
+        TUICallKit.createInstance(TabActivity.this).enableIncomingBanner(true);
         TUILogin.login(TabActivity.this, sdkAppId, userId, userSig, new TUICallback() {
             @Override
             public void onSuccess() {
                 Log.e("userSig====", "onSuccess");
                 //更換頭像
-                String avarterurl = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
-                Log.e("userSig====avarterurl", avarterurl);
+//                String avarterurl = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "AvatarURL", "");
+//                Log.e("userSig====avarterurl1", avarterurl);
+                String avarterurl = WKApiConfig.getAvatarUrl(WKConfig.getInstance().getUid());
+                Log.e("userSig====avarterurl2", avarterurl);
+
 //                String nickname = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "NICKNAME", "");
                 String nickname = WKConfig.getInstance().getUserName();
                 Log.e("userSig====nickname", nickname);
@@ -349,7 +354,8 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
             }
         });
 
-        /**        开启悬浮窗
+        /**
+         * 接通前先展示一个弹窗
          */
         TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).enableFloatWindow(true);
 
