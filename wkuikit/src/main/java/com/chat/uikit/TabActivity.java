@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -200,6 +201,28 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
 
     }
 
+
+    private void initNotitionPermeision() {
+        int currentApiVersion = Build.VERSION.SDK_INT;
+        if (currentApiVersion >= Build.VERSION_CODES.M) {
+            // 当前系统版本为 Android 6.0 及以上版本
+            if (Settings.canDrawOverlays(WKBaseApplication.getInstance().getContext())) {
+                // 应用拥有悬浮窗权限
+                initTencentCall();
+            } else {
+                // 应用没有悬浮窗权限
+                showDialog2("为了更好的使用悦言,请打开悬浮窗权限", new WKDialogUtils.IClickListener() {
+                    @Override
+                    public void onClick(int index) {
+                        PermissionHelper.requestSystemAlertWindowPermission(TabActivity.this);
+                    }
+                });
+            }
+        } else {
+            // 当前系统版本低于 Android 6.0
+        }
+    }
+
     /**
      * 获取应用程序的版本号
      *
@@ -297,7 +320,7 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
             });
         }
 
-
+        initNotitionPermeision();
         initTencentCall();
     }
 
