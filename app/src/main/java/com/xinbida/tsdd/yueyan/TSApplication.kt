@@ -133,7 +133,7 @@ class TSApplication : MultiDexApplication() {
     }
 
     private fun getAppPackageName(): String {
-        return getAppPackageName()
+        return "com.im.changyan"
     }
 
     private fun getProcessName(cxt: Context, pid: Int): String? {
