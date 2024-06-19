@@ -213,6 +213,9 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
     }
 
 
+    /***
+     *   监听挂断等操作
+     */
     private TUICallObserver mCallObserver = new TUICallObserver() {
         @Override
         public void onCallCancelled(String callerId) {
@@ -227,6 +230,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                 TUICallDefine.Role callRole,
                 long totalTime
         ) {
+            Log.e("===========onCallEnd======","onCallEnd");
             if (callRole != TUICallDefine.Role.Called) {
                 RTCModel.getInstance().hangupP2PCall(channelId, (int) totalTime, 0, callRole.ordinal(), null);
             }

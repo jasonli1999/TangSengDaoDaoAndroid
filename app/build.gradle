@@ -13,7 +13,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.odds.yueyan"
+        applicationId "com.im.changyan"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 18
@@ -33,7 +33,7 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "c32f1523e2379436fa073530", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_APPKEY : "7a60c7c39f724cf2c3b3f56f", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
@@ -72,10 +72,10 @@ android {
         variant.outputs.configureEach {
             def date = new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("GMT+08"))
             if (variant.buildType.name.equals('debug')) {
-                outputFileName = "yueyan_debug.apk"
+                outputFileName = "changyan_debug.apk"
             }
             if (variant.buildType.name.equals('release')) {
-                outputFileName = "yueyan-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
+                outputFileName = "changyan-${defaultConfig.versionCode}-${defaultConfig.versionName}_${date}.apk"
             }
         }
     }
