@@ -13,7 +13,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.im.changyan"
+        applicationId "com.odds.changyan"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 18
