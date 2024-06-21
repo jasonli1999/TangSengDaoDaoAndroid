@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 
+import com.chat.base.WKBaseApplication;
 import com.chat.base.endpoint.EndpointManager;
 import com.chat.base.endpoint.entity.RTCMenu;
 import com.chat.base.msg.ChatAdapter;
@@ -21,6 +22,8 @@ import com.chat.base.msgitem.WKUIChatMsgItemEntity;
 import com.chat.base.ui.Theme;
 import com.chat.base.views.BubbleLayout;
 import com.chat.rtc.R;
+import com.tencent.qcloud.tuikit.tuicallengine.TUICallDefine;
+import com.tencent.qcloud.tuikit.tuicallkit.TUICallKit;
 import com.xinbida.rtc.WKRTCCallType;
 
 import java.util.Objects;
@@ -72,14 +75,15 @@ public class P2PRTCProviderItem extends WKChatBaseProvider {
         } else if (RTCMsgContent.resultType == WKCallResultType.refuse) {
             // 拒绝
             if (from == WKChatIteMsgFromType.RECEIVED) {
-                content = getContext().getString(R.string.call_declined);
-            } else {
                 content = getContext().getString(R.string.caller_declined);
+            } else {
+                content = getContext().getString(R.string.call_declined);
             }
         }
         contentTv.setText(content);
-        //addLongClick(callView, uiChatMsgItemEntity);
+        addLongClick(callView, uiChatMsgItemEntity);
         //callView.setOnClickListener(v -> EndpointManager.getInstance().invoke("wk_p2p_call", new RTCMenu(((ChatAdapter) Objects.requireNonNull(getAdapter())).getConversationContext(), RTCMsgContent.callType)));
+        callView.setOnClickListener(v -> TUICallKit.createInstance(WKBaseApplication.getInstance().getContext()).call(uiChatMsgItemEntity.wkMsg.channelID, TUICallDefine.MediaType.Audio));
     }
 
     @Override
