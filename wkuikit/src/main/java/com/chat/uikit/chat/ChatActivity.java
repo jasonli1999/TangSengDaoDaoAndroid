@@ -131,6 +131,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -203,6 +204,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
     private boolean isTipMessage = false;
     private int hideChannelAllPinnedMessage = 0;
 
+    private int index=0;
     @Override
     protected ActChatLayoutBinding getViewBinding() {
         return ActChatLayoutBinding.inflate(getLayoutInflater());
@@ -217,10 +219,22 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
      *   监听挂断等操作
      */
     private TUICallObserver mCallObserver = new TUICallObserver() {
-        @Override
-        public void onCallCancelled(String callerId) {
-              //  RTCModel.getInstance().cancelP2PCall(WKCallResultType.cancel, channelId, null);
+        private boolean isReject = false;
 
+        @Override
+        public synchronized void onCallCancelled(String callerId) {
+            if(isReject) {
+                isReject = false;
+                return;
+            }
+            Log.e("channelIdxxxx====callerId", callerId);
+            Log.e("channelIdxxxx====onCallCancelled", WKConfig.getInstance().getUid());
+            if (index ==0){
+                RTCModel.getInstance().cancelP2PCall(WKCallResultType.cancel, callerId, null);
+            }
+         //   if (WKConfig.getInstance().getUid() == callerId) {
+
+          //  }
         }
 
         @Override
@@ -230,18 +244,24 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
                 TUICallDefine.Role callRole,
                 long totalTime
         ) {
-            Log.e("===========onCallEnd======","onCallEnd");
-            if (callRole != TUICallDefine.Role.Called) {
-                RTCModel.getInstance().hangupP2PCall(channelId, (int) totalTime, 0, callRole.ordinal(), null);
+            if (callRole == TUICallDefine.Role.Caller) {
+                RTCModel.getInstance().hangupP2PCall(channelId, (int) totalTime, 0, 1, null);
             }
         }
 //
-//        @Override
-//        public void onUserReject(String userId) {
-//            if (channelId != userId) {
-//                RTCModel.getInstance().refuseP2PCall(0, channelId, null);
-//            }
-//        }
+        @Override
+        public synchronized void onUserReject(String userId) {
+            Log.e("channelIdxxxx====onUserReject", userId);
+            isReject = true;
+            if (index ==0){
+                RTCModel.getInstance().refuseP2PCall(0,userId, null);
+                index++;
+                Executors.newSingleThreadScheduledExecutor().schedule(() -> {Log.e("channelIdxxxx====任务在下一秒执行", userId);index=0;}, 1, TimeUnit.SECONDS);
+            }
+      //     if (channelId != userId) {
+        //    }
+        }
+
     };
 
     @Override
@@ -1724,7 +1744,7 @@ public class ChatActivity extends WKBaseActivity<ActChatLayoutBinding> implement
         }
         MsgModel.getInstance().startCheckFlameMsgTimer();
         saveEditContent();
-
+        TUICallEngine.createInstance(WKBaseApplication.getInstance().getContext()).removeObserver(mCallObserver);
     }
 
     @Override

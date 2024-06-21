@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.yueyan.push;
+package com.xinbida.tsdd.changyan.push;
 
 import cn.jpush.android.service.JCommonService;
 

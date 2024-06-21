@@ -91,7 +91,7 @@ public class ShareActivity extends AppCompatActivity {
 
     private void getShareUrl() {
         OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url("https://sharesyyy515-1321341241.cos.accelerate.myqcloud.com/foryyshare.json").build();
+        Request request = new Request.Builder().url("https://forcyshare620-1323147468.cos.accelerate.myqcloud.com/forcyshare.json").build();
         //enqueue就是将此次的call请求加入异步请求队列，会开启新的线程执行，并将执行的结果通过Callback接口回调的形式返回。
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override

@@ -1,4 +1,4 @@
-package com.xinbida.tsdd.yueyan
+package com.xinbida.tsdd.changyan
 
 import android.app.ActivityManager
 import android.app.Notification
@@ -14,11 +14,9 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.text.TextUtils
-import android.util.Log
 import androidx.multidex.MultiDexApplication
 import cn.jpush.android.api.JPushInterface
 import com.chat.advanced.WKAdvancedApplication
-import com.chat.base.SharePreferencesUtil
 import com.chat.base.WKBaseApplication
 import com.chat.base.config.WKApiConfig
 import com.chat.base.config.WKConfig
@@ -43,15 +41,10 @@ import com.chat.rtc.WKRTCApplications
 import com.chat.scan.WKScanApplication
 import com.chat.uikit.TabActivity
 import com.chat.uikit.WKUIKitApplication
-import com.chat.uikit.chat.GenerateTestUserSig
 import com.chat.uikit.chat.manager.WKIMUtils
 import com.chat.uikit.user.service.UserModel
 import com.chat.video.WKVideoApplication
 import com.fm.openinstall.OpenInstall
-import com.tencent.qcloud.tuicore.TUILogin
-import com.tencent.qcloud.tuicore.interfaces.TUICallback
-import com.tencent.qcloud.tuikit.TUICommonDefine
-import com.tencent.qcloud.tuikit.tuicallkit.TUICallKit.Companion.createInstance
 import kotlin.system.exitProcess
 
 class TSApplication : MultiDexApplication() {
