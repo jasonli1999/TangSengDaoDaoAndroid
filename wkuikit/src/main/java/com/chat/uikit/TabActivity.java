@@ -331,8 +331,8 @@ public class TabActivity extends WKBaseActivity<ActTabMainBinding> {
     private void initTencentCall() {
         //=======================begin==============================
         String userId = WKConfig.getInstance().getUid();     // 请替换为您的UserId
-        int sdkAppId = 1600040006;            // 请替换为第一步在控制台得到的SDKAppID
-        String secretKey = "66bf0e39b88be03903a73b97caa3784eaa954d1ef2a0566cc3bc674c778532d2";   // 请替换为第一步在控制台得到的SecretKey
+        int sdkAppId = 1600041569;            // 请替换为第一步在控制台得到的SDKAppID
+        String secretKey = "ef037635b21e433e96679f99a7239fb006b2ec645192e29409213f6d26a5a469";   // 请替换为第一步在控制台得到的SecretKey
 
 //        String userSig1 = SharePreferencesUtil.getString(WKBaseApplication.getInstance().getContext(), "SIG", "");
 //        Log.e("====userSig1", userSig1);

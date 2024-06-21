@@ -67,7 +67,7 @@ public class GenerateTestUserSig {
      * .com/rav).
      * `SDKAppID` uniquely identifies a Tencent Cloud account.
      */
-    public static final int SDKAPPID = 1600040006;
+    public static final int SDKAPPID = 1600041569;
 
     /**
      * Signature validity period, which should not be set too short
@@ -90,7 +90,7 @@ public class GenerateTestUserSig {
      * and key to your backend server to prevent key disclosure and traffic stealing.
      * Reference: https://cloud.tencent.com/document/product/647/17275#Server
      */
-    public static final String SDKSECRETKEY = "66bf0e39b88be03903a73b97caa3784eaa954d1ef2a0566cc3bc674c778532d2";
+    public static final String SDKSECRETKEY = "ef037635b21e433e96679f99a7239fb006b2ec645192e29409213f6d26a5a469";
 
     /**
      * Calculating UserSig
