@@ -8,6 +8,7 @@ import android.os.PowerManager;
 import android.util.Log;
 
 import com.chat.base.SharePreferencesUtil;
+import com.chat.base.WKBaseApplication;
 import com.chat.uikit.TabActivity;
 import com.xinbida.tsdd.changyan.MainActivity;
 import com.xinbida.tsdd.changyan.NotificationTools;
@@ -20,7 +21,7 @@ import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageService;
 
 public class PushMessageReceiver extends JPushMessageService {
-    private static final String TAG = "com.odds.yueyan"+"123push";
+    private static final String TAG = WKBaseApplication.getInstance().packageName +"123push";
 
 
     /**
