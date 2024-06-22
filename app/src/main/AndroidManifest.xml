@@ -137,7 +137,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="j3ysxi" />
+                <data android:scheme="i9kygc" />
             </intent-filter>
         </activity>
 
@@ -173,7 +173,7 @@
 
         <meta-data
             android:name="com.openinstall.APP_KEY"
-            android:value="j3ysxi" />
+            android:value="i9kygc" />
 
     </application>
 
